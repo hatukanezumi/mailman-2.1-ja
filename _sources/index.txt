@@ -1,0 +1,71 @@
+.. mailman documentation master file, created by
+   sphinx-quickstart on Thu Mar 10 10:11:32 2011.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Mailman 日本語情報へようこそ
+============================
+
+このサイトでは Webベースのメーリングリスト管理システムである GNU Mailman に
+関する日本語情報を提供します。
+
+インストールマニュアルとリスト会員の手引は、以前から LaTeX 形式で翻訳され
+ていたもので、今回、LaTeX -> reStructuredText に変換しましたた。インストー
+ルマニュアルは菊地と池田荘児さんが、リスト会員の手引は池田さんがそれぞれ
+本家英語版より翻訳したものです。
+
+その他の文書は菊地が順次作成しておりますが、ある意味常に未完成であることは
+ご容赦ください。
+
+日本語対応 mailman の最新バージョンは 2.1.14+j7 です。
+`リリース情報 <releases.html>`_ をご覧ください。(2011/12/13)
+
+`"Reply-To" Munging Considered Harmful 
+<http://www.unicom.com/pw/reply-to-harmful.html>`_ の日本語訳を
+:doc:`関連するネチケット <reply_to_munging>` に作成しました。(2011/12/14)
+
+目次:
+=====
+
+.. toctree::
+   :maxdepth: 2
+
+   mailmaninstall
+   siteadmin
+   listadmin
+   mailmanmember
+   releases
+   misc
+   reply_to_munging
+
+リンク
+======
+
+- `スナップショット <_static/mailman/listinfo.html>`_
+
+  Mailman の管理等 Web ページのスナップショットです。リンク切れが多いのでバックで戻るようにしてください。
+
+- `メーリングリスト <http://www.python.jp/mailman/listinfo/mailman-users-jp>`_
+
+  Mailman-Users-JP: Mailman日本語メーリングリストは Python.jp で運用しています。
+
+- `Launchpad <https://code.launchpad.net/~tkikuchi/mailman/2.1-japan>`_
+
+  bazaar による日本語バージョン (2.1-japan) 管理サイト
+
+- `Launchpad その2 <https://code.launchpad.net/~tkikuchi/+junk/mailman-jadocs>`_
+
+  日本語文書（つまり、このドキュメント）のバージョン管理サイト.
+  利用法は、Browse the code -> README をご覧下さい。
+
+- `本家 <http://www.list.org/>`_
+
+  Mailman 本家 (i18n版 mailman 2.1.x メンテナンスと mailman 3.0 開発)
+
+索引と検索
+==========
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+

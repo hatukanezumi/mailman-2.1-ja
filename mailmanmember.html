@@ -1,0 +1,1294 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>GNU Mailman - リスト会員の手引 &mdash; Mailman日本語情報</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="shortcut icon" href="_static/mailman.ico"/>
+    <link rel="top" title="Mailman日本語情報" href="index.html" />
+    <link rel="next" title="リリース情報" href="releases.html" />
+    <link rel="prev" title="リスト管理の手引" href="listadmin.html" /> 
+  <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-34175846-1', 'python.jp');
+        ga('send', 'pageview');
+
+      </script>
+  <body>
+
+
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="releases.html" title="リリース情報"
+             accesskey="N">次へ</a> |</li>
+        <li class="right" >
+          <a href="listadmin.html" title="リスト管理の手引"
+             accesskey="P">前へ</a> |</li>
+        <li><a href="index.html">Mailman日本語情報</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/mailman.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">GNU Mailman - リスト会員の手引</a><ul>
+<li><a class="reference internal" href="#id1">はじめに</a><ul>
+<li><a class="reference internal" href="#id2">メーリングリストとは</a></li>
+<li><a class="reference internal" href="#id3">GNU Mailman</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4">例を実際のリストにあてはめる</a></li>
+<li><a class="reference internal" href="#mailman">Mailman のインタフェース</a><ul>
+<li><a class="reference internal" href="#web">Web インタフェース</a></li>
+<li><a class="reference internal" href="#sec-email">電子メールインタフェース</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sec-human">人間と話したいんですが...</a></li>
+<li><a class="reference internal" href="#id8">入会と退会</a><ul>
+<li><a class="reference internal" href="#sec-subscribe">リストに入るには (入会)</a></li>
+<li><a class="reference internal" href="#sec-unsubscribe">リストから抜けるには (退会)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sec-password">会員パスワード</a><ul>
+<li><a class="reference internal" href="#sec-getpassword">自分のパスワードを知りたい</a></li>
+<li><a class="reference internal" href="#id16">自分のパスワードを変えるには</a></li>
+<li><a class="reference internal" href="#id17">パスワード通知 を 送ってもらう ようにしたり, 停めたりするには (パスワード通知オプション)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id18">メールの配送のしかたを変える</a><ul>
+<li><a class="reference internal" href="#sec-nomail">メール配送 を 停止したり, 再開 したりするには (メール配送オプション)</a></li>
+<li><a class="reference internal" href="#sec-nodupes">メッセージを 重複して 受け取らない ようにするには (重複オプション)</a></li>
+<li><a class="reference internal" href="#sec-changeaddress">登録しているアドレスを変えるには</a></li>
+<li><a class="reference internal" href="#sec-getown">投稿の控え を 受け取らない ようにしたり,  受け取るようにしたりするには (控えなしオプション)</a></li>
+<li><a class="reference internal" href="#sec-getack">投稿がリストに届いたことを Mailman から知らせて もらうようにするには (受領オプション)</a></li>
+<li><a class="reference internal" href="#id24">リストから メールが 届かないようです.  どうしたら いいのでしょうか</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id25">まとめ読み</a><ul>
+<li><a class="reference internal" href="#sec-digest">リストの投稿 を まとめて 受け取ったり, 一通ずつ受け取ったりするには (まとめ読みオプション)</a></li>
+<li><a class="reference internal" href="#mime">MIME のまとめ読みと 平文のまとめ読み とは. まとめ読みの種類を変えるには (まとめ読みオプション)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sec-topics">メーリングリストの話題</a><ul>
+<li><a class="reference internal" href="#sec-posttopic">自分の 投稿が 正しい 話題に 入るようにするには</a></li>
+<li><a class="reference internal" href="#sec-sometopic">リストの 全ての 話題を 購読したり,  一部の 話題だけを 購読したりするには</a></li>
+<li><a class="reference internal" href="#sec-notopic">話題に 入っていない メッセージを 受け取らない ようにするには</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id33">そのほかのオプション</a><ul>
+<li><a class="reference internal" href="#sec-global">「全部変更」や「全部設定」の意味</a></li>
+<li><a class="reference internal" href="#sec-changename">Mailman に登録してある名前を変えるには</a></li>
+<li><a class="reference internal" href="#id36">使う言語を変えるには</a></li>
+<li><a class="reference internal" href="#sec-nolist">会員名簿 に 名前を出さない ようにするには (隠れオプション)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id40">よくある質問</a><ul>
+<li><a class="reference internal" href="#id41">リストの保存書庫を見るには</a></li>
+<li><a class="reference internal" href="#sec-antispam">受信者の承諾を得ずに 大量に送られる電子メール (スパム) に対して,  Mailman ではどんな対策ができますか</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#a-commands">電子メールコマンド クイックリファレンス</a></li>
+<li><a class="reference internal" href="#a-options">会員オプションコマンド クイックリファレンス</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="listadmin.html"
+                        title="前の章へ">リスト管理の手引</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="releases.html"
+                        title="次の章へ">リリース情報</a></p>
+  <h3>このページ</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/mailmanmember.txt"
+           rel="nofollow">ソースコードを表示</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>クイック検索</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="検索" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    モジュール、クラス、または関数名を入力してください
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="gnu-mailman">
+<h1>GNU Mailman - リスト会員の手引<a class="headerlink" href="#gnu-mailman" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Terri Oda</td>
+</tr>
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">2011 年 12 月 11 日</td>
+</tr>
+</tbody>
+</table>
+<span class="target" id="front"></span><div class="topic">
+<p class="topic-title first">Abstract</p>
+<p>この文書では, GNU Mailman バージョン 2.1  のリスト会員向けインタフェースについて説明します.
+これには入会, 退会, 保存書庫の閲覧, 会員オプションの変更,  パスワード通知の入手などの, 会員レベルの作業の説明を含みます.  また, Mailman
+のリスト会員が関心を持つようなよくある質問にも答えます.</p>
+</div>
+<div class="section" id="id1">
+<h2>はじめに<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>この文書は, Mailman 2.1 メーリングリストが提供する機能を 会員が利用できるようになるための 助けになることをめざしています.
+これには入会, 退会, 保存書庫の閲覧, 会員オプションの変更,  パスワード通知の入手などの, 会員レベルの作業の説明を含みます.  また, Mailman
+のリスト会員が関心を持つようなよくある質問にも答えます.</p>
+<p>リストやサイト全体の管理についての情報は, 他の文書を見てください.</p>
+<p>この文書は, 順番どおりに読まなくてもかまいません.  あなたが特定の質問の答えを探しているのなら,  適当なところまでとばして,
+役に立ちそうな他の節へのリンクをみつけてください.</p>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">この文書を書くにあたって,  筆者はつぎのことを前提にしています.  まず, 読者は電子メールに関する一般的な用語 (たとえば, サブジェクト (件名)
+だとか, メッセージの本文だとか) や Web に関する用語 (たとえば, テキストボックスだとか, ボタンだとか) にはなじみがあって,
+こういった用語が何を指しているのかわかっているものとします.  また, 読者はメールソフトや Web ブラウザを充分うまく使えるようになっていて,
+「このアドレスに電子メールを送る」とか「この Web ページへ行く」とか 「フォームに記入する」とかいう指示の意味ははっきり理解できるものとします.
+こういった操作になじみがない方は, ほかの参考書などを見て,  自分のコンピュータではどうすればよいのかを学んでおいてください.</p>
+</div>
+<p>謝辞
+&#8211;</p>
+<p>この文書のいくつかの節は,  Mailman の CVS リポジトリにあった Barry A. Warsaw 著『the List Administrator
+Manual』と, Mailman 2.1 の 組み込みヘルプメッセージに負っています.</p>
+<p>この手引のその他の部分は, Terri Oda が書きました.  Terri は彼女が Canada で参政権を得た年から メーリングリストの面倒を見てきました
+(この 2 つのことは関係ないですが).  彼女は現在は, Linuxchix.org や それより小規模な若干のサイトのメーリングリストを管理しています.
+Terri のリスト管理以外の業績としては, 人工生命によるスパム検出があり,  これはテクニカルライタというよりプログラマとしての業績です.</p>
+<p>Margaret McCarthy, Jason Walton, Barry Warsaw からは, 原文の校閲など多くの助けを得ることができ,
+この手引が良いものになりました. ありがとう.</p>
+<p>また, この文書の日本語訳をしてくれた 池田 荘児, スペイン語訳をしてくれた Pablo Chamorro C. に感謝します.</p>
+<div class="section" id="id2">
+<h3>メーリングリストとは<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>メーリングリストというのは, かんたんに言うと,  同じ情報がいちどに送れるようにするためのアドレスのリストです.  あなたがなにかの会報を発行しているとしたら,
+会報の購読者全員の住所のリストを使うでしょう.  電子メールのメーリングリストの場合は,  電子メールアドレスのリストを使います.
+この電子メールアドレスは, ある話題について聞いたり話しあったりしたいと 思っているひとたちから集めます.</p>
+<p>代表的な電子メールのメーリングリストには, 2 種類あります.  お知らせ用リストと話しあい用リストです.</p>
+<p>お知らせ用リストは, 個人やグループが多くのひとたちにお知らせを送るのに使います.  ちょうど, 会報の発行者が住所のリストをつかって, 会報を発送するようなものです.
+たとえば, バンドがお知らせ用メーリングリストをつかって,  ファンに次のコンサートについて知らせるような場合です.</p>
+<p>話しあい用リストでは, 複数のひとが共通の話題について話しあうことができます.  だれでもリストにメールを送ることができ,  送ったものはみんなに届きます.
+話しあいを司会つきにして, 選ばれた投稿だけを全員に送るようにしたり,  ごく少数のひとたちだけが全員に送れるようにしたりもできます.  たとえば,
+模型飛行機マニアのグループで話しあい用メーリングリストをつかって,  模型の組立てかたや飛ばしかたのこつを教えあうような場合です.</p>
+<p>一般的な用語:</p>
+<ul class="simple">
+<li>「投稿」とは,  メーリングリストに送るメッセージのことを指します (掲示板にメッセージを投稿するようなものです).</li>
+<li>電子メールのメーリングリストに入っているひとたちのことは,  ふつう「会員」とか「購読者」とか言います.</li>
+<li>「リスト管理者」というのは,  そのリストの面倒を見るひとたちです.  リストには, それぞれ一人かそれ以上の管理者がいます.</li>
+<li>リストには, 投稿を読んでそれを会員みんなに送っていいかどうか 決める係のひとたちがいることもあります.  こういうひとたちを「司会者」と言います.</li>
+<li>たいてい,  同じサーバのソフトウェアで複数のメーリングリストが動いています.  リストを動かすソフトウェアの面倒を見ているひとを,
+「サイト管理者」と言います.  サイト管理者も, なにかのリストの管理者であることが多いです.</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h3>GNU Mailman<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>GNU Mailman は,  電子メールのメーリングリストを扱えるようにするためのソフトウェアです.  これは, 一般的な話しあい用リストやお知らせ専用リストなど,
+さまざまな種類のメーリングリストに対応しています.  Mailman は, 簡単に入会や退会ができたり,  プライバシーを護るための設定ができたり,
+一時的にリストから投稿を送るのを停められたりと,  リスト会員に便利なさまざまな機能を備えています.  この文書では, リスト会員向けの機能を説明しています.</p>
+<p>Mailman は, リスト管理者やサイト管理者にとっても魅力的な 多くの機能を備えています. こういった機能は, リスト管理者やサイト管理者
+向けの手引で説明しています.</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>例を実際のリストにあてはめる<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>特定のリストのためのアドレスや URL が何になるのかを いちいち説明するよりも, 単に例を示したほうが分かりやすいことが 多いものです.
+そういうわけで, この文書では <a class="reference external" href="mailto:LISTNAME&#37;&#52;&#48;DOMAIN">LISTNAME<span>&#64;</span>DOMAIN</a> という架空のリストを例にすることがよくあります.  このリストの案内ページは
+<a class="reference external" href="http://WEBSERVER/mailman/listinfo/LISTNAME">http://WEBSERVER/mailman/listinfo/LISTNAME</a> になります.</p>
+<p>どちらも, 実在のアドレスや URL ではありませんが,  典型的なリストのアドレスや URL の形式になっています.  それぞれのアドレスや URL
+のうちのリスト固有の部分には大文字を使い,  この部分はリストごとに変わることが分かるようにしています.  リストごとの設定が異なっていても, 大文字で書いてある
+箇所を実際のリストで使われている名前に置き換えることができるでしょう.</p>
+<dl class="docutils">
+<dt>LISTNAME</dt>
+<dd>リストの名前.</dd>
+<dt>DOMAIN</dt>
+<dd>このリストを運用しているメールサーバのドメイン名.</dd>
+<dt>WEBSERVER</dt>
+<dd>このリストの Web インタフェースを運用している Web サーバの名前. これは DOMAIN と同じだったり, しばしば
+同じ計算機を指していたりもしますが, 一致しなければならない わけではありません.</dd>
+</dl>
+<p>実例として, あなたが mailman-users メーリングリストリストに興味があるなら,  つぎのような置き換えができます: LISTNAME は
+mailman-users, DOMAIN は python.org, WEBSERVER は mail.python.org.  ですから,
+<a class="reference external" href="mailto:mailman-users&#37;&#52;&#48;python&#46;org">mailman-users<span>&#64;</span>python<span>&#46;</span>org</a> メーリングリストについては,  リスト案内ページは
+<a class="reference external" href="http://mail.python.org/mailman/listinfo/mailman-users">http://mail.python.org/mailman/listinfo/mailman-users</a>  という URL にあります
+(このアドレスと URL は, この文書に出てくるたいがいの例とは違い,  実在のアドレスと URL です).</p>
+<p>たいていのリストでは, 上に挙げたような情報はメッセージの <em class="mailheader">List-*</em>  ヘッダに記してあります.
+多くのメールソフトでは, 初期設定ではこのヘッダは隠れますから,  こういった情報ヘッダを見たければ, すべてのヘッダを表示しておくように
+しなければならないかもしれません.</p>
+</div>
+<div class="section" id="mailman">
+<h2>Mailman のインタフェース<a class="headerlink" href="#mailman" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Mailman には, Web インタフェースと電子メールインタフェースという,  2 種類のリスト会員用インタフェースがあります.
+話しあい用リストの会員の多くは,  しょっちゅう電子メールインタフェースを使っていることになります.
+そのリストの会員みんなにメールを送るのに使う電子メールアドレス も, これに含まれますから.</p>
+<p>オプションを変えるのにどちらのインタフェースを使うかは,  多分に好みの問題です.  Web インタフェースで変えられるオプションのほとんど
+(すべてではないですが) は, 電子メールでも変えられるからです.  ふつうは, オプションを変えるには Web インタフェースのほうが簡単です.  Web
+インタフェースでは, 操作の際に説明が出ますから.  ですが, ときには電子メールインタフェースのほうを使いたがるひともいるので,
+両方のインタフェースが使えるようになっています.</p>
+<div class="section" id="web">
+<span id="sec-web"></span><h3>Web インタフェース<a class="headerlink" href="#web" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Mailman の Web インタフェースは, 多くの人たちに喜ばれます.  会員や管理者は, オプションが有効かとか,
+そのオプションでなにかできるのかを確かめるのが,  とても簡単になりますから.</p>
+<p>どのメーリングリストも,  さまざまな Web ページでアクセスできるようになっています.  なお, URL そのものはサイト管理者が設定することができるので,
+以下で説明するものとは異なるかもしれません.  ここではもっとも一般的な設定について説明しますが,
+詳細はあなたのサイトの管理者やホスティングサービス業者に確認してください.</p>
+<p>リスト案内 (listinfo) ページ
+* ふつうは <a class="reference external" href="http://WEBSERVER/mailman/listinfo/LISTNAME">http://WEBSERVER/mailman/listinfo/LISTNAME</a> になる (たとえば,
+<a class="reference external" href="http://lists.example.com/mailman/listinfo/mylist">http://lists.example.com/mailman/listinfo/mylist</a>)</p>
+<ul>
+<li><dl class="first docutils">
+<dt>リスト案内ページは,  会員のインタフェースの出発点になります.  名前が分かれば,  その LISTNAME リストの情報も手に入れられます.</dt>
+<dd><p class="first last">ふつうは, 会員のためのほかのいろいろなページには ここからアクセスできるので,  実際にはこの URL ひとつだけを知っていれば十分です.</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>会員オプションページ
+* ふつうは <a class="reference external" href="http://WEBSERVER/mailman/options/LISTNAME/EMAIL">http://WEBSERVER/mailman/options/LISTNAME/EMAIL</a> になります.  たとえば,</p>
+<blockquote>
+<div>&lt;<a class="reference external" href="http://lists.example.com/mailman/options/mylist/kathy&#64;here.com">http://lists.example.com/mailman/options/mylist/kathy&#64;here.com</a>&gt;</div></blockquote>
+<ul>
+<li><dl class="first docutils">
+<dt>リスト案内ページで「退会またはオプションの変更」 と書いてあるボタン (ページの下のほうにあります)  のそばの</dt>
+<dd><p class="first last">テキストボックスに自分の電子メールアドレスを入力して も, このページにアクセスできます.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>会員オプションページでは, ログインしたり,  ログアウトしたり,  自分のリスト設定を変えたりできます. また,  リストから退会したり,</dt>
+<dd><p class="first last">自分のパスワードの控えをメールで送ってもらったりもできます.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>自分の会員オプションページにログインするには</strong>:  まだログインしていなければ,  画面の上のほうに自分のパスワードを</dt>
+<dd><p class="first last">入力するテキストボックスが出ています (パスワードがわからないときは,  <a class="reference internal" href="#sec-getpassword"><em>自分のパスワードを知りたい</em></a> 節 へ行って
+パスワードを知らせてもらう方法を調べてください).  自分のパスワードをテキストボックスに入力し,  ボタンを押します.</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">ログインがうまくいくと,  自分のリスト設定を どれでも見たり変えたりできるようになります.</p>
+</li>
+</ul>
+<p>リストの保存書庫
+* ふつうは,  リストの保存書庫が公開になっているときは <a class="reference external" href="http://WEBSERVER/pipermail/LISTNAME">http://WEBSERVER/pipermail/LISTNAME</a> になります.
+またリストの保存書庫の公開が限定になっているときは <a class="reference external" href="http://WEBSERVER/mailman/private/LISTNAME">http://WEBSERVER/mailman/private/LISTNAME</a>  になります
+(たとえば,   <a class="reference external" href="http://lists.example.com/pipermail/mylist">http://lists.example.com/pipermail/mylist</a> や
+<a class="reference external" href="http://lists.example.com/mailman/private/mylist">http://lists.example.com/mailman/private/mylist</a>).</p>
+<ul>
+<li><dl class="first docutils">
+<dt>リストの保存書庫のページには,  メーリングリストに送られた投稿のコピーがあって,  ふつうは月ごとにまとめてあります.  月ごとのまとまりごとに,</dt>
+<dd><p class="first last">投稿が発信者順, 日付順, スレッド順, 件名順に並べてあります.</p>
+</dd>
+</dl>
+</li>
+<li><div class="first admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">Pipermail というのは, Mailman に標準で 含まれている保存書庫作成プログラムの名前です.  ほかの保存書庫プログラムもあります.</p>
+</div>
+</li>
+<li><dl class="first docutils">
+<dt>保存書庫の公開が限定になっているときは,  自分の登録電子メールアドレスと自分のパスワードを 入れてログインしなければなりません</dt>
+<dd><p class="first last">(パスワードがわからなくなったときは <a class="reference internal" href="#sec-getpassword"><em>自分のパスワードを知りたい</em></a> 節 を見てください).</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="sec-email">
+<span id="id6"></span><h3>電子メールインタフェース<a class="headerlink" href="#sec-email" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>どのメーリングリストにも, 電子メールアドレスが ひとそろいあって, そこへメッセージを送れます.  メッセージを投稿するためのアドレスがひとつ,
+配送エラーを受けつけるアドレスがひとつ, そして電子メールコマンドを処理する アドレスがいくつかあります. ある架空のメーリングリスト
+<a class="reference external" href="mailto:mylist&#37;&#52;&#48;example&#46;com">mylist<span>&#64;</span>example<span>&#46;</span>com</a> だと, つぎのようなアドレスがあります:</p>
+<ul class="simple">
+<li><a class="reference external" href="mailto:mylist&#37;&#52;&#48;example&#46;com">mylist<span>&#64;</span>example<span>&#46;</span>com</a> &#8211; これは,  リストに新たな投稿をするのに使うアドレスです.</li>
+<li><a class="reference external" href="mailto:mylist-join&#37;&#52;&#48;example&#46;com">mylist-join<span>&#64;</span>example<span>&#46;</span>com</a> &#8211; このアドレスにメッセージを送ることで,  リストに入会の申請ができます. このとき, メッセージの
+<em class="mailheader">Subject</em> ヘッダ (件名) も本文も無視され,  誰にも読まれません.  なお,
+<a class="reference external" href="mailto:mylist-subscribe&#37;&#52;&#48;example&#46;com">mylist-subscribe<span>&#64;</span>example<span>&#46;</span>com</a> は この -join アドレスとおなじはたらきをします.</li>
+<li><a class="reference external" href="mailto:mylist-leave&#37;&#52;&#48;example&#46;com">mylist-leave<span>&#64;</span>example<span>&#46;</span>com</a> &#8211; このアドレスにメッセージを送ることで,  リストに退会の申請ができます. -join
+アドレスとおなじく, メッセージの <em class="mailheader">Subject</em> ヘッダ (件名) も本文も無視され,  誰にも読まれません.  なお, mylist-
+<a class="reference external" href="mailto:unsubscribe&#37;&#52;&#48;example&#46;com">unsubscribe<span>&#64;</span>example<span>&#46;</span>com</a> は この -leave アドレスとおなじはたらきをします.</li>
+<li><a class="reference external" href="mailto:mylist-owner&#37;&#52;&#48;example&#46;com">mylist-owner<span>&#64;</span>example<span>&#46;</span>com</a> &#8211; このアドレスに送ったものは,  リストの管理者と司会者に直接届きます.
+このアドレスは, リスト運営に関わる人間 (システムではなく)  に連絡をとりたいときに使います.</li>
+<li><a class="reference external" href="mailto:mylist-request&#37;&#52;&#48;example&#46;com">mylist-request<span>&#64;</span>example<span>&#46;</span>com</a> &#8211; このアドレスに送ったものは,  電子メールコマンドを処理するプログラムに届きます.
+会員の登録オプションの設定などのコマンドを処理できます.  リスト会員用の電子メールコマンドの説明は付録 <a class="reference internal" href="#a-commands"><em>電子メールコマンド クイックリファレンス</em></a> にあります.</li>
+<li><a class="reference external" href="mailto:mylist-bounces&#37;&#52;&#48;example&#46;com">mylist-bounces<span>&#64;</span>example<span>&#46;</span>com</a> &#8211; このアドレスは,  Mailman の自動配送エラー処理で使います.</li>
+<li><a class="reference external" href="mailto:mylist-confirm&#37;&#52;&#48;example&#46;com">mylist-confirm<span>&#64;</span>example<span>&#46;</span>com</a> &#8211; このアドレスは,  入会や退会の申請のための確認メッセージを処理するのに使います.</li>
+</ul>
+<p>ほかに, -admin アドレスもあります.  このアドレス宛てのものはリスト管理者に届きますが,  古いバージョンの Mailman
+との互換性のためにあるだけなので,  使わないほうがいいでしょう.</p>
+<p>オプションを変えるには, LISTNAME-request アドレスを使います (たとえば,  <a class="reference external" href="mailto:mylist-request&#37;&#52;&#48;example&#46;com">mylist-request<span>&#64;</span>example<span>&#46;</span>com</a>).</p>
+<p>コマンドは, メッセージのサブジェクト (件名) にも, 本文にも書けます.  コマンドごとに改行を入れなければなりません.
+あなたのメールソフトがメッセージの最後に自動的に署名を付けくわえるように なっている場合は,  「*end*」(鍵括弧は書かない) を,
+コマンドの最後の行のつぎの行に書くとよいでしょう.  <em>end</em> コマンドがあると, Mailman は電子メールのそれよりあとに書いて あるものを処理しません.</p>
+<p>最重要コマンドはおそらく「*help*」コマンドでしょう.  このコマンドに対して Mailman は, 電子メールコマンドについての有用な情報と,  Web
+インタフェースについての説明を送り返すからです.</p>
+<p>会員用コマンドのクイックリファレンスが,  付録の <a class="reference internal" href="#a-commands"><em>電子メールコマンド クイックリファレンス</em></a> と <a class="reference internal" href="#a-options"><em>会員オプションコマンド クイックリファレンス</em></a> にあります (これは <em>help</em>
+コマンドの出力に若干手を加えたものです).</p>
+</div>
+</div>
+<div class="section" id="sec-human">
+<span id="id7"></span><h2>人間と話したいんですが...<a class="headerlink" href="#sec-human" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>リストを利用するうえでなにか困ったことがあったら,  リスト管理者の電子メールアドレスを使って,  リストのめんどうを見ている人 (たち)
+に, いつでも連絡することができます.  リスト管理者は, あなたがどうしたらいいのか教えてくれたり,  あなたを入会させたり退会させたり,
+あなたがなんらかの理由で自分で設定を変えられないときに変えてくれたりする かもしれません.  ただし, 忘れないでいただきたいのですが, 多くのリスト管理者が
+ボランティアで, 自分の時間を割いてリストの運営をしているのです.  なかにはとても忙しくて, すぐには返事ができないひともいるかもしれません.</p>
+<p>そのリスト管理者の電子メールアドレスですが,  <a class="reference external" href="mailto:LISTNAME-owner&#37;&#52;&#48;DOMAIN">LISTNAME-owner<span>&#64;</span>DOMAIN</a> となります.  ここで LISTNAME はリストの名前 (たとえば
+mailman-users) で,  DOMAIN はサーバのドメイン名 (たとえば python.org) です.
+この電子メールアドレスは, 個々の管理者の電子メールアドレスとともに,  リスト案内ページの下部に表示してあります.
+自分のリストのリスト案内ページを見つけるにはくわしくは <a class="reference internal" href="#sec-web"><em>Web インタフェース</em></a> 節 を見てください.</p>
+</div>
+<div class="section" id="id8">
+<h2>入会と退会<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>リスト会員は,  入会 (参加) と退会 (脱退) さえ知っていれば用が足りることも多いです.
+そのため, どちらも自分のパスワードが分からなくてもできるようになっています.</p>
+<div class="section" id="sec-subscribe">
+<span id="id9"></span><h3>リストに入るには (入会)<a class="headerlink" href="#sec-subscribe" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Mailman のメーリングリストに入会するには, おもに 2 つの方法があります.</p>
+<p>Web インタフェースでは:</p>
+<ol class="arabic simple">
+<li>入りたいリストのリスト案内ページへ行きます (これはたぶん <a class="reference external" href="http://WEBSERVER/mailman/listinfo/LISTNAME">http://WEBSERVER/mailman/listinfo/LISTNAME</a>
+といった場所でしょう).</li>
+<li>「LISTNAME の購読」と見出しのあるセクションを探して,  テキストボックスに記入します. つぎのような記入欄があります:</li>
+</ol>
+<ul>
+<li><p class="first">あなたの電子メールアドレスを*かならず*入力します.</p>
+</li>
+<li><p class="first">あなたの名前を入れることもできます.</p>
+</li>
+<li><p class="first">パスワードを決めることができます.  決めなかったときは, Mailman が自動的に決めます.</p>
+<blockquote>
+<div><div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">重要なパスワードを使わないようにしてください.  ここで入力したパスワードは, 平文のまま,  あなたにメールで送ることがあります.</p>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">リストが複数の言語に対応しているなら,  使う言語を選ぶこともできます.</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">この設定はリストへの投稿には影響しません.  あなたの会員オプションページのように,  リストのソフトウェアが出力する Mailman の文章が 変わるだけです.</p>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<ol class="arabic simple">
+<li>「入会を申し込む」ボタンを押します.  ページが変わって, 入会申請を受け付けたという表示になるはずです.
+リストの入会方針によっては, このページにさらに説明があって,  確認メッセージを送るのでそれに返信しなければならないと いったことが書いてある場合もあります.</li>
+</ol>
+<p>電子メールインタフェースでは:</p>
+<ol class="arabic simple">
+<li>メールソフトを起動して, あなたが登録したいと思うアドレスから メールを送れるようにします.</li>
+<li>リストの入会アドレスにメールを送ります.  これは <a class="reference external" href="mailto:LISTNAME-join&#37;&#52;&#48;DOMAIN">LISTNAME-join<span>&#64;</span>DOMAIN</a> というアドレスになります.  メッセージのサブジェクト (件名)
+や本文は無視され, だれにも読まれません.  ですからなにか書いてあってもかまいませんし, 書いてなくてもかまいません.</li>
+</ol>
+<p>上の手順のどちらかひとつ (両方やる必要はありません) をしたあと どういうことが起こるかは, それぞれのリストの設定によって違います.</p>
+<ul class="simple">
+<li>あなたがほんとうに入会したいのかどうか, 確認を求める 電子メールが届くかもしれません.
+これは, だれかがあなたの許可なくあなたを登録してしまうのを防ぐためです.  そのメッセージに書いてある手順にしたがって, あなたに入会の意思がある
+ことを確認します.</li>
+<li>会員限定リストへの入会だった場合,  司会者の承認が要ります.</li>
+<li>司会者の承認を待って, <em>さらに</em> 確認メールの 手順にしたがって確認しなければならないかもしれません.</li>
+</ul>
+<p>このような手順が終ると, さらに, リストへの入会を歓迎するメッセージが届くことが あります. このメッセージには, あなたのリスト会員パスワードや,
+あなたの会員オプションを変えるための URL へのリンクなど,  大事な情報が書いてあるので,  保存してあとで見られるようにしておくとよいでしょう.</p>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">入会はほかのやりかたでもできます.  電子メールでの高度な入会コマンドについては, 付録 <a class="reference internal" href="#a-commands"><em>電子メールコマンド クイックリファレンス</em></a>  を見てください.</p>
+</div>
+</div>
+<div class="section" id="sec-unsubscribe">
+<span id="id11"></span><h3>リストから抜けるには (退会)<a class="headerlink" href="#sec-unsubscribe" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>もうリストに戻ってくることはないのでしょうか.  休暇に入るとか, 忙しくてメールを読む暇がないのでしばらく停めたいだけなら,
+退会しなくても配送だけ停めておくこともできます. つまり,  あなたのパスワードや設定などはそのまま残しておくことができるので,
+公開限定の保存書庫にアクセスしたりするようなことはできます.  このようにしたほうがよければ,  <a class="reference internal" href="#sec-nomail"><em>メール配送 を 停止したり, 再開 したりするには (メール配送オプション)</em></a> 節で,
+一時的にメール配送を停止するための手順を見てください.</p>
+<p>ほんとうにリストから抜けたいのなら,  Mailman のメーリングリストから退会する方法は, おもに 2 つあります.</p>
+<p>Web インタフェースでは:</p>
+<ol class="arabic simple">
+<li>抜けたいリストのリスト案内ページへ行きます (これはたぶん <a class="reference external" href="http://WEBSERVER/mailman/listinfo/LISTNAME">http://WEBSERVER/mailman/listinfo/LISTNAME</a>
+といった場所でしょう).</li>
+<li>「LISTNAME 会員の方へ」と見出しのあるセクションを探します (ふつうはページの下のほうにあります).</li>
+<li>「退会またはオプションの変更」と書いてあるボタンがあります.  ボタンのそばのテキストボックスにあなたの電子メールアドレスを 入力し, ボタンを押します.</li>
+<li>「退会」ボタンがあるページに変わります.  退会するならそのボタンを押して, 表示してある手順にしたがいます.</li>
+</ol>
+<p>電子メールインタフェースでは:</p>
+<ol class="arabic simple">
+<li>メールソフトを起動して, あなたが退会させたいと思うアドレスから メールを送れるようにします.</li>
+<li>リストの退会アドレスにメールを送ります.  これは <a class="reference external" href="mailto:LISTNAME-leave&#37;&#52;&#48;DOMAIN">LISTNAME-leave<span>&#64;</span>DOMAIN</a> というアドレスになります.  メッセージのサブジェクト
+(件名) や本文は無視され, だれにも読まれません.  ですからなにか書いてあってもかまいませんし, 書いてなくてもかまいません.</li>
+</ol>
+<p>上の手順のどちらかひとつ (両方やる必要はありません) をしたあと,  あなたには確認メールが届きます.
+このメールに書いてある手順にしたがわなければ, 退会が完了しません.  これは, だれかがあなたの許可なくあなたを退会させてしまうのを防ぐためです.  この手順に加え,
+司会者があなたの退会を承認しなければいけないときもあります.  (退会に管理者の承認が要ることはあまりありませんが. )
+手順の書いてある確認メールが届かないようなら,  あなたの電子メールアドレスを打ち間違えていないか (退会に Web インタフェースを
+使っている場合), 退会させようとしているアドレスが実際にリストに登録してある ものと同じがどうか, を確かめます.  安全確保上の理由から, Mailman は,
+入力したアドレスが登録してあるものかどうかに関わらず,  まったく同じ内容の会員オプションページを表示します. ですから,  Web
+インタフェースのこの部分を使ってだれがリストに入会しているかを 調べることはできませんが,  アドレスを打ち間違えていても教えてはくれないというわけです.</p>
+<p>退会の処理がすむと,  さらにリストからの退会を知らせるメッセージが届くこともあります.
+いずれにせよ, このときから, あなたにはメッセージが送られてこなくなります.</p>
+<p>確認の処理をとばしたい (たとえば, あなたのアドレスがもう使えなくなったので 退会させたい, など) ときは, かわりにあなたの会員パスワードを使って,
+オプションページにログインする (<a class="reference internal" href="#sec-web"><em>Web インタフェース</em></a> 節を見てください) か,  LISTNAME-request アドレスに電子メールコマンドを送る
+(電子メールでの高度な退会コマンドについては,  付録 <a class="reference internal" href="#a-commands"><em>電子メールコマンド クイックリファレンス</em></a> を見てください) かすることで, 確認を省略できます.
+パスワードが分からなくなったときは,  <a class="reference internal" href="#sec-getpassword"><em>自分のパスワードを知りたい</em></a> 節を見てください.</p>
+</div>
+</div>
+<div class="section" id="sec-password">
+<span id="id13"></span><h2>会員パスワード<a class="headerlink" href="#sec-password" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>あなたの会員パスワードは, 入会したときに, あなたが決めたか Mailman によって自動的に決められたかのどちらかです.
+パスワードの控えは, リストに参加したときに送られてきた 歓迎メッセージに書いてあったはずです.  また, パスワード通知を毎月おくってもらうようにもできます.
+Mailman はこのパスワードを使ってあなたを認証するので,  会員パスワードの持ち主 (あなたのことです) とリスト管理者以外は,
+あなたの設定を見たり変えたりすることはできません.</p>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">重要なパスワードを Mailman 用に使わないでください.  このパスワードは, 平文のまま, あなたにメールで送ります.</p>
+</div>
+<div class="section" id="sec-getpassword">
+<span id="id14"></span><h3>自分のパスワードを知りたい<a class="headerlink" href="#sec-getpassword" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>自分の会員パスワードを忘れてしまい,  歓迎メッセージやパスワード通知も保存していなかったとしても,  Web
+インタフェースを使って, いつでもパスワード通知を取り寄せることができます:</p>
+<ol class="arabic simple">
+<li>パスワードを知りたいリストのリスト案内ページへ行きます (これはたぶん
+<a class="reference external" href="http://WEBSERVER/mailman/listinfo/LISTNAME">http://WEBSERVER/mailman/listinfo/LISTNAME</a> といった場所でしょう).</li>
+<li>「LISTNAME 会員の方へ」と見出しのあるセクションを探します (ふつうはページの下のほうにあります).</li>
+<li>「退会またはオプションの変更」と書いてあるボタンがあります.  ボタンのそばのテキストボックスにあなたの電子メールアドレスを 入力し, ボタンを押します.</li>
+<li>「LISTNAME のパスワード」というセクションのある ページに変わります.  「パスワードをメールで送ってください」ボタンを押すと,
+会員パスワードが電子メールであなたに送られます.</li>
+</ol>
+<p>これをしてもパスワード通知の電子メールが送られてこないようなら,  正しい電子メールアドレスをタイプしたのか, またそのアドレスは
+たしかにそのリストに登録してあるものなのかどうか, を確かめてください.  安全確保上の理由から, Mailman は,
+入力したアドレスが登録してあるものかどうかに関わらず,  まったく同じ内容の会員オプションページを表示します. ですから,  Web
+インタフェースのこの部分を使ってだれがリストに入会しているかを 調べることはできませんが,  アドレスを打ち間違えていても教えてはくれないというわけです.</p>
+<p>電子メールインタフェースを使っても, パスワード通知を取り寄せることができます:</p>
+<ol class="arabic">
+<li><p class="first"><a class="reference external" href="mailto:LISTNAME-request&#37;&#52;&#48;DOMAIN">LISTNAME-request<span>&#64;</span>DOMAIN</a> に, <em>password</em> コマンドを 書いた電子メールを送ります.</p>
+<p>コマンドは, メッセージの本文とサブジェクト (件名) のどちらにでも書けます (メールコマンドの送りかたについてくわしくは,  <a class="reference internal" href="#sec-email"><em>電子メールインタフェース</em></a>
+節を見てください).</p>
+<p>リストに登録していないアドレスからメールを送るのなら,  <em>password address=アドレス</em>  というコマンドを書いて,
+登録アドレスを指定することもできます.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="id16">
+<h3>自分のパスワードを変えるには<a class="headerlink" href="#id16" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">重要なパスワードを使わないでください.  このパスワードは, 平文のまま, あなたにメールで送ります.</p>
+</div>
+<p>Web インタフェースでは:</p>
+<ol class="arabic simple">
+<li>あなたの会員オプションページにログインします (どうしたらよいかは <a class="reference internal" href="#sec-web"><em>Web インタフェース</em></a> 節を見てください).</li>
+<li>ページの右側の, パスワード変更のテキストボックスを探します.  そして, それぞれのテキストボックスにあなたの新しいパスワードを
+入力し, 「パスワード変更」というボタンを押します.</li>
+</ol>
+<p>おなじドメインの複数のリストに登録しているのなら,  いちどにすべてのリストのパスワードを変えることもできます.
+「全部変更」についてくわしくは, <a class="reference internal" href="#sec-global"><em>「全部変更」や「全部設定」の意味</em></a> 節を見てください.</p>
+<p>電子メールインタフェースでは:</p>
+<ol class="arabic">
+<li><p class="first"><a class="reference external" href="mailto:LISTNAME-request&#37;&#52;&#48;DOMAIN">LISTNAME-request<span>&#64;</span>DOMAIN</a> に,  <em>password 元のパスワード 新しいパスワード</em> というコマンドを書いた電子メールを送ります.</p>
+<p>コマンドは, メッセージの本文とサブジェクト (件名) のどちらにでも書けます (メールコマンドの送りかたについてくわしくは,  <a class="reference internal" href="#sec-email"><em>電子メールインタフェース</em></a>
+節を見てください).</p>
+<p>リストに登録していないアドレスからメールを送るのなら,  新しいパスワード の後に <em>address=アドレス</em> を書いて,
+登録アドレスを指定することもできます.</p>
+<p>たとえば, <a class="reference external" href="mailto:kathy&#37;&#52;&#48;here&#46;com">kathy<span>&#64;</span>here<span>&#46;</span>com</a> が <em>mylist</em> メーリングリストでの自分の会員パスワードを <em>zirc</em> から <em>miko</em>
+に変えたいが, メールを職場のアドレス <a class="reference external" href="mailto:kathy&#37;&#52;&#48;work&#46;com">kathy<span>&#64;</span>work<span>&#46;</span>com</a> から送っているときは,  彼女は <a class="reference external" href="mailto:mylist-request&#37;&#52;&#48;example&#46;com">mylist-request<span>&#64;</span>example<span>&#46;</span>com</a>
+に, 件名を <em>password zirc miko address=kathy&#64;here.com</em> としたメッセージを送ればよいわけです.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="id17">
+<h3>パスワード通知 を 送ってもらう ようにしたり, 停めたりするには (パスワード通知オプション)<a class="headerlink" href="#id17" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>パスワード通知の電子メールを毎月送ってほしくないのであれば,  会員オプションページで停めることができます
+(パスワードをすぐに知りたければ, いつでもメールで取り寄せることができます.  手順は <a class="reference internal" href="#sec-getpassword"><em>自分のパスワードを知りたい</em></a> 節を見てください).</p>
+<p>Web インタフェースでは:</p>
+<ol class="arabic simple">
+<li>あなたの会員オプションページにログインします (どうしたらよいかは <a class="reference internal" href="#sec-web"><em>Web インタフェース</em></a> 節を見てください).</li>
+<li>「このリストからのパスワード通知を受け取りますか?」 というセクションを探し, 設定を好きなように変えます.</li>
+</ol>
+<p>おなじドメインの複数のリストに登録しているのなら,  いちどにすべてのリストの設定を変えることもできます.
+「全部変更」についてくわしくは, <a class="reference internal" href="#sec-global"><em>「全部変更」や「全部設定」の意味</em></a> 節を見てください.</p>
+<p>電子メールインタフェースでは:</p>
+<ol class="arabic">
+<li><p class="first"><a class="reference external" href="mailto:LISTNAME-request&#37;&#52;&#48;DOMAIN">LISTNAME-request<span>&#64;</span>DOMAIN</a> に,  <em>set reminders on</em> あるいは <em>set reminders off</em>
+というコマンドを書いた電子メールを送ります.</p>
+<p>コマンドは, メッセージの本文とサブジェクト (件名) のどちらにでも書けます (メールコマンドの送りかたについてくわしくは,  <a class="reference internal" href="#sec-email"><em>電子メールインタフェース</em></a>
+節を見てください).</p>
+</li>
+<li><p class="first">「on」にすると通知が送られるようになります.  「off」にすると通知が送られないようになります.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="id18">
+<h2>メールの配送のしかたを変える<a class="headerlink" href="#id18" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="sec-nomail">
+<span id="id19"></span><h3>メール配送 を 停止したり, 再開 したりするには (メール配送オプション)<a class="headerlink" href="#sec-nomail" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>退会したくはないけれど,  リストからメッセージを送ってもらうのを 一時的に停めたいこともあるかもしれません.
+メール配送を停止すれば, メッセージは送られてこなくなりますが,  会員のままでいられるので,  あなたのパスワードなどの設定は残しておけます.</p>
+<p>これはいろいろな場合に便利なことがあります.  たとえば, あなたが休暇に入ったり,  とても忙しくなって余計なメールを読む暇がなくなったりして,
+しばらくリストを離れなければならないときです.  またたとえば,  投稿を会員からのものに限るようになっているリストは多いですが,
+あなたがおもに複数のアドレスからメールを送っている (たとえば自宅のアドレスのほかに旅行中のアドレスもある) のなら,  複数のアドレスで入会しておいて,
+そのうちのひとつだけでメールを受け取るようにしておきたいでしょう.  あるいはたとえば, リストの投稿量がたいへん多くて,  メールで受け取っていたのでは
+あなたのメールボックスがあふれてしまいそうなときに,  リストから抜けずに公開限定の保存書庫で読む, といったことにも使えます.  まず入会し, メール配送を停止し,
+自分のパスワードと電子メールアドレスで保存書庫にログインすればいいのです.</p>
+<p>Web インタフェースで配送を停止したり有効にしたりするには:</p>
+<ol class="arabic simple">
+<li>あなたの会員オプションページにログインします (どうしたらよいかは <a class="reference internal" href="#sec-web"><em>Web インタフェース</em></a> 節を見てください).</li>
+<li>「メール配送」 というセクションを探し, メールを送ってもらうのを停めるときは 「停止」, 送ってもらうときは「有効」を選びます.</li>
+</ol>
+<p>おなじドメインの複数のリストに登録しているのなら,  いちどにすべてのリストの設定を変えることもできます.
+「全部変更」についてくわしくは, <a class="reference internal" href="#sec-global"><em>「全部変更」や「全部設定」の意味</em></a> 節を見てください.</p>
+<p>電子メールインタフェースで配送を停止したり有効にしたりするには:</p>
+<ol class="arabic">
+<li><p class="first"><a class="reference external" href="mailto:LISTNAME-request&#37;&#52;&#48;DOMAIN">LISTNAME-request<span>&#64;</span>DOMAIN</a> に <em>set delivery off</em> または <em>set delivery on</em>
+というコマンドを書いたメールを送ります.</p>
+<p>コマンドは, メッセージの本文とサブジェクト (件名) のどちらにでも書けます (メールコマンドの送りかたについてくわしくは,  <a class="reference internal" href="#sec-email"><em>電子メールインタフェース</em></a>
+節を見てください).</p>
+</li>
+<li><p class="first">「off」にすると投稿は送られてこなくなります.  「on」にすると再開できます.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="sec-nodupes">
+<span id="id20"></span><h3>メッセージを 重複して 受け取らない ようにするには (重複オプション)<a class="headerlink" href="#sec-nodupes" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Mailman はメッセージの重複を完全に停められるわけではありませんが,  この機能はすこしは役に立つでしょう.  重複して受け取ってしまう主な原因としては,
+送信者が「全員に返信」機能を使って,  メールをリストと個人の両方に送ってしまう, というものがあります.  こういったメッセージを受け取りたくない人のために,
+Mailman では, あなたのアドレスが <em class="mailheader">To</em> ヘッダや  <em class="mailheader">CC</em>
+ヘッダに入っていないか調べるように設定できます.  あなたのアドレスがこういったヘッダにあれば,  Mailman
+があなたにメッセージの控えを送らないようさせることができます.  つまり, あなたは元の送信者が送ったものだけを受け取り, Mailman が 変更を加えた
+(たとえばヘッダやフッタをつけたり, 添付を取り除いたり,  といった) ものは受け取らないことになります.</p>
+<p>これを Web インタフェースで有効にしたり無効にしたりするには:</p>
+<ol class="arabic simple">
+<li>あなたの会員オプションページにログインします (どうしたらよいかは <a class="reference internal" href="#sec-web"><em>Web インタフェース</em></a> 節を見てください).</li>
+<li>ページの下のほうの 「重複したメールを受け取らないようにしますか?」 というセクションで, 設定を好きなように変えます.</li>
+</ol>
+<p>おなじドメインの複数のリストに登録しているのなら,  いちどにすべてのリストの設定を変えることもできます.
+「全部変更」についてくわしくは, <a class="reference internal" href="#sec-global"><em>「全部変更」や「全部設定」の意味</em></a> 節を見てください.</p>
+<p>これを電子メールインタフェースで有効にしたり無効にしたりするには:</p>
+<ol class="arabic">
+<li><p class="first"><a class="reference external" href="mailto:LISTNAME-request&#37;&#52;&#48;DOMAIN">LISTNAME-request<span>&#64;</span>DOMAIN</a> に <em>set duplicates on</em> または <em>set duplicates off</em>
+というコマンドを書いたメールを送ります.</p>
+<p>コマンドは, メッセージの本文とサブジェクト (件名) のどちらにでも書けます (メールコマンドの送りかたについてくわしくは,  <a class="reference internal" href="#sec-email"><em>電子メールインタフェース</em></a>
+節を見てください).</p>
+</li>
+<li><p class="first">「on」にすると, あなたに送られたものの控えも送られます.  「off」にすると重複したものが送られないようになります.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="sec-changeaddress">
+<span id="id21"></span><h3>登録しているアドレスを変えるには<a class="headerlink" href="#sec-changeaddress" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>自分の登録アドレスを変えるには,</p>
+<ol class="arabic simple">
+<li>あなたの会員オプションページにログインします (どうしたらよいかは <a class="reference internal" href="#sec-web"><em>Web インタフェース</em></a> 節を見てください).</li>
+<li>「LISTNAME 会員アドレスの変更」というセクションで,  あなたの新しいアドレスを入力します.</li>
+<li>元のアドレスで登録しているすべてのリストの登録アドレスを 変えたいのなら, 「全部変更」チェックボックスを選択します.
+ほかのアドレスでの登録があったり, ほかのドメインのリストに 登録しているアドレスについては, 別々に変更しなければなりません.
+「全部変更」についてくわしくは, <a class="reference internal" href="#sec-global"><em>「全部変更」や「全部設定」の意味</em></a> 節を見てください.</li>
+</ol>
+<p>あなたの新しいアドレスに確認のメッセージが届きます.  そして, このメッセージに書いてある手順にしたがって確認をするまでは,  変更はされません.</p>
+<p>電子メールインタフェースでは同じことをやる方法はありませんが,  新しいアドレスで入会しておいて元のアドレスを退会すれば,  おおむね同じ結果になります
+(入会と退会についてくわしくは <a class="reference internal" href="#sec-subscribe"><em>リストに入るには (入会)</em></a> 節と <a class="reference internal" href="#sec-unsubscribe"><em>リストから抜けるには (退会)</em></a> 節を見てください).</p>
+</div>
+<div class="section" id="sec-getown">
+<span id="id22"></span><h3>投稿の控え を 受け取らない ようにしたり,  受け取るようにしたりするには (控えなしオプション)<a class="headerlink" href="#sec-getown" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Mailman では, ふつうは自分が投稿したものの控えも送られてきます.  そうなっていたほうがいいという人もいます.  投稿が無事に送れたかどうか分かるし,
+自分の意見を議論の一部としていっしょに保存しておけるからだそうです.  しかし, 自分が投稿したものをわざわざまたダウンロードさせられるのを 嫌がる人もいます.</p>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">まとめ読みで受け取っているときは, このオプションは効きません.</p>
+</div>
+<p><a class="reference internal" href="#sec-getack"><em>投稿がリストに届いたことを Mailman から知らせて もらうようにするには (受領オプション)</em></a> 節では,  投稿に対して受領メールを送ってもらう方法を説明しているので,  そちらも見ておくとよいでしょう.</p>
+<p>これを Web インタフェースで設定するには:</p>
+<ol class="arabic simple">
+<li>あなたの会員オプションページにログインします (どうしたらよいかは <a class="reference internal" href="#sec-web"><em>Web インタフェース</em></a> 節を見てください).</li>
+<li>「重複したメールを受け取らないようにしますか?」 というセクションを探し, 自分の投稿の控えを送ってもらうなら「はい」,
+送ってもらわないようにするなら「いいえ」に設定します.</li>
+</ol>
+<p>これを電子メールインタフェースで設定するには:</p>
+<ol class="arabic">
+<li><p class="first"><a class="reference external" href="mailto:LISTNAME-request&#37;&#52;&#48;DOMAIN">LISTNAME-request<span>&#64;</span>DOMAIN</a> に <em>set myposts on</em> または <em>set myposts off</em>.
+というコマンドを書いたメールを送ります.</p>
+<p>コマンドは, メッセージの本文とサブジェクト (件名) のどちらにでも書けます (メールコマンドの送りかたについてくわしくは,  <a class="reference internal" href="#sec-email"><em>電子メールインタフェース</em></a>
+節を見てください).</p>
+</li>
+<li><p class="first">「on」にすると自分の投稿の控えも送られるようになります.  「off」にすると控えが送られなくなります.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="sec-getack">
+<span id="id23"></span><h3>投稿がリストに届いたことを Mailman から知らせて もらうようにするには (受領オプション)<a class="headerlink" href="#sec-getack" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>たいていのリストでは, 投稿したメールがメーリングリストシステムを通過すると,  投稿したあなたにも同じものが送られてきます.  しかし, 送られないようにしているとき
+(<a class="reference internal" href="#sec-getown"><em>投稿の控え を 受け取らない ようにしたり,  受け取るようにしたりするには (控えなしオプション)</em></a> 節を見てください),  配送を停めているとき (Section <a class="reference internal" href="#sec-nomail"><em>メール配送 を 停止したり, 再開 したりするには (メール配送オプション)</em></a> 節を見てください),
+その投稿の話題を購読しないようにしているとき  (<a class="reference internal" href="#sec-sometopic"><em>リストの 全ての 話題を 購読したり,  一部の 話題だけを 購読したりするには</em></a> 節を見てください),
+あるいはその他の理由で投稿が届いたことを特に知りたいときには,  このオプションが役立つでしょう.</p>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">あなたがリストに入会していないのなら,  このオプションは使えません.  そういうときは, リストの保存書庫を見て確認する
+(リストの保存書庫が公開になっているのなら) か,  だれかリストの会員に聞いて確認するか,  あるいはリストに入会してこのオプションを使えるようにするか,
+のいずれかでしょう.</p>
+</div>
+<p>これを Web インタフェースで設定するには:</p>
+<ol class="arabic simple">
+<li>あなたの会員オプションページにログインします (どうしたらよいかは <a class="reference internal" href="#sec-web"><em>Web インタフェース</em></a> 節を見てください).</li>
+<li>「リストへの投稿に対する確認通知が必要ですか?」 というセクションを探し,  自分の投稿が届いたことを知らせてもらうのなら「はい」,
+知らせてもらわないようにするなら「いいえ」に設定します.</li>
+</ol>
+<p>これを電子メールインタフェースで設定するには:</p>
+<ol class="arabic">
+<li><p class="first"><a class="reference external" href="mailto:LISTNAME-request&#37;&#52;&#48;DOMAIN">LISTNAME-request<span>&#64;</span>DOMAIN</a> に <em>set ack on</em> または <em>set ack off</em> というコマンドを書いたメールを送ります.</p>
+<p>コマンドは, メッセージの本文とサブジェクト (件名) のどちらにでも書けます (メールコマンドの送りかたについてくわしくは,  <a class="reference internal" href="#sec-email"><em>電子メールインタフェース</em></a>
+節を見てください).</p>
+</li>
+<li><p class="first">投稿が届いたことを知らせてもらうのなら「on」,  知らせてもらわないのなら「off」にします.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="id24">
+<h3>リストから メールが 届かないようです.  どうしたら いいのでしょうか<a class="headerlink" href="#id24" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>届かない理由としては, おもにつぎのようなことが考えられます:</p>
+<ul>
+<li><p class="first">あなたが入っているどのリストにも,  ここしばらくだれも投稿していない.</p>
+<p>これを確かめるには, それぞれのリストの保存書庫 (保存書庫があるとして) を見てまわるとよいでしょう.  リストに保存書庫がないときは,
+ほかのリスト会員に聞いてみるとよいかもしれません (リストの保存書庫の探しかたは <a class="reference internal" href="#sec-web"><em>Web インタフェース</em></a> 節を見てください).</p>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">リストに投稿できるかどうか調べるためだけに 内容のないメッセージを送ってみるというのは,  一般に, 無作法な振舞いとされます.
+リストが稼働しているかどうか調べてみたいが リストに投稿するのにふさわしいものを書けそうにない,  というときは,  リストの申請アドレス (LISTNAME-
+<a class="reference external" href="mailto:request&#37;&#52;&#48;DOMAIN">request<span>&#64;</span>DOMAIN</a>) に help のメッセージを送って稼働していることを確かめるか,  あるいは, リスト管理者 (LISTNAME-
+<a class="reference external" href="mailto:owner&#37;&#52;&#48;DOMAIN">owner<span>&#64;</span>DOMAIN</a>) に連絡をとって リストが稼働しているかどうか尋ねるのが, 無難なやりかたです.</p>
+</div>
+</li>
+<li><p class="first">あなたからエラーメッセージが返ってくるので,  メーリングリストシステムがあなたへの配送を (一時的に) 停止している.</p>
+<p>あなたのメールアドレスを管理している組織が,  メッセージをあまりにたびたびエラーにする (Mailman に対してメッセージが送れないと知らせる)
+と, Mailman はある時点で, あなたにメールを送るのを やめてしまうようになっています.  この機能によって Mailman では, なくなってしまったアドレス
+(たとえば, ある会員がインターネットサービスプロバイダを替えたが,  古いアドレスを退会させるのを忘れた, など) や,  一時的に使えなくなっているアドレス
+(たとえば,  ある会員が自分の電子メールアドレス用のスペースを 使い切ってしまったとか, 会員のメールアドレスを管理している組織で 障害が起きているとか)
+を, うまく扱えるようになっています.</p>
+<p>自分の電子メールアドレスを管理している組織で 障害が起きているとは思っていなくても,  まずそれを確かめてみたほうがいいです.  有名な Web
+メールサービス業者やインターネットサービスでも,  思ったより信頼性が低いことがありますし,  インターネットというものは全体としてそういうものです.
+ほかのメールアカウントを持っているのなら,  そちらから自分にテストメールを送ってみればよいでしょう.
+あるいは, 知人に頼んで試しにメッセージを送ってもらうのもよいでしょう.  とにかくそうやって, 自分の登録アドレスがちゃんと使えるかどうか 確かめます.</p>
+<p>自分への配送が停止されているせいで 送られてこないのかどうかを確かめるには,  あなたの会員オプションページにログイン (どうしたらよいかは
+<a class="reference internal" href="#sec-web"><em>Web インタフェース</em></a> 節を見てください) して, 自分のオプションを見ます.  あなたへの配送が「停止」になっていたり,  Mailman
+があなたの電子メールアドレスからエラーを受け取っているときは,  このページの上のほうに注意書きが出ています.</p>
+<p>メール配送を再開するには, 「メール配送」というセクションを探して 「有効」に設定すれば, またメールを受け取れるようになります.
+あなたのエラー点を消すには, いったん配送を「停止」にして,  また「有効」にします.  メール配送を停止したり有効にしたりする手順についてくわしくは
+<a class="reference internal" href="#sec-nomail"><em>メール配送 を 停止したり, 再開 したりするには (メール配送オプション)</em></a> 節を見てください.</p>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">調べたときに「停止」になっていないとしても,  あなたのアドレスからはエラーメッセージが送られており,  それがまだ配送停止になるほど多くないだけかもしれません.
+しばらくしてからまた調べたほうがよいでしょう.</p>
+</div>
+</li>
+<li><p class="first">あなたとメーリングリストサーバとの間で通信に遅れが出ているか,  通信が不通になっている.</p>
+<p>インターネットは, わたしたちの多くが願っているほど,  100% 信頼できるものでも,  いつも高速なものでもありません.
+ときには, メッセージがあなたに届くのに長い時間がかかることもあります.  特に, メーリングリストのサーバが あなたのインターネットサービスプロバイダから遠い
+(コンピュータネットワークの上でのことで, 地理的な意味でではありません.  両方の意味を兼ねることもしばしばありますが)
+ときには, すこし辛抱して待ってみてください.</p>
+<p>これが原因かどうか確かめるには,  メーリングリストサーバに ping を送ったり,  そのサーバとあなたのコンピュータとの間のルートを
+トレースしたりしてみることができます (どうしたらよいかは, 使っているシステムによってさまざまですので,
+検索エンジンなどであなたに合ったやりかたを調べるとよいでしょう).</p>
+</li>
+<li><p class="first">メールサーバや, そのメールサーバに入っている Mailman が正しく動作していない.  システムがコンピュータウィルスやスパムのために
+過負荷になっていて, Mailman が稼働しているホストで障害が続いている ようなときには, こういったことが起こることがあります.</p>
+<p>これが原因かどうか調べるには,  まず, リストの Web ページへ行ってみます.  また, <a class="reference external" href="mailto:LISTNAME-request&#37;&#52;&#48;DOMAIN">LISTNAME-request<span>&#64;</span>DOMAIN</a>
+に, <em class="mailheader">Subject</em> ヘッダ (件名) に「*help*」(鍵括弧はつけない)
+といった, 簡単なコマンドを書いたメッセージを送ってみます.  すこし待っても, どちらもなにも起こらないようなら,  原因はこれです.
+リストかサイトの管理者に連絡をとるとよいでしょう.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id25">
+<h2>まとめ読み<a class="headerlink" href="#id25" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="sec-digest">
+<span id="id26"></span><h3>リストの投稿 を まとめて 受け取ったり, 一通ずつ受け取ったりするには (まとめ読みオプション)<a class="headerlink" href="#sec-digest" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Mailman では, 投稿をまとめたものを「まとめ読み」と言っています.  メッセージを一通ずつ受け取るのではなく,  いちどにまとめて受け取ることができます.
+それなりに投稿量の多いリストでは, だいたい一日に 1 度, メールを送ってきます.  リストによって, もっと度々だったり, 少なかったりします.</p>
+<p><a class="reference internal" href="#sec-mime"><em>MIME のまとめ読みと 平文のまとめ読み とは. まとめ読みの種類を変えるには (まとめ読みオプション)</em></a> 節では MIME のまとめ読みと平文のまとめ読みについて説明しています.  そちらも見るとよいでしょう.</p>
+<p>Web インタフェースでまとめ読みモードにしたり, やめたりするには:</p>
+<ol class="arabic">
+<li><p class="first">あなたの会員オプションページにログインします (どうしたらよいかは <a class="reference internal" href="#sec-web"><em>Web インタフェース</em></a> 節を見てください).</p>
+</li>
+<li><p class="first">「まとめ読みモードに設定」というセクションを探します.</p>
+<p>まとめ読みにまとめて送ってもらうのなら「有効」,  一通ずつ送ってもらうのなら「無効」に設定します.</p>
+</li>
+</ol>
+<p>電子メールインタフェースでまとめ読みモードにしたり, やめたりするには:</p>
+<ol class="arabic">
+<li><p class="first"><a class="reference external" href="mailto:LISTNAME-request&#37;&#52;&#48;DOMAIN">LISTNAME-request<span>&#64;</span>DOMAIN</a> に <em>set digest plain</em> または <em>set digest mime</em>  または <em>set
+digest off</em> というコマンドを書いたメールを送ります.</p>
+<p>コマンドは, メッセージの本文とサブジェクト (件名) のどちらにでも書けます (メールコマンドの送りかたについてくわしくは,  <a class="reference internal" href="#sec-email"><em>電子メールインタフェース</em></a>
+節を見てください).</p>
+</li>
+<li><p class="first">投稿を一通ずつ送ってもらうのなら「off」,  ひとつの大きなメールにまとめて送ってもらうのなら 「plain」か「mime」にします.  平文のまとめ読みと
+MIME のまとめ読みの違いについては <a class="reference internal" href="#sec-mime"><em>MIME のまとめ読みと 平文のまとめ読み とは. まとめ読みの種類を変えるには (まとめ読みオプション)</em></a> 節を見てください.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="mime">
+<span id="sec-mime"></span><h3>MIME のまとめ読みと 平文のまとめ読み とは. まとめ読みの種類を変えるには (まとめ読みオプション)<a class="headerlink" href="#mime" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>MIME は「多用途インターネットメール機能拡張」 (Multipurpose Internet Mail Extensions) の略です.
+これは, 単純なプレインテキストに限らずさまざまなデータを 電子メールで送るのに使います (たとえば, 飼い犬の写真を友達に送るようなときは, MIME
+を使っています).</p>
+<p>MIME のまとめ読みでは, それぞれのメッセージはメッセージ内の添付となっていて,  目次がついています.</p>
+<p>平文のまとめ読みはより単純なもので,  メールソフトが MIME に対応していなくても読みやすくなっています.  メッセージが順番に並んでいるだけの,
+大きなテキストメッセージになっています.</p>
+<p>最近は多くのメールソフトが MIME に対応していますから,  MIME のまとめ読みがうまく読めないときだけ,  平文のほうにすればいいでしょう.</p>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">まとめ読みにまとめて送ってもらっていないときは,  このオプションは効きません (まとめ読みで送ってもらうにはくわしくは <a class="reference internal" href="#sec-digest"><em>リストの投稿 を まとめて 受け取ったり, 一通ずつ受け取ったりするには (まとめ読みオプション)</em></a>
+節を見てください).</p>
+</div>
+<p>まとめ読みの種類を Web インタフェースで設定するには:</p>
+<ol class="arabic">
+<li><p class="first">あなたの会員オプションページにログインします (どうしたらよいかは <a class="reference internal" href="#sec-web"><em>Web インタフェース</em></a> 節を見てください).</p>
+</li>
+<li><p class="first">「まとめ読みメールを受け取る形式.  平文またはMIMEの添付ファイル形式. 」というセクションを探します.</p>
+<p>MIME の形式でまとめ読みを送ってもらうときは「MIME」,  平文の形式でまとめ読みを送ってもらうときは「平文」に設定します.</p>
+</li>
+</ol>
+<p>おなじドメインの複数のリストに登録しているのなら,  いちどにすべてのリストの設定を変えることもできます.
+「全部変更」についてくわしくは, <a class="reference internal" href="#sec-global"><em>「全部変更」や「全部設定」の意味</em></a> 節を見てください.</p>
+<p>まとめ読みの種類を電子メールインタフェースで設定するには:</p>
+<ol class="arabic">
+<li><p class="first"><a class="reference external" href="mailto:LISTNAME-request&#37;&#52;&#48;DOMAIN">LISTNAME-request<span>&#64;</span>DOMAIN</a> に <em>set digest plain</em> または <em>set digest mime</em>
+というコマンドを書いたメールを送ります.</p>
+<p>コマンドは, メッセージの本文とサブジェクト (件名) のどちらにでも書けます (メールコマンドの送りかたについてくわしくは,  <a class="reference internal" href="#sec-email"><em>電子メールインタフェース</em></a>
+節を見てください).</p>
+</li>
+<li><p class="first">投稿を平文のまとめ読みにまとめて送ってもらうのなら「plain」,  MIME のまとめ読みにまとめて送ってもらうのなら「mime」にします.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="sec-topics">
+<span id="id27"></span><h2>メーリングリストの話題<a class="headerlink" href="#sec-topics" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>リストによっては,  Mailman でいろいろな話題を扱えるように設定してあることがあります <a class="footnote-reference" href="#id48" id="id28">[1]</a>.  例えば,  Linuxchix.org の講座リストは
+linuxchix 会員が開講しているいろいろな講座のための話しあい用リストですが,  同時にいくつもの講座 (例: 初心者向けネットワーキング, C
+プログラミング, LaTeX 文書マークアップ) が開講することもよくあるのです.  開講しているそれぞれの講座は, 別々の話題と関連づけてあるので,
+みんな自分の取りたい講座だけを選んで受け取れます.</p>
+<p>この話題はリスト管理者が設定しますが,  投稿したものが正しい話題に入るようにするのは, 投稿するひとひとりひとりの責任です.
+普通は, 件名になにか語句や目印をいれるようにする (例: [ネットワーキング] 必要なケーブルの種類は?) か,  正しい情報の入った
+<em class="mailheader">Keywords</em> ヘッダをつけるようにします (初期設定では, <em class="mailheader">Keywords</em> セクションを,
+メッセージ本文の最初に置くこともできますが, これはリスト管理者の設定によります).  なお, こういった目印では, 大文字と小文字は区別されません.</p>
+<div class="section" id="sec-posttopic">
+<span id="id29"></span><h3>自分の 投稿が 正しい 話題に 入るようにするには<a class="headerlink" href="#sec-posttopic" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>リスト管理者は, 話題を登録するときに, つぎの 3 つのものを設定します:</p>
+<ul class="simple">
+<li>話題の名前</li>
+<li>正規表現</li>
+<li>説明</li>
+</ul>
+<p>この情報を見るには, 会員オプションページにログインして (どうしたらよいかについて詳しくは <a class="reference internal" href="#sec-web"><em>Web インタフェース</em></a> 節を見てください),  気になる話題の
+&#8220;詳細&#8221; をクリックします.</p>
+<p>ある話題についての投稿をするには, メッセージの <em class="mailheader">Keywords</em>  ヘッダか <em class="mailheader">Subject</em> ヘッダ
+(件名) が,  その話題の <em>正規表現</em> に一致するようにする必要があります.  正規表現というのは, ひとつかそれ以上のものに一致するパターンのことです.
+この正規表現は, かなり複雑なものになることもありますから,  その表現がどういうものにあたるのか見当もつかないときは,  リスト管理者に尋ねるとよいかもしれません.</p>
+<p>正規表現についてもっと知りたいというひとは, この先を読んでください.  でもたいていは,  Keywords
+や件名にどんなものを入れれば話題のパターンに一致するようになるかを,  リスト管理者が話題の説明のところに書いてくれているはずです.</p>
+<p>Mailman の話題のパターンのほとんどは, かなり単純な正規表現ですむでしょうから,  この文書では, いくつか一般的な例を挙げるだけにします.
+正規表現はここで手短かに説明するには少々複雑すぎます. ですから,  正規表現のしくみを知りたければ,  他の解説を探したほうがよいでしょう.
+正規表現と, それに一致するものの例を挙げます:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="79%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">正規表現</th>
+<th class="head">一致するもの</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>zuff</td>
+<td>Keywords: zuff</td>
+</tr>
+<tr><td>zuff</td>
+<td>Keywords: ZUFF</td>
+</tr>
+<tr><td>zuff</td>
+<td>Keywords: Zuff</td>
+</tr>
+<tr><td>zuff</td>
+<td>Keywords: amaryllis, zuff, applesauce</td>
+</tr>
+<tr><td>zuff</td>
+<td>Subject: [zuff] Do you have the right stuff
+for zuff?</td>
+</tr>
+<tr><td>zuff</td>
+<td>Subject: Do you have the right stuff for
+zuff?</td>
+</tr>
+<tr><td>zuff</td>
+<td>Subject: What is zuff?</td>
+</tr>
+<tr><td>\[zuff\]</td>
+<td>Keywords: [zuff]</td>
+</tr>
+<tr><td>\[zuff\]</td>
+<td>Subject: [zuff] Do you have the right stuff?</td>
+</tr>
+<tr><td>\[zuff\]</td>
+<td>Subject: Online zuff tutorials (was Re:
+[zuff] What is zuff?)</td>
+</tr>
+</tbody>
+</table>
+<p>すこし説明します:</p>
+<ul>
+<li><p class="first">一致に大文字と小文字の区別はありませんから, zuff に一致するのなら ZUFF, zuFF など, どこを大文字にしても一致します.</p>
+</li>
+<li><p class="first">正規表現で特別な意味になる文字があります.  そういう文字そのものに一致させるには, バックスラッシュ (\) を前につけて &#8220;エスケープ&#8221;
+しなければなりません <a class="footnote-reference" href="#id49" id="id30">[2]</a>.  上の例でわかるとおり, [ と ] はそういう文字です (ほかに &#8221;.&#8221;, &#8221;?&#8221;, &#8220;*&#8221; などがあります).</p>
+<p>バックスラッシュにはほかの使いかたもありますが,  話題のパターンではこの使いかたがいちばん多いようです
+(正規表現をこれ以上複雑にして混乱させるのもなんですから,  バックスラッシュのほかの使いかたについて詳しくは, ほかの文書にあたってください).</p>
+</li>
+</ul>
+</div>
+<div class="section" id="sec-sometopic">
+<span id="id31"></span><h3>リストの 全ての 話題を 購読したり,  一部の 話題だけを 購読したりするには<a class="headerlink" href="#sec-sometopic" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>メーリングリストの管理者が話題を設定していれば,  自分の受け取りたい話題だけをえらんで購読できます.</p>
+<p>リストに届くメッセージすべてがほしいのなら,  どの話題も購読しないようにしてください.</p>
+<ol class="arabic">
+<li><p class="first">あなたの会員オプションページにログインします (どうしたらよいかは <a class="reference internal" href="#sec-web"><em>Web インタフェース</em></a> 節を見てください).</p>
+</li>
+<li><p class="first">「どの話題を購読しますか?」というセクションを探します.</p>
+<p>なにか話題が設定してあれば, 自分のほしい話題をえらびます.  話題をなにもえらばなければ, リストに届くすべての投稿を受け取ることになります.</p>
+</li>
+</ol>
+<p><a class="reference internal" href="#sec-notopic"><em>話題に 入っていない メッセージを 受け取らない ようにするには</em></a> 節 も見るとよいでしょう. ここでは,  話題に入っていないメッセージのための設定について説明しています.</p>
+</div>
+<div class="section" id="sec-notopic">
+<span id="id32"></span><h3>話題に 入っていない メッセージを 受け取らない ようにするには<a class="headerlink" href="#sec-notopic" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>あらかじめ設定してある話題のパターンのどれにも一致しないメッセージもあるでしょう.  このような一致しないメッセージを受け取るか, 無視するかをえらべます.
+リストに届くメッセージすべてがほしいのなら,  どの話題も購読しないようにしてください (<a class="reference internal" href="#sec-sometopic"><em>リストの 全ての 話題を 購読したり,  一部の 話題だけを 購読したりするには</em></a> 節 を見てください).</p>
+<p>一部の話題だけを購読しているのなら,  どの話題にも入っていないメッセージを受け取るか受け取らないかを選べますし,  ごく一部の話題だけを購読することもできます.
+設定を変えるには,</p>
+<ol class="arabic">
+<li><p class="first">あなたの会員オプションページにログインします (どうしたらよいかは <a class="reference internal" href="#sec-web"><em>Web インタフェース</em></a> 節を見てください).</p>
+</li>
+<li><p class="first">「どの話題にも一致しないメッセージを購読しますか?」 というセクションを探します.</p>
+<p>話題に入っていないメッセージを受け取りたいのなら「はい」を選びます.  話題に入っていないメッセージを受け取りたくないのなら「いいえ」を選びます.</p>
+</li>
+</ol>
+<p>なんの話題も購読していないのなら, この設定は効きません.</p>
+</div>
+</div>
+<div class="section" id="id33">
+<h2>そのほかのオプション<a class="headerlink" href="#id33" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="sec-global">
+<span id="id34"></span><h3>「全部変更」や「全部設定」の意味<a class="headerlink" href="#sec-global" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>会員オプションページにあるいくつかのオプションには,  「全部変更」や「全部設定」というチェックボックスがあります.
+これは, オプションを変更したときに, 同じアドレスで登録している 同じドメインのほかのリストについてもすべて変更するようにする,  という意味です.
+これは, つぎのようなときに便利です: たとえば, パスワードを全部同じにしたいとき.  またたとえば, 休暇に入るのですべてのリストのメール配送を
+停止しておきたいとき.</p>
+</div>
+<div class="section" id="sec-changename">
+<span id="id35"></span><h3>Mailman に登録してある名前を変えるには<a class="headerlink" href="#sec-changename" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>登録してある名前を変えるには,</p>
+<ol class="arabic simple">
+<li>あなたの会員オプションページにログインします (どうしたらよいかは <a class="reference internal" href="#sec-web"><em>Web インタフェース</em></a> 節を見てください).</li>
+<li>「LISTNAME 会員アドレスの変更」というセクションで,  あなたの新しい名前を入力します.</li>
+</ol>
+<p>おなじドメインの複数のリストに登録しているのなら,  いちどにすべてのリストの設定を変えることもできます.
+「全部変更」についてくわしくは, <a class="reference internal" href="#sec-global"><em>「全部変更」や「全部設定」の意味</em></a> 節を見てください.</p>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">会員の名前は, かならず設定しなければならないわけではありません.</p>
+</div>
+</div>
+<div class="section" id="id36">
+<h3>使う言語を変えるには<a class="headerlink" href="#id36" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Mailman は多言語対応です.  つまり, インタフェースはさまざまな言語に翻訳されています.  リストの管理者は, Mailman の操作にいろいろな言語を
+使えるようにできます (言語の完全な一覧は <a class="reference external" href="http://mailman.sourceforge.net/i18n.html">http://mailman.sourceforge.net/i18n.html</a> を見てください).
+リストでほかの言語が使えるようになっていれば,  あなたは Web インタフェースなどを自分の選んだ言語で使えます.</p>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">リストへの投稿がぜんぶあなたの選んだ言語になる,  ということではありません.  あらかじめ用意してある Mailman の文章が変わるだけです.
+投稿は, それぞれの投稿者が使っている言語のままです.</p>
+</div>
+<p>使う言語は, あなたが入会 (<a class="reference internal" href="#sec-subscribe"><em>リストに入るには (入会)</em></a> 節を見てください) したときに設定してありますが, リストが複数の言語に対応していれば,
+あとで変えることができます.</p>
+<p>Mailman で使う言語を変えるには,</p>
+<ol class="arabic simple">
+<li>あなたの会員オプションページにログインします (どうしたらよいかは <a class="reference internal" href="#sec-web"><em>Web インタフェース</em></a> 節を見てください).</li>
+<li>「どの言語を使いますか?」というセクションへ行き,  ドロップダウンリストで好きな言語を選択します.  言語のドロップダウンリストがないときは,
+あなたの入っているリストはたったひとつの言語にしか 対応していないということです.</li>
+</ol>
+<p>リストがあなたの使いたい言語に対応していないときは,  リスト管理者 (<a class="reference external" href="mailto:LISTNAME-owner&#37;&#52;&#48;DOMAIN">LISTNAME-owner<span>&#64;</span>DOMAIN</a>) に連絡をとって,
+その言語を追加してもらうよう頼むこともできます.  ただし, 覚えておいていただきたいのですが, これにはすこし
+作業が必要になるので, リスト管理者やサイト管理者のほうで 作業をできるだけの時間がとれないこともありえます  <a class="footnote-reference" href="#id50" id="id37">[3]</a>.</p>
+<p>あなたの言語が Mailman に翻訳がないために使えない, ということがあれば,  あなたの時間を翻訳のために使うことも考えていただけると,  ありがたいです.
+詳しい情報は, <a class="reference external" href="http://mail.python.org/mailman/listinfo/mailman-i18n">http://mail.python.org/mailman/listinfo/mailman-i18n</a> の mailman-i18n
+メーリングリストで得られます.  最新の国際化作業の状況は <a class="reference external" href="http://www.list.org/i18n.html">http://www.list.org/i18n.html</a> でわかります.</p>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">i18n というのは, 「国際化」(internationalization) の略号としてよく使われます.  最初の i と最後の n の間に 18
+文字あるので, こう書きます.  発音もなんとなく「internationalization」に似ていますし.</p>
+</div>
+</div>
+<div class="section" id="sec-nolist">
+<span id="id38"></span><h3>会員名簿 に 名前を出さない ようにするには (隠れオプション)<a class="headerlink" href="#sec-nolist" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>なんらかの理由で会員名簿に自分の電子メールアドレスを出したくないのなら,  隠すこともできます.</p>
+<p>おもな理由のひとつに, 受信者の承諾を得ずに大量に送られる電子メール (スパム) の防止があります.
+初期状態では, 会員名簿のアドレスは, スパム送信先アドレス収集ソフトウェア から隠すためにぼやかしてあります.
+これでは不十分だと思うのなら, 案内ページや電子メールコマンドで 取得できる会員名簿からあなたのアドレスを消してしまうのが簡単です  <a class="footnote-reference" href="#id51" id="id39">[4]</a>
+(なお, このようにしても, リスト管理者はあなたのアドレスを見ることができます).  スパムに対して Mailman ではどんな対策ができるかについてくわしくは,
+<a class="reference internal" href="#sec-antispam"><em>受信者の承諾を得ずに 大量に送られる電子メール (スパム) に対して,  Mailman ではどんな対策ができますか</em></a> 節を見るとよいでしょう.</p>
+<p>この設定を Web インタフェースで変えるには:</p>
+<ol class="arabic simple">
+<li>あなたの会員オプションページにログインします (どうしたらよいかは <a class="reference internal" href="#sec-web"><em>Web インタフェース</em></a> 節を見てください).</li>
+<li>会員リストでアドレスを非表示にしますか?」 というセクションへ行きます.  名簿に名前を載せないときは「はい」,  載せるときは「いいえ」を選びます.</li>
+</ol>
+<p>この設定を電子メールインタフェースで変えるには:</p>
+<ol class="arabic">
+<li><p class="first"><a class="reference external" href="mailto:LISTNAME-request&#37;&#52;&#48;DOMAIN">LISTNAME-request<span>&#64;</span>DOMAIN</a> に <em>set hide on</em> または <em>set hide off</em>
+というコマンドを書いたメールを送ります.</p>
+<p>コマンドは, メッセージの本文とサブジェクト (件名) のどちらにでも書けます (メールコマンドの送りかたについてくわしくは,  <a class="reference internal" href="#sec-email"><em>電子メールインタフェース</em></a>
+節を見てください).</p>
+</li>
+<li><p class="first">あなたの電子メールアドレスを会員名簿で隠すのなら「on」,  隠すのをやめるのなら「off」にします.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="id40">
+<h2>よくある質問<a class="headerlink" href="#id40" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="id41">
+<h3>リストの保存書庫を見るには<a class="headerlink" href="#id41" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>リストで投稿を保存するようになっていれば, 保存書庫の Web ページへ行って 以前に投稿されたメッセージを見ることができます.
+このページはふつうはリスト案内ページからリンクされていますし,  リストのそれぞれのメッセージの <em class="mailheader">List-Archive</em> ヘッダに
+URL が表示してあります (リスト管理者がこういったヘッダをつけないようにしていなければ).  ただ, 多くのメールソフトでは
+<em class="mailheader">List-Archive</em> ヘッダを隠してしまうので, こういったヘッダを見るには, まず, すべてのヘッダを
+表示しておくようにメールソフトを設定しなければならないかもしれません.</p>
+<p>公開になっている保存書庫は, ふつう <a class="reference external" href="http://WEBSERVER/pipermail/LISTNAME/">http://WEBSERVER/pipermail/LISTNAME/</a> という形の URL で,
+公開が限定になっている保存書庫は, ふつう <a class="reference external" href="http://WEBSERVER/mailman/private/LISTNAME">http://WEBSERVER/mailman/private/LISTNAME</a> という形の URL
+になります.</p>
+<p>リストの Web ページの探しかたについてくわしくは,  <a class="reference internal" href="#sec-web"><em>Web インタフェース</em></a> 節を見てください.</p>
+</div>
+<div class="section" id="sec-antispam">
+<span id="id44"></span><h3>受信者の承諾を得ずに 大量に送られる電子メール (スパム) に対して,  Mailman ではどんな対策ができますか<a class="headerlink" href="#sec-antispam" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>たとえば, 技術的な話題のメーリングリストの保存書庫には,  ある分野のさまざまな質問についての答えが保存してあるでしょう.  答えを投稿した人たちは,
+答えを探しているひとの助けになるようにと思ってそうしたので,  自分のアドレスがまったく別の目的に使われることなど望んではいないでしょう.
+みんなが簡単に連絡をとりあえるのは素晴らしいことですが, いっぼうで,  リストやリストの保存書庫が スパム <a class="footnote-reference" href="#id52" id="id45">[5]</a>
+を送る人たちに悪用されないようにもなっていてほしいものです.</p>
+<p>リスト管理者の取り得る選択肢として, Mailman では電子メールアドレスを 保護するためのさまざまな設定ができるようになっています.
+これらの多くの設定は, リスト管理者がどう設定するか選べるので,  リストごとに設定のしかたはさまざまです.
+リスト管理者は, 会員を保護するとともにいろんな人に入手されないように するため, 最良の設定をしているはずです.</p>
+<ul>
+<li><p class="first">会員名簿</p>
+</li>
+<li><p class="first">リスト管理者は, 会員名簿を公開するか,  リスト会員だけが見られるようにするか,  リスト管理者だけが見ることができるかを選択できます.</p>
+</li>
+<li><p class="first">会員名簿のアドレスはぼやかしてあって,  スパム送信先アドレス収集ソフトウェアが アドレスを収集することが難しくなっています.</p>
+</li>
+<li><p class="first">あなたは 自分のアドレスを会員名簿で隠すことができます (くわしくは <a class="reference internal" href="#sec-nolist"><em>会員名簿 に 名前を出さない ようにするには (隠れオプション)</em></a> 節を見てください).</p>
+</li>
+<li><div class="first admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">リスト管理者は,  いつでも全会員の名簿を見ることができます.</p>
+</div>
+</li>
+<li><p class="first">リストの保存書庫</p>
+</li>
+<li><p class="first">リスト管理者は, 保存書庫を公開するか,  リスト会員だけが見られるようにする (限定) か,  まったく作らないかを選択できます.</p>
+</li>
+<li><dl class="first docutils">
+<dt>Pipermail (Mailman に標準で含まれている 保存書庫作成プログラム)  で作成される HTML 保存書庫では,</dt>
+<dd><p class="first last">アドレスはぼやかしてあります.  ほかの保存書庫作成プログラムでも,  アドレスを読み取りにくくするいろいろなレベルの ぼやかし機能を持っています.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>メールに「 <em class="mailheader">X-No-Archive</em> yes 」 ヘッダをつけて送ると, Mailman はその投稿を 保存書庫に入れません. 同様に,</dt>
+<dd><p class="first">「 <em class="mailheader">X-Archive</em> no 」ヘッダをつけて送っても 保存書庫に入れません.</p>
+<div class="last admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">ほかの会員があなたの投稿を (場合によってはあなたの電子メールアドレスも含めて) 引用することを停められるわけではありません.</p>
+</div>
+</dd>
+</dl>
+</li>
+<li><p class="first">リストへの投稿の制限</p>
+</li>
+<li><dl class="first docutils">
+<dt>リスト管理者は,  だれがリストに投稿できるかを決めることができます.  たいていのリストは, 司会つき (司会者や管理者がいちいち投稿をチェックする)</dt>
+<dd><p class="first last">か, 会員のみが投稿できるか,  だれでも投稿できるか, のいずれかです.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>会員のみが投稿できるようにすると,  Mailman はほぼすべてのスパムと 一部のコンピュータウィルスを遮断して,  リストを通じて送られないようにします.</dt>
+<dd><p class="first last">そういうわけで,  この設定はリスト管理者がよく好んで使います.</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">匿名リスト</p>
+</li>
+<li><p class="first">リストを完全に匿名にすることもできます.  つまり, メッセージを送る前に ヘッダにある送信者を特定するような情報をすべて 消すようにできます.</p>
+</li>
+<li><p class="first">これは本来, スパム防止のための機能ではありません (ほかの用途があります) が,  使いたければこのようにも使えます.</p>
+</li>
+</ul>
+<p>もちろん, 以上のような多くのアドレスぼやかし法は,  気づいた人たちには出し抜かれてしまうので,  保護が完璧なものとは言えないことは知っておいてください.</p>
+</div>
+</div>
+<div class="section" id="a-commands">
+<span id="id46"></span><h2>電子メールコマンド クイックリファレンス<a class="headerlink" href="#a-commands" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<ul>
+<li><p class="first">confirm &lt;確認文字列&gt;</p>
+</li>
+<li><p class="first">実行を確認します. 確認文字列は必須で, 確認要求のメールに 書かれていなければなりません.</p>
+</li>
+<li><p class="first">end</p>
+</li>
+<li><p class="first">コマンド処理を停止します. メールソフトが自動的に 署名を追加するのなら, これを使ってください.</p>
+</li>
+<li><p class="first">help</p>
+</li>
+<li><p class="first">このヘルプメッセージを要求します.</p>
+</li>
+<li><p class="first">info</p>
+</li>
+<li><p class="first">このメーリングリストについての案内を取り出します.</p>
+</li>
+<li><p class="first">lists</p>
+</li>
+<li><p class="first">この GNU Mailman サーバの公開メーリングリストの一覧を見る.</p>
+</li>
+<li><p class="first">password [&lt;旧パスワード&gt; &lt;新パスワード&gt;]
+[address=&lt;アドレス&gt;]</p>
+</li>
+<li><dl class="first docutils">
+<dt>パスワードを取り出したり変更します. 引数がなければ, この コマンドで現在のパスワードが取り出せます.</dt>
+<dd><p class="first last">&lt;旧パスワード&gt;と&lt;新パスワード&gt;の引数があるときには, パスワードを変更します.
+会員登録されたアドレス以外からメールを送っている場合は, &#8216;address=&lt;アドレス&gt;&#8217; (かぎ括弧や引用符は付けないで) で
+登録アドレスを指定してください. この場合, 返信は登録された アドレスに宛てられることに注意してください.</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">set ...</p>
+</li>
+<li><p class="first">会員オプションを設定したり, 確認したりします.</p>
+<blockquote>
+<div><p>&#8216;set help&#8217; (引用符は付けない) で変更可能なオプションの一覧を 見ることができます.</p>
+<p>&#8216;set show&#8217; (引用符は付けない) で現在のオプションを見ることが できます.</p>
+</div></blockquote>
+</li>
+<li><p class="first">subscribe [&lt;パスワード&gt;] [digest|nodigest]
+[address=&lt;アドレス&gt;]</p>
+</li>
+<li><dl class="first docutils">
+<dt>このメーリングリストに入会する. パスワードは退会やオプションの 変更に必要ですが, もし省略した場合には自動的に生成されます.</dt>
+<dd><p class="first">パスワードは忘れないように定期的に通知します.</p>
+<p class="last">次の引数は &#8216;nondigest&#8217; または &#8216;digest&#8217; (引用符なしで!). メールを発信したのとは違うアドレスを会員にしたいので あれば,
+&#8216;address=&lt;アドレス&gt;&#8217; の形式で指定できます. (カッコや引用符は付けないこと!)</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">unsubscribe [&lt;パスワード&gt;] [address=&lt;アドレス&gt;]</p>
+</li>
+<li><dl class="first docutils">
+<dt>メーリングリストから退会します. もしパスワードを付ける場合, 登録されたパスワードに一致しないといけません. パス ワードを省略した場合には,</dt>
+<dd><p class="first last">退会しようとするアドレスに宛てて 確認メッセージを発送します. 退会しようとするアドレス以外 から申請メールを出すのであれば,
+&#8216;address=&lt;アドレス&gt;&#8217; を 指定してください. (このメールアドレスには &lt; &gt; や &#8221;
+を付けな いでください!)</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">who [&lt;パスワード&gt;] [address=&lt;アドレス&gt;]</p>
+</li>
+<li><dl class="first docutils">
+<dt>このメーリングリストの会員名簿を見る. 名簿閲覧はリスト会員に制限 されている場合は, 見るには会員パスワードが必要です. 登録</dt>
+<dd><p class="first">アドレス以外からメールを出すのなら &#8216;address=&lt;アドレス&gt;&#8217; で会員 アドレスを指定してください.
+(このメールアドレスには &lt; &gt; や &#8221; を 付けないでください!)</p>
+<p class="last">名簿閲覧は管理者のみに制限されている場合は, リスト管理者と 司会者しか見ることができません. リスト管理者のパスワードか
+または司会者のパスワードを付けてください.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="a-options">
+<span id="id47"></span><h2>会員オプションコマンド クイックリファレンス<a class="headerlink" href="#a-options" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<ul>
+<li><p class="first">set help</p>
+</li>
+<li><p class="first">この詳しい説明を取り出す.</p>
+</li>
+<li><p class="first">set show [address=&lt;アドレス&gt;]</p>
+</li>
+<li><dl class="first docutils">
+<dt>現在のオプション設定を見る. あなたが会員登録アドレス以外 からメールを出している場合には, 登録アドレスを</dt>
+<dd><p class="first last">&#8216;address=&lt;アドレス&gt;&#8217; の形式で指定してください. (括弧や引用符を メールアドレスに付けないように)</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">set authenticate &lt;パスワード&gt; [address=&lt;アドレス&gt;]</p>
+</li>
+<li><dl class="first docutils">
+<dt>オプションを設定する時には, まずこのコマンドを入れておく必要が あります. &lt;パスワード&gt;はあなたの会員パスワードです.</dt>
+<dd><p class="first last">会員として 登録したアドレス以外からメールを出している場合には, 登録アドレス を &#8216;address=&lt;アドレス&gt;&#8217;
+の形式で指定してください. (括弧や引用符 を付けないように)</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">set ack on &#8212;  set ack off</p>
+</li>
+<li><p class="first">&#8216;ack&#8217; オプションを on にすると, あなたがリストにメールを出す 度に, 受領確認メッセージを受け取るようになります.</p>
+</li>
+<li><p class="first">set digest plain &#8212;  set digest mime &#8212;  set digest off</p>
+</li>
+<li><dl class="first docutils">
+<dt>&#8216;digest&#8217; オプションがオフのときは, 投稿されたメッセージをすぐに受け取り ます. 何通かあるいは一定期間, 投稿をまとめて読みたいとき,</dt>
+<dd><p class="first last">これを平文形式 (RFC 1153 ダイジェスト) で受け取りたい場合には &#8216;set digest plain&#8217; を使ってください. MIME形式のまとめ読みを
+受け取りたい場合には &#8216;set digest mime&#8217; にしてください.</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">set delivery on &#8212;  set delivery off</p>
+</li>
+<li><dl class="first docutils">
+<dt>配送を on/off します. これは, 退会するのとは違って, 暫くの間 Mailman がメール配送を止めるようにするだけです. これは, あなたが</dt>
+<dd><p class="first last">休暇をとるときなどに便利でしょう. 休暇から帰ったら, &#8216;set delivery on&#8217; にするのを忘れないように!</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">set myposts on &#8212;  set myposts off</p>
+</li>
+<li><dl class="first docutils">
+<dt>&#8216;set myposts off&#8217; を使うとあなたがこのリストに投稿したメッセージ と同じものは受け取らないようになります. まとめ読みをして</dt>
+<dd><p class="first last">いる場合には無効です.</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">set hide on &#8212;  set hide off</p>
+</li>
+<li><p class="first">&#8216;set hide on&#8217; を使うとあなたのメールアドレスが会員名簿には 出ないようになります.</p>
+</li>
+<li><p class="first">set duplicates on &#8212;  set duplicates off</p>
+</li>
+<li><dl class="first docutils">
+<dt>&#8216;set duplicates off&#8217; にすると, もしあなたのアドレスが明示的に To: または Cc: にあったら, Mailman</dt>
+<dd><p class="first last">からはあなたにメッセージを送ら ようにします. そうすることによってあなたが重複して受け取る 投稿を減らすことができます.</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">set reminders on &#8212;  set reminders off</p>
+</li>
+<li><p class="first">&#8216;set reminders off&#8217; にすることで, このリストの毎月のパスワード 通知を受け取らないようにできます.</p>
+</li>
+</ul>
+<p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="id48" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id28">[1]</a></td><td><p class="first">[訳注] Mailman 2.1.6 の時点では,  話題の機能は日本語のメッセージに対してはうまく働きません.</p>
+<p class="last">[Note] Mailman 2.1.14+j5 (以降の +j バージョン) では, 日本語に対しても話題機能が働くように改善されています.</p>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id49" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id30">[2]</a></td><td>[訳注] 日本語対応の Web
+ブラウザには,  バックスラッシュ (\) を半角の円記号 で表示するものもあります. なお, 全角の円記号 (￥)
+はこれとは別の文字です.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id50" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id37">[3]</a></td><td>[訳注] リスト管理者は, その言語で案内ページや 歓迎メッセージの内容などを用意しなければなりません.  また, Mailman
+にその言語のための翻訳データが組み込まれていないときは,  サイト管理者は Mailman に翻訳データを追加しなければなりません.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id51" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id39">[4]</a></td><td>[訳注] 会員名簿を会員や管理者以外に公開していないメーリングリストで,  他の会員が十分信用できるのなら,
+スパム防止のために会員名簿からアドレスを消す必要はないです.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id52" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id45">[5]</a></td><td><p class="first">[訳注] なにをスパム (spam)  と呼ぶかは人によって多少違いがあるようですが,  最大公約数的な定義としては,  「受信者の承諾を得ずに,
+自動的に大量の宛先に送りつけられる電子メールメッセージ」 ということになると思います.</p>
+<p class="last">なお, 本文で説明している対策のうち, 投稿の制限などは,  スパムでないいろいろな投稿を禁止するのにも使えます.</p>
+</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="総合索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="releases.html" title="リリース情報"
+             >次へ</a> |</li>
+        <li class="right" >
+          <a href="listadmin.html" title="リスト管理の手引"
+             >前へ</a> |</li>
+        <li><a href="index.html">Mailman日本語情報</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Tokio Kikuchi.
+      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7 で生成しました。
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1308 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>サイト管理の手引 &mdash; Mailman日本語情報</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="shortcut icon" href="_static/mailman.ico"/>
+    <link rel="top" title="Mailman日本語情報" href="index.html" />
+    <link rel="next" title="リスト管理の手引" href="listadmin.html" />
+    <link rel="prev" title="GNU Mailman - インストールマニュアル" href="mailmaninstall.html" /> 
+  <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-34175846-1', 'python.jp');
+        ga('send', 'pageview');
+
+      </script>
+  <body>
+
+
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="listadmin.html" title="リスト管理の手引"
+             accesskey="N">次へ</a> |</li>
+        <li class="right" >
+          <a href="mailmaninstall.html" title="GNU Mailman - インストールマニュアル"
+             accesskey="P">前へ</a> |</li>
+        <li><a href="index.html">Mailman日本語情報</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/mailman.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">サイト管理の手引</a><ul>
+<li><a class="reference internal" href="#id2">はじめに</a></li>
+<li><a class="reference internal" href="#id3">コマンドラインツール</a><ul>
+<li><a class="reference internal" href="#add-members">add_members</a></li>
+<li><a class="reference internal" href="#arch">arch</a></li>
+<li><a class="reference internal" href="#check-db">check_db</a></li>
+<li><a class="reference internal" href="#check-perms">check_perms</a></li>
+<li><a class="reference internal" href="#config-list">config_list</a></li>
+<li><a class="reference internal" href="#discard">discard</a></li>
+<li><a class="reference internal" href="#dumpdb">dumpdb</a></li>
+<li><a class="reference internal" href="#find-member">find_member</a></li>
+<li><a class="reference internal" href="#fix-url-py">fix_url.py</a></li>
+<li><a class="reference internal" href="#genaliases">genaliases</a></li>
+<li><a class="reference internal" href="#list-admins">list_admins</a></li>
+<li><a class="reference internal" href="#list-lists">list_lists</a></li>
+<li><a class="reference internal" href="#list-members">list_members</a></li>
+<li><a class="reference internal" href="#list-owners">list_owners</a></li>
+<li><a class="reference internal" href="#mailmanctl">mailmanctl</a></li>
+<li><a class="reference internal" href="#mmsitepass">mmsitepass</a></li>
+<li><a class="reference internal" href="#newlist">newlist</a></li>
+<li><a class="reference internal" href="#remove-members">remove_members</a></li>
+<li><a class="reference internal" href="#rmlist">rmlist</a></li>
+<li><a class="reference internal" href="#show-qfiles">show_qfiles</a></li>
+<li><a class="reference internal" href="#sync-members">sync_members</a></li>
+<li><a class="reference internal" href="#unshunt">unshunt</a></li>
+<li><a class="reference internal" href="#update">update</a></li>
+<li><a class="reference internal" href="#version">version</a></li>
+<li><a class="reference internal" href="#withlist">withlist</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4">サイトデフォルト設定ファイル</a><ul>
+<li><a class="reference internal" href="#id5">デフォルトのホスト名</a></li>
+<li><a class="reference internal" href="#id6">サイトクッキー</a></li>
+<li><a class="reference internal" href="#id7">仮想ドメイン</a></li>
+<li><a class="reference internal" href="#id8">スパム防止</a></li>
+<li><a class="reference internal" href="#id9">保存書庫の既定値</a></li>
+<li><a class="reference internal" href="#id10">メール配送に関する既定値</a></li>
+<li><a class="reference internal" href="#id11">パイプライン</a></li>
+<li><a class="reference internal" href="#verp">VERP</a></li>
+<li><a class="reference internal" href="#id12">自動応答の回数上限</a></li>
+<li><a class="reference internal" href="#id13">バックスキャッタ予防</a></li>
+<li><a class="reference internal" href="#qrunners">Qrunners</a></li>
+<li><a class="reference internal" href="#id14">一般的な既定値</a></li>
+<li><a class="reference internal" href="#id15">リスト作成時の既定値</a></li>
+<li><a class="reference internal" href="#id16">まとめ読みの既定値</a></li>
+<li><a class="reference internal" href="#id17">配送エラー処理の既定値</a></li>
+<li><a class="reference internal" href="#id18">時間制限</a></li>
+<li><a class="reference internal" href="#id19">データベースロックの管理</a></li>
+<li><a class="reference internal" href="#id20">その他</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mailman">Mailman のサイト日報を受け取るには</a></li>
+<li><a class="reference internal" href="#id21">機種依存文字を含むメールが配送されない問題</a><ul>
+<li><a class="reference internal" href="#id22">日本語対応 mailman に入れ替える</a></li>
+<li><a class="reference internal" href="#id23">機種依存文字を全て &#8216;?&#8217; に変えてしまう。</a></li>
+<li><a class="reference internal" href="#id24">機種依存文字を適当と思われる文字（列）に置き換える。</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="mailmaninstall.html"
+                        title="前の章へ">GNU Mailman - インストールマニュアル</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="listadmin.html"
+                        title="次の章へ">リスト管理の手引</a></p>
+  <h3>このページ</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/siteadmin.txt"
+           rel="nofollow">ソースコードを表示</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>クイック検索</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="検索" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    モジュール、クラス、または関数名を入力してください
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>サイト管理の手引<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>サイト管理者にできること、サイトの日常的業務などについて簡単に解説します。</p>
+<div class="section" id="id2">
+<h2>はじめに<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>サイト管理者はそのサーバマシンで運用する全てのメーリングリストの管理を監督する立場にあります。新しくメーリングリストを作成したり、複数のリス
+トにわたる問題の解決にあたったりします。</p>
+<p>Mailman のサイト管理は他のメーリングリスト管理システムに比べると簡単です。しかし、Webインタフェースではなく、シェルログインした状
+態でコマンドを実行するということになりますので、unix システムの経験や windows でもコマンドツールを使った経験が必須となります。</p>
+<p>ここでは、
+<a class="reference external" href="http://www.list.org/site.html">Site Administrator Documentation</a> や
+<a class="reference external" href="http://wiki.list.org/display/DOC/Frequently+Asked+Questions">Mailman FAQ</a> の
+<a class="reference external" href="http://wiki.list.org/display/DOC/4+Site+administrator+tasks">Site Administrator Tasks</a>
+の中から重要なものを取り出して解説します。</p>
+</div>
+<div class="section" id="id3">
+<h2>コマンドラインツール<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Mailman のサイト管理に使用するコマンドは Python スクリプトで書かれていて、&lt;prefix&gt;/bin
+に入っています。実行にはリストのデータベースの変更権限が必要なので、sudo 又は sudo -u mailman
+を付けて実行する必要があるかもしれません。</p>
+<p>以下の実行例では bash のコマンドプロンプト $ の後に書いてある文字列をキーボードから入力して、Return (Enter)
+キーを押すことで実行ができます。($ を入力する必要はありません)</p>
+<p>コマンドラインツールのヘルプは、&lt;command&gt; &#8211;help で読む事ができます。ヘルプの日本語訳を読むには、端末の日本語表示を
+EUC-JP に設定し、環境変数 LANG を日本語 (EUC) にする必要があります。環境変数の変更は、Linux でよく使われている
+bash の場合、</p>
+<div class="highlight-python"><pre>$ export LANG=ja_JP.EUC-JP</pre>
+</div>
+<p>となります。</p>
+<p>詳しいことはヘルプを参照していただくことにして、ここでは有用なコマンドの名前とその機能を簡単に列挙することにします。</p>
+<div class="section" id="add-members">
+<h3>add_members<a class="headerlink" href="#add-members" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li>コマンドラインから会員を登録します。登録する会員は基本的にファイルに準備しておきますが、標準入力を指定する事もできます。</li>
+</ul>
+</div>
+<div class="section" id="arch">
+<h3>arch<a class="headerlink" href="#arch" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li>メーリングリストの保存書庫を再構築します。保存書庫内のメールを編集したり削除したときに、このコマンドを実行するとよいでしょう。保存書庫は
+mbox 形式で保存されたメールから作成していますので、編集や削除は mbox
+ファイルに対して行い、その後、このコマンドを使用します。詳しくは別項目で。</li>
+</ul>
+</div>
+<div class="section" id="check-db">
+<h3>check_db<a class="headerlink" href="#check-db" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li>リストの設定データベースをチェックします。</li>
+</ul>
+</div>
+<div class="section" id="check-perms">
+<h3>check_perms<a class="headerlink" href="#check-perms" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li>Mailman インストールのためのパーミッションをチェックします。</li>
+</ul>
+</div>
+<div class="section" id="config-list">
+<h3>config_list<a class="headerlink" href="#config-list" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li>テキストファイルの記述からリストの設定を行います。このコマンドは設定をファイルに書き出すこともできますので、あるリストをひな形にして別の
+リストを設定することができます。</li>
+</ul>
+</div>
+<div class="section" id="discard">
+<h3>discard<a class="headerlink" href="#discard" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li>保留されているメールを破棄します。メールの指定は &lt;prefix&gt;/data ディレクトリに入っている
+heldmsg-&lt;listname&gt;-99999.pck のような名前のファイルを指定します。以前のバージョンでは自動廃棄の設定が無かったの
+でこれが必要でしたが、現在はリスト毎に保存期間を設定して期間終 了すれば自動的に廃棄できますので、そちらを使う方がよいでしょう。</li>
+</ul>
+</div>
+<div class="section" id="dumpdb">
+<h3>dumpdb<a class="headerlink" href="#dumpdb" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li>Mailman のデータベースファイルの内容を表示します。データベースは普通 .pck の拡張子を持っています。</li>
+</ul>
+</div>
+<div class="section" id="find-member">
+<h3>find_member<a class="headerlink" href="#find-member" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li>会員が所属するリストを検索します。検索の鍵は正規表現で与えますので、ユーザのメールアドレスの一部が分かれば検索にヒットします。</li>
+</ul>
+</div>
+<div class="section" id="fix-url-py">
+<h3>fix_url.py<a class="headerlink" href="#fix-url-py" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li>リストの仮想ホストの組み合わせ（ウェブサーバとメールサーバ）を修正します。withlist を使って実行します。</li>
+</ul>
+</div>
+<div class="section" id="genaliases">
+<h3>genaliases<a class="headerlink" href="#genaliases" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li>Mailman の aliases を再生成します。Postfix と連携させている場合には &lt;prefix&gt;/data
+ディレクトリにある aliases ファイルを作成し、postalias コマンドで aliases.db
+を再構築します。連携が無い場合、/etc/aliases に記入すべき項目が出力されます。</li>
+</ul>
+</div>
+<div class="section" id="list-admins">
+<h3>list_admins<a class="headerlink" href="#list-admins" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li>メーリングリストの管理者を表示します。</li>
+</ul>
+</div>
+<div class="section" id="list-lists">
+<h3>list_lists<a class="headerlink" href="#list-lists" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li>全てのメーリングリストを表示します。</li>
+</ul>
+</div>
+<div class="section" id="list-members">
+<h3>list_members<a class="headerlink" href="#list-members" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li>メーリングリストの会員リストを表示します。</li>
+</ul>
+</div>
+<div class="section" id="list-owners">
+<h3>list_owners<a class="headerlink" href="#list-owners" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li>メーリングリストの所有者（管理者）を表示します。list_admins と重なっていますが、機能、表示形式が若干異なります。</li>
+</ul>
+</div>
+<div class="section" id="mailmanctl">
+<h3>mailmanctl<a class="headerlink" href="#mailmanctl" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li>Mailman の qrunner デーモンをスタート/停止します。また、ログファイルの回転をした後の処理にも使われます。</li>
+</ul>
+</div>
+<div class="section" id="mmsitepass">
+<h3>mmsitepass<a class="headerlink" href="#mmsitepass" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li>サイトのマスターパスワードを作成／変更します。また、リスト作成だけのパスワードを設定する事もできます。マスターパスワードを使うと、どのリ
+ストの管理もできるようになりますので、サイト管理者がリスト管理を肩代わりしなければならないときに使うと便利です。</li>
+</ul>
+</div>
+<div class="section" id="newlist">
+<h3>newlist<a class="headerlink" href="#newlist" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li>コマンドラインから新規にメーリングリストを作成します。</li>
+</ul>
+</div>
+<div class="section" id="remove-members">
+<h3>remove_members<a class="headerlink" href="#remove-members" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li>メーリングリストから会員を削除します。add_members
+同様、削除するメールアドレスはファイルに準備する事が基本です。サイトで管理している全てのメーリングリストから会員を削除する機能もあります。</li>
+</ul>
+</div>
+<div class="section" id="rmlist">
+<h3>rmlist<a class="headerlink" href="#rmlist" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li>メーリングリストを削除します。デフォルトでは、保存書庫を削除しませんが、削除することもできます。</li>
+</ul>
+</div>
+<div class="section" id="show-qfiles">
+<h3>show_qfiles<a class="headerlink" href="#show-qfiles" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li>Mailman の &lt;prefix&gt;/qfiles
+に入っているファイルを表示します。（順調に動いている時は、これで見える確率は非常に低いはずです。）</li>
+</ul>
+</div>
+<div class="section" id="sync-members">
+<h3>sync_members<a class="headerlink" href="#sync-members" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li>メーリングリストの会員を平文のテキスト形式で書かれたファイルに同期させます。会員リストを他のデータベースなどで管理しているときに使うと便
+利です。</li>
+</ul>
+</div>
+<div class="section" id="unshunt">
+<h3>unshunt<a class="headerlink" href="#unshunt" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li>&lt;prefix&gt;/qfiles/shunt には、qrunner
+が処理中にエラーを発生させて処理できなかったメールが保存されます。unshunt
+はそのメールを取り出して、元の処理を継続させます。しかし、エラーの原因が解決されないと、またエラーになるだけなので、unshunt
+する前にエラーの原因を調べて問題を解決しなければなりません。shunt に入るメールは spam であることが多いので、その場合単純に rm
+で削除してもよいかもしれません。Mailman のバージョンが古い場合、最新バージョンに更新してから unshunt
+すると解決するかもしれません。</li>
+</ul>
+</div>
+<div class="section" id="update">
+<h3>update<a class="headerlink" href="#update" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li>Mailman のリストデータベースの更新を行います。Mailman
+をバージョンアップしたときに、自動的に実行されますので、手動でこれを実行する必要はありません。</li>
+</ul>
+</div>
+<div class="section" id="version">
+<h3>version<a class="headerlink" href="#version" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li>Mailman のバージョンを表示します。</li>
+</ul>
+</div>
+<div class="section" id="withlist">
+<h3>withlist<a class="headerlink" href="#withlist" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li>Mailman の内部でリストの設定や状態を保持する、MailList
+オブジェクトを操作するためのスクリプトです。使い方としては、fix_url.py
+の例のように、サイト管理者が作成したスクリプトを実行するための環境を提供するものと、Python
+のインタラクティブモードを使って端末からリストデータベースを操作するものとがあります。</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>サイトデフォルト設定ファイル<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>インストールマニュアルで書いてあるようにサイトのデフォルトは Defaults.py というファイルに書いてあり、
+<strong>mm_cfg.py</strong> でそれを上書きします。Mailman 2.1.12 の時点でのDefaults.py
+の日本語訳が配布ソースに入っていますが、ここでは必要度に応じて省略しながら解説します。</p>
+<p>また、ここで設定を推奨している項目を入れた <a class="reference external" href="_static/mm_cfg.py.example.txt">mm_cfg.py の例</a> を置いておきますので参考にしてください。</p>
+<div class="section" id="id5">
+<h3>デフォルトのホスト名<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_EMAIL_HOST</span> <span class="o">=</span> <span class="s">&#39;@MAILHOST@&#39;</span>
+<span class="n">DEFAULT_URL_HOST</span> <span class="o">=</span> <span class="s">&#39;@URLHOST@&#39;</span>
+<span class="n">DEFAULT_URL_PATTERN</span> <span class="o">=</span> <span class="s">&#39;http://</span><span class="si">%s</span><span class="s">/mailman/&#39;</span>
+</pre></div>
+</div>
+<ul>
+<li><p class="first">&#64;MAILHOST&#64; と &#64;URLHOST&#64; は configure
+のときに決まります。システムのホスト名から自動的に出てくるものが正しくないなら、configure
+のオプションで指定できます。mm_cfg.py で上書きする事もできますが、その場合には</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">add_virtualhost</span><span class="p">(</span><span class="n">DEFAULT_URL_HOST</span><span class="p">,</span> <span class="n">DEFAULT_EMAIL_HOST</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>を、（もう一度）書いておかなくてはいけません。また、リスト作成後に変更する場合には <strong>fix_url.py</strong>
+を使って既存のリストにおける設定を修正してください。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h3>サイトクッキー<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ALLOW_SITE_ADMIN_COOKIES</span> <span class="o">=</span> <span class="n">No</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>サイト管理者は ALLOW_SITE_ADMIN_COOKIES が Yes
+になっているとき、複数のリストを管理するのにいちいちパスワードを入れ直す
+必要が無くなります。しかし、強力であるがため、もしこれが（XSS
+などで）漏れたりするとダメージが大きくなります。</li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h3>仮想ドメイン<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Mailman では複数のドメインに対してメーリングリストを作る事ができます。但し、ローカルパート（つまり&#64;の左側）はサイトで一意的になって
+いないといけません。そのように「使えるドメイン」として何があるのかを設定します。ドメイン名はウェブページのホスト名とメールのドメイン名（つま
+り＠の右側）のペアで <strong>VIRTUAL_HOSTS</strong> というディクショナリに入りますが、これは
+<strong>add_virtualhost()</strong> という関数で設定します。</p>
+</div>
+<div class="section" id="id8">
+<h3>スパム防止<a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>SpamDetect.py というモジュールで mailman にやってきたメールをチェックします。このとき、ヘッダ名, 正規表現 のペアで
+<strong>KNOWN_SPAMMERS</strong> に登録しておくと、これにマッチするメールは破棄します。</p>
+</div>
+<div class="section" id="id9">
+<h3>保存書庫の既定値<a class="headerlink" href="#id9" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">DEFAULT</span></tt> で始まる変数はリスト作成時に設定される値である事を示します。
+保存書庫を作るかどうか、そのプライバシーはどうするか、保存書庫を分割して
+巻にする期間はどの程度にするかなどを決めます。これらの既定値の多くは後で
+Web 管理インタフェースから変更できます。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">PUBLIC_ARCHIVE_URL</span> <span class="o">=</span> <span class="s">&#39;http://</span><span class="si">%(hostname)s</span><span class="s">/pipermail/</span><span class="si">%(listname)s</span><span class="s">&#39;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>公開保存書庫の URL パターンです。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_ARCHIVE</span> <span class="o">=</span> <span class="n">On</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>リストの保存書庫を作成するかどうか。既定で保存書庫を作成しない場合は Off です。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_ARCHIVE_PRIVATE</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>保存書庫をプライベートにするかどうか。既定でプライベートにする場合は 1 です。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_ARCHIVE_VOLUME_FREQUENCY</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>保存書庫の 巻 を作成する頻度を決めます。0 は年毎、1 は月毎、2 は四半期毎、3 は週毎、4 は日毎です。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">SCRUBBER_DONT_USE_ATTACHMENT_FILENAME</span> <span class="o">=</span> <span class="bp">True</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>添付ファイルを保管するときにファイル名をどうするかを決めます。
+False にすると、メールに書いてあるファイル名を使おうとしますが、
+多くは日本語でその扱い方が決まっていないため、True のままにして
+attachment(-000) となるようにしておいた方がよいです。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">SCRUBBER_USE_ATTACHMENT_FILENAME_EXTENSION</span> <span class="o">=</span> <span class="bp">False</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>添付ファイルを保存するときに Content-Type から推定できる最適な拡張子を
+使います。これを True にするとファイル名についている拡張子をそのまま
+使います。ウィルス対策が十分にできているサイトであれば True にして
+おいてもよいかもしれません。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ARCHIVE_HTML_SANITIZER</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>保管した HTML ファイルに入っているタグをどうするかを決めます。数字の
+意味は、0 は HTML 部分を保管しない、1 はタグなどをエスケープして
+保管する、2 はメール本文に対応する HTML 部は保管するが、添付ファイルに
+なってる HTML ファイルは保管しない、3 はエスケープせずに保管する、です。
+メールに何か悪さをするような javascript が入っているとタグなどを
+エスケープしていおいた方がよいのですが、スパムやウィルスが流れないよう
+に対策ができていれば、3 にしてそのまま HTML を表示させても大丈夫です。</li>
+</ul>
+</div>
+<div class="section" id="id10">
+<h3>メール配送に関する既定値<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DELIVERY_MODULE</span> <span class="o">=</span> <span class="s">&#39;SMTPDirect&#39;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>ここは、&#8217;SMTPDirect&#8217; か &#8216;Sendmail&#8217; かのどちらかですが、Sendmail は
+メンテナンスされていないのでよほどのことが無い限り使うことは無いで
+しょう。（よほどのことがあるのであれば、その障害を解消する方向での
+努力をお願いします）</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">MTA</span> <span class="o">=</span> <span class="s">&#39;Manual&#39;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>ここは、&#8217;Manual&#8217; か &#8216;Postfix&#8217; かのどちらかです。MTA に Postfix を使って
+いる場合に Postfix と Mailman の連携がうまくとれていれば、これを
+&#8216;Postfix&#8217; にすることができます。そうでない場合には、&#8217;Manual&#8217; にして、
+/etc/aliases ファイルを手動で編集する必要があります。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">POSTFIX_STYLE_VIRTUAL_DOMAINS</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">VIRTUAL_MAILMAN_LOCAL_DOMAIN</span> <span class="o">=</span> <span class="bp">None</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Postfix で仮想ドメインを使っている場合のパラメータです。仮想ドメインが
+Mailman の中だけで、他のメールボックスでは単一ドメインであれば、これを
+使う必要はありません。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">POSTFIX_ALIAS_CMD</span> <span class="o">=</span> <span class="s">&#39;/usr/sbin/postalias&#39;</span>
+<span class="n">POSTFIX_MAP_CMD</span> <span class="o">=</span> <span class="s">&#39;/usr/sbin/postmap&#39;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Postfix で使用するデータベースの更新コマンドです。標準でないところにインストールされている場合にはそのパスを記入します。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">SMTP_MAX_RCPTS</span> <span class="o">=</span> <span class="mi">500</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>SMTP の１回のセッションで何人まで受信者を指定できるかを記入します。制限の無い場合は 0 とします。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">SMTP_MAX_SESSIONS_PER_CONNECTION</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>SMTP の１回のコネクションで何回セッションを開始できるかを記入します。制限が無い場合は 0 です。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">SMTPHOST</span> <span class="o">=</span> <span class="s">&#39;localhost&#39;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>SMTP サーバが動いているホスト名です。localhost が IPv6 アドレスを返すのに
+SMTP サーバが IPv6に対応していない場合、&#8216;127.0.0.1&#8217; に変更しておく必要が
+あるかもしれません。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">SMTPPORT</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>SMTP サーバのポート番号を指定します。ただし、0 は標準の 25 であることを
+示します。MTA でスパム防止やウィルスチェックを入れている場合に、
+Mailman から出て行くメールがスパムやウィルスチェック済みであれば、
+標準でないポートを指定する方が効率がよいかもしれません。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">REMOVE_DKIM_HEADERS</span> <span class="o">=</span> <span class="n">No</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>DKIM ヘッダを付けたままメールを配信すると、Mailman で手を加えているため、
+受信側でスパム判定されてしまうという意見と、付けたままでその値が変わって
+いても価値があるという意見があります。
+現実問題として配送先に届かなければどうしようもないので、Yes にして、取り
+除いておいた方がよいように思われます。</li>
+</ul>
+</div>
+<div class="section" id="id11">
+<h3>パイプライン<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Mailman 内部でのメールの処理（件名にプレフィクスを付けるとか、受信者のリス
+トを作るとか）は Python のモジュールを順に呼び出して行うようになっています。
+この処理モジュールの並びをパイプラインと呼びます。
+GLOBAL_PIPELINE と OWNER_PIPELINE が定義されていますので、後から
+mm_cfg.py で適当な位置にモジュールを追加することができます。</p>
+<p>例えば +j バージョンでは</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">GLOBAL_PIPELINE</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;iso2022jpfix&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>のようにして日本語処理のモジュールを入れるように推奨されています。</p>
+<p>あるいは、Usenet とのコネクションが無いのであれば</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">GLOBAL_PIPELINE</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s">&#39;ToUsenet&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>のようにして Usenet へ配信するモジュールを除いておいてもよいでしょう。</p>
+</div>
+<div class="section" id="verp">
+<h3>VERP<a class="headerlink" href="#verp" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>VERP とは Variable Enverope Return Path の略で、送信者 (SMTP の FROM) アドレスに宛先を組み
+込むことで、エラー通知があったときに宛先を取り出すことが容易になるという方法です。例えばリストの会員がメールを転送していてその転送先でエラー
+になったとき、エラー通知には元の会員メールアドレスは書いてないことが多いのですが、SMTP_FROM
+アドレスに最初の宛先が組み込んであるので、会員が登録しているメールアドレスを知ることができます。そのためには、MTA
+がメールアドレスのローカルパートのうち + 以降は無視してその前のメールボックスに配信するように設定する必要があります。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">VERP_PROBES</span> <span class="o">=</span> <span class="n">No</span>
+<span class="n">VERP_PASSWORD_REMINDERS</span> <span class="o">=</span> <span class="n">No</span>
+<span class="n">VERP_PERSONALIZED_DELIVERIES</span> <span class="o">=</span> <span class="n">No</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>VERP は個別化した普通配送の配信メール、毎月のパスワード通知、配送エラー
+で停止した会員へのプローブに使うことができます。デフォルトでは使いません
+ので、MTA での設定ができたら No を Yes に変えておいた方がよいでしょう。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">VERP_DELIVERY_INTERVAL</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>個別化していない普通配送でも 時々 VERP を使ってエラー処理を確実にしたいと
+思う場合に、この数字を 1 以上の整数にしておきます。例えば 1 は毎回、2 は
+1回おきに VERP を使います。既定値の 0 は VERP を使いません。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">VERP_CONFIRMATIONS</span> <span class="o">=</span> <span class="n">No</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>入会などの確認メールに VERP を使うかどうかを決めます。</li>
+</ul>
+</div>
+<div class="section" id="id12">
+<h3>自動応答の回数上限<a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">MAX_AUTORESPONSES_PER_DAY</span> <span class="o">=</span> <span class="mi">10</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>自動応答を使うとき、そのメールがエラーになったりするとユーザのMTA と
+Mailman の間で無限のメール交換が発生する恐れがあります。これを防ぐため、
+1日の自動応答限度を定めています。</li>
+</ul>
+</div>
+<div class="section" id="id13">
+<h3>バックスキャッタ予防<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>バックスキャッタとはスパムメールの送信者に本当に配信したいアドレスを設定しておいて、エラーになったメールをその人に届けようとする（あるいは届
+いてしまう）ことを言います。Mailman
+ではメールコマンドが成功／失敗したことを送信者に知らせますので、バックスキャッタに悪用される危険があります。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DISCARD_MESSAGE_WITH_NO_COMMAND</span> <span class="o">=</span> <span class="n">Yes</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>-request や -confirm アドレスに来たメールにコマンドが無ければそのメールを破棄します。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">RESPONSE_INCLUDE_LEVEL</span> <span class="o">=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>応答のメールに元のメッセージをどの程度入れておくかです。
+デフォルトの 2 だとメール本文を全部入れてしまうので、0の処理できなかった
+部分は応答メールに入れない、または 1 のオリジナルメールはヘッダ部分だけを
+付けるのどちらかにしておいた方がよいでしょう。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_RESPOND_TO_POST_REQUESTS</span> <span class="o">=</span> <span class="n">Yes</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>新しいリストを作成したときに、投稿リクエストに自動応答を返すように設定する
+かどうかを決めます。リストの管理者は管理インタフェースでこれを変更
+できます。互換性により Yes になっていますが、No にしておいた方がよいでしょう。</li>
+</ul>
+</div>
+<div class="section" id="qrunners">
+<h3>Qrunners<a class="headerlink" href="#qrunners" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Mailman のメール処理は上記のパイプラインで行われますが、それぞれのパイプラインを駆動するプロセスが Qrunner です。上では
+GLOBAL と OWNER が出ていましたが、その他保存書庫、エラー処理、メールコマンド処理、Usenet ニュースへの配送、MTA
+への送信、Mailman 自体から発信するメールの処理、一時的にエラーになった処理の再開のためにそれぞれ Qrunner
+が起動されます。QRUNNERS には qrunner
+の名前と同時処理のプロセス数が記述されます。例えば個別配送を多用するトラフィックの多いサイトでは OutgoingRunner
+を増やしたいかもしれません。プロセス数は 2 のべき乗で書いてください。(2,4...) しかし、多くの場合では各１の Runner
+で十分でしょう。逆に Usenet への配信をしていない場合には、</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">QRUNNERS</span><span class="o">.</span><span class="n">remove</span><span class="p">((</span><span class="s">&#39;NewsRunner&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>のようにして、NewsRunner を止めておきたいかもしれません。</p>
+</div>
+<div class="section" id="id14">
+<h3>一般的な既定値<a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_SERVER_LANGUAGE</span> <span class="o">=</span> <span class="s">&#39;en&#39;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>デフォルトのサーバ言語です。日本語にするには &#8216;ja&#8217; とします。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">USE_ENVELOPE_SENDER</span> <span class="o">=</span> <span class="n">No</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>リストに投稿されたメールが会員からのものであるかどうかを判定するのに、
+SMTP_FROM (Envelope Sender)だけを使うかどうかです。一般には Envelope
+Sender はごまかしにくいと言われていますが、完全でないうえに、From
+アドレスとは違うアドレスを使って転送で発信するようなケースもあります。
+No のままでよいでしょう。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">SENDER_HEADERS</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;from&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="s">&#39;reply-to&#39;</span><span class="p">,</span> <span class="s">&#39;sender&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>リストに投稿されたメールが会員からのものであるかどうかを判定するのに
+使うヘッダのリストです。None は Envelope Sender です。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_ADMIN_MEMBER_CHUNKSIZE</span> <span class="o">=</span> <span class="mi">30</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>管理インタフェースの会員リストを表示するのに、この数を超えたらメール
+アドレスの最初の文字で分割し、それぞれも、この数を超えないように
+分割します。リスト管理者は管理インタフェースからこれを変更できます。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ADMINDB_PAGE_TEXT_LIMIT</span> <span class="o">=</span> <span class="mi">4096</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>管理データベースでメールの内容を表示するときどこまで表示するかを決めます。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">OWNERS_CAN_DELETE_THEIR_OWN_LISTS</span> <span class="o">=</span> <span class="n">No</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>リスト管理者が管理インタフェースからリストを削除してもよいかどうかを
+決めます。Webからの実行は間違いが起こりやすいので、デフォルトでは No に
+なっています。サイト管理者が rmlist コマンドを使って削除してください。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">OWNERS_CAN_ENABLE_PERSONALIZATION</span> <span class="o">=</span> <span class="n">No</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>メール配送の個別化を許可する場合は Yes にします。Yes にすると
+管理インタフェースの普通配送のところに個別化についてのメニューが出てきます。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">OWNERS_CAN_CHANGE_MEMBER_PASSWORDS</span> <span class="o">=</span> <span class="n">No</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>リスト管理者の権限で会員オプションページから会員のパスワードを変更できるかどうかを決めます。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ADMIN_CATEGORIES</span>
+</pre></div>
+</div>
+<ul>
+<li><p class="first">管理インタフェースのカテゴリーとしてどの下位のページをメニューとして
+表示するかを決めます。例えば Usenet News とのメッセージ交換を行わない
+のであれば、</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ADMIN_CATEGORIES</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s">&#39;gateway&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>を mm_cfg.py に書いておくとよいでしょう。</p>
+</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_NEW_MEMBER_OPTIONS</span> <span class="o">=</span> <span class="mi">256</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>新規入会会員のオプションの既定値です。リスト管理者はこれを変更できます。
+256 は notmetoo つまり To や Cc にその会員のメールアドレスがあったら、
+リストとしては配送を行いません。0 にしておいてもよいかもしれません。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">USER_FRIENDLY_PASSWORDS</span> <span class="o">=</span> <span class="n">Yes</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Mailman がランダムにパスワードを選ぶときに、わりと発音しやすいような形で
+パスワードを作成します。No にすると難しいパスワードになりますが、その方が
+セキュリティ的には安全です。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">MEMBER_PASSWORD_LENGTH</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">ADMIN_PASSWORD_LENGTH</span> <span class="o">=</span> <span class="mi">10</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>ランダムに作成されるパスワードの長さです。</li>
+</ul>
+</div>
+<div class="section" id="id15">
+<h3>リスト作成時の既定値<a class="headerlink" href="#id15" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>リストを作成するときに設定される値を決めます。既に作成されたリストには影響しません。また、DEFAULT
+で決められた値は管理インタフェースで変更できます。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_LIST_ADVERTISED</span> <span class="o">=</span> <span class="n">Yes</span>
+<span class="n">DEFAULT_MAX_NUM_RECIPIENTS</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">DEFAULT_MAX_MESSAGE_SIZE</span> <span class="o">=</span> <span class="mi">40</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>作成時に、公開リストにし、From: の受信者数の最大を 10 にし、
+投稿メールの長さを 40 (KB) に制限します。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_SUBJECT_PREFIX</span> <span class="o">=</span> <span class="s">&quot;[</span><span class="si">%(real_name)s</span><span class="s">] &quot;</span>
+</pre></div>
+</div>
+<ul>
+<li><p class="first">件名に付けるプレフィックスの既定値です。メールに番号を付けるのを
+デフォルトにする場合には、</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_SUBJECT_PREFIX</span> <span class="o">=</span> <span class="s">&quot;[</span><span class="si">%(real_name)s</span><span class="s"> </span><span class="si">%%</span><span class="s">d]&quot;</span>
+</pre></div>
+</div>
+<p>のようにしておくとよいでしょう。</p>
+</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_MSG_HEADER</span>
+<span class="n">DEFAULT_MSG_FOOTER</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>メール本文の最初と最後にそれぞれ付加されるヘッダとフッタの既定値です。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DECORATE_LCSET</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">DECORATE_MCSET</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">DECORATE_CHARSETS</span> <span class="o">=</span> <span class="p">[</span><span class="n">DECORATE_LCSET</span><span class="p">,</span> <span class="n">DECORATE_MCSET</span><span class="p">,</span> <span class="s">&#39;utf-8&#39;</span><span class="p">]</span>
+<span class="n">DECORATE_PREFER_8BIT</span> <span class="o">=</span> <span class="n">No</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>+j バージョンに新しく付けたヘッダ／フッタ付加における文字コードの
+決定順を決めます。デフォルトではリストの文字コード、メールに付いて
+いた文字コードの順に試してうまく行かない場合には utf-8 を使います。
+また、デフォルトでは 8bitでのメールを MIME符号化します。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">OLD_STYLE_PREFIXING</span> <span class="o">=</span> <span class="n">Yes</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>件名の最初に付け加えるプレフィックスのスタイルについて、元の件名が
+Re: で始まっていたらどうするかを決めます。日本で番号を付ける場合
+には [prefix 123] Re: の形にするのが慣例でしたので、そうなるように
+したところ、番号を付けない場合には Re: [prefix] の形になってたのだから
+おかしいという話が出てきました。後者を仮に old style と呼んでいます。
+ただし、番号を付ける場合には前者の new style となります。
+どちらにしても、Google group のように blah blah blah (was Re:
+[prefix 123] foo bar) のようなプレフィックスが件名の後ろに行って
+しまうようなことはありません。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_SCRUB_NONDIGEST</span> <span class="o">=</span> <span class="bp">False</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>普通配送の添付ファイルを保存書庫に保管して、それへのリンクに置き換える
+かどうか、の既定値です。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_MAIL_COMMANDS_MAX_LINES</span> <span class="o">=</span> <span class="mi">25</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>-request メールのコマンドを最大何行まで処理するかの既定値です。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_ADMIN_IMMED_NOTIFY</span> <span class="o">=</span> <span class="n">Yes</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>メールの配送保留、会員の入退会申請などが発生したときに直ぐに管理者に知らせるかどうかの既定値です。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_ADMIN_NOTIFY_MCHANGES</span> <span class="o">=</span> <span class="n">No</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>リストの入退会が発生したときに直ぐに管理者に知らせるかどうかの既定値です。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_MAX_DAYS_TO_HOLD</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>保留となった申請について毎朝 8時に管理者に知らせますが、一定の日数
+保留になったままの申請は破棄するように設定できます。その既定値ですが、
+互換性のため 0 (いつまでも破棄しない) になっています。3 (日) 程度にして
+おいた方がよいでしょう。リスト管理者はいつでもこれを自分で適当な値に
+変更できます。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_DEFAULT_MEMBER_MODERATION</span> <span class="o">=</span> <span class="n">No</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>リスト作成時に会員からの投稿をすべて保留するようにしたいかどうかです。
+デフォルトでは会員の誰でもが投稿できます。リスト作成時に変更できますし、
+リスト管理者は作成後に変更することもできます。もっぱらメルマガの
+サービスをするようなサイトでしたら、Yes にしておくとよいでしょう。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_FORWARD_AUTO_DISCARDS</span> <span class="o">=</span> <span class="n">Yes</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>非会員のメールをリストに流さず破棄するとした場合に、そのメールを司会者に
+転送するかどうかの既定値です。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_GENERIC_NONMEMBER_ACTION</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>非会員で処理が特に定めてない場合の処理方法の既定値です。
+ただし、0 = 承認、1 = 保留、2 = 拒否、3 = 破棄です。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_REQUIRE_EXPLICIT_DESTINATION</span> <span class="o">=</span> <span class="n">Yes</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>明示的にリストへの宛先が To: 又は Cc: に書いてあることを必要とするか
+どうかの既定値。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_ACCEPTABLE_ALIASES</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>リストへの宛先と同等に扱うメールアドレスのリストの既定値。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_UMBRELLA_LIST</span> <span class="o">=</span> <span class="n">No</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>傘リストの親とするかどうかの既定値。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_UMBRELLA_MEMBER_ADMIN_SUFFIX</span> <span class="o">=</span> <span class="s">&quot;-owner&quot;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>傘リストの親である場合の管理者アドレスのサフィックスの既定値。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_REGULAR_EXCLUDE_LISTS</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">DEFAULT_REGULAR_INCLUDE_LISTS</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">ALLOW_CROSS_DOMAIN_SIBLING</span> <span class="o">=</span> <span class="bp">False</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>普通配送で兄弟姉妹リスト（排除／包含リスト）の既定値、およびドメインを
+またいでの兄弟姉妹リストを許可するかどうか。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_SEND_REMINDERS</span> <span class="o">=</span> <span class="n">Yes</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>毎月のパスワード通知を送るかどうかの既定値</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_SEND_WELCOME_MSG</span> <span class="o">=</span> <span class="n">Yes</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>新入会員にようこそメールを送るかどうかの既定値</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_SEND_GOODBYE_MSG</span> <span class="o">=</span> <span class="n">Yes</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>退会者にさようならメールを送るかどうかの既定値</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_BOUNCE_MATCHING_HEADERS</span> <span class="o">=</span> <span class="o">...</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>スパム防止のための ヘッダ と その中身の正規表現をリストします。
+これだけでスパム防止を実現しようとするのは無理がありますが、例が
+ありますので必要であれば参考にしてください。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_REPLY_GOES_TO_LIST</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>返信がリストにだけ行くように Reply-To: ヘッダを書き変えるかどうかの
+既定値です。0 は書き変えない、1 はリストのアドレスにする、2 は別に
+指定するアドレスにするです。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_FIRST_STRIP_REPLY_TO</span> <span class="o">=</span> <span class="n">No</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>投稿メールに Reply-To: があったとき、それを取り除くかどうかの既定値です。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_SUBSCRIBE_POLICY</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>入会手続きのポリシーの既定値です。0 は確認無しに入会、1 は確認が必要、
+2 は管理者の承認が必要、3 は会員の確認と管理者の承認が必要です。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ALLOW_OPEN_SUBSCRIBE</span> <span class="o">=</span> <span class="n">No</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>確認無しで入会を許可するかどうかを決めます。他人が勝手に入会させることが
+ないように、ここは No のままにしておくべきです。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_UNSUBSCRIBE_POLICY</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>退会許可ポリシーの既定値です。0 は会員の意思のみで退会処理が完了します。
+1 は、リスト管理者の承認が必要です。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_PRIVATE_ROSTER</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>会員名簿の公開範囲をどうするかの既定値です。0 は誰でも見える、1は会員のみ
+に公開、2 は管理者だけが見ることができます。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_OBSCURE_ADDRESSES</span> <span class="o">=</span> <span class="n">Yes</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>会員名簿を表示するときに、メールアドレスらしく見えないように &#64; を別の
+文字で置き換えます。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ALLOW_RFC2369_OVERRIDES</span> <span class="o">=</span> <span class="n">Yes</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">List-*</span></tt> ヘッダを付けるかどうかを管理インタフェースで決めることができます。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ALLOW_SENDER_OVERRIDES</span> <span class="o">=</span> <span class="n">Yes</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Sender ヘッダを付けないように管理インタフェースで設定することができます。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_FILTER_CONTENT</span> <span class="o">=</span> <span class="n">No</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>添付ファイルや HTML ファイルを通さないようにフィルターを有効にするか
+どうかの既定値です。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_FILTER_MIME_TYPES</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>フィルターで通さない MIME タイプの既定値。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_PASS_MIME_TYPES</span> <span class="o">=</span> <span class="p">[</span> <span class="o">...</span> <span class="p">]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>フィルターで通す MIME タイプの既定値。 Defaults.py.in の例では
+テキスト形式の平文だけを通します。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_FILTER_FILENAME_EXTENSIONS</span> <span class="o">=</span> <span class="p">[</span> <span class="o">...</span> <span class="p">]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>フィルターで通さないファイルの拡張子の既定値。よくあるウィルスに付いて
+いる拡張子を並べてあります。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_PASS_FILENAME_EXTENSIONS</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>フィルターで通すファイルの拡張子の既定値。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_COLLAPSE_ALTERNATIVES</span> <span class="o">=</span> <span class="n">Yes</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>メール本文が平文とHTMLで同時に送られているとき、代替部を捨てて平文だけに
+します。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_CONVERT_HTML_TO_PLAINTEXT</span> <span class="o">=</span> <span class="n">Yes</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>メールが HTML だけになったとき、平文に変換するかどうかの既定値。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_FILTER_ACTION</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>フィルターの結果配送するものがなくなったときどうするかの既定値。
+0 は破棄、1 は拒否、2 は管理者に転送、3 はサーバに保存。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">OWNERS_CAN_PRESERVE_FILTERED_MESSAGES</span> <span class="o">=</span> <span class="n">Yes</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>フィルターされたメールをシステムの特別のディレクトリに保存することが
+できるかどうかを決めます。実際に保存されたメッセージについて何かしようと
+するとリスト管理者の権限だけではできないので、サイト管理者が協力して
+あげる必要があります。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_ADMINISTRIVIA</span> <span class="o">=</span> <span class="n">Yes</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>リスト会員のメールコマンドは -request アドレス宛に送るのですが、間違えて
+リストの投稿アドレスに送ってしまう人がよくいます。そのようなメールが
+リストに配信されてしまうのをある程度防ぐことができます。</li>
+</ul>
+</div>
+<div class="section" id="id16">
+<h3>まとめ読みの既定値<a class="headerlink" href="#id16" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_NONDIGESTABLE</span> <span class="o">=</span> <span class="n">Yes</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>既定値ではまとめ読みを無効にすることができます。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_DIGESTABLE</span> <span class="o">=</span> <span class="n">Yes</span>
+<span class="n">DEFAULT_DIGEST_HEADER</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+<span class="n">DEFAULT_DIGEST_FOOTER</span> <span class="o">=</span> <span class="n">DEFAULT_MSG_FOOTER</span>
+<span class="n">DEFAULT_DIGEST_IS_DEFAULT</span> <span class="o">=</span> <span class="n">No</span>
+<span class="n">DEFAULT_MIME_IS_DEFAULT_DIGEST</span> <span class="o">=</span> <span class="n">No</span>
+<span class="n">DEFAULT_DIGEST_SIZE_THRESHHOLD</span> <span class="o">=</span> <span class="mi">30</span> <span class="c"># kB</span>
+<span class="n">DEFAULT_DIGEST_SEND_PERIODIC</span> <span class="o">=</span> <span class="n">Yes</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>まとめ読みの既定値です。リスト管理者はこれらを変更できます。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">MIME_DIGEST_KEEP_HEADERS</span> <span class="o">=</span> <span class="p">[</span> <span class="o">...</span> <span class="p">]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>MIME形式でのまとめ読み（１通１通が添付メッセージになって配送されます）で、保存するヘッダ情報をリストします。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">PLAIN_DIGEST_KEEP_HEADERS</span> <span class="o">=</span> <span class="p">[</span> <span class="o">...</span> <span class="p">]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>テキスト形式 (RFC1135) でのまとめ読みで、保存するヘッダ情報をリストします。
+このリストは RFC1135 で定義されているものに準拠しています。（順番も指定されています）</li>
+</ul>
+</div>
+<div class="section" id="id17">
+<h3>配送エラー処理の既定値<a class="headerlink" href="#id17" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_BOUNCE_PROCESSING</span> <span class="o">=</span> <span class="n">Yes</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>配送エラー処理を行うかどうか。既定値では行います。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">REGISTER_BOUNCES_EVERY</span> <span class="o">=</span> <span class="n">minutes</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>配送エラー処理はキューに入っているものを 15分おきに処理します。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_BOUNCE_SCORE_THRESHOLD</span> <span class="o">=</span> <span class="mf">5.0</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>配送エラーによる得点がこの値を越えたら配送を停止します。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_BOUNCE_INFO_STALE_AFTER</span> <span class="o">=</span> <span class="n">days</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>この期間（日数）を過ぎた配送エラー得点は期限切れとみなしてゼロに
+リセットします。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_BOUNCE_YOU_ARE_DISABLED_WARNINGS</span> <span class="o">=</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>配送エラーで配送停止になっていることを何回通知するかの既定値です。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_BOUNCE_YOU_ARE_DISABLED_WARNINGS_INTERVAL</span> <span class="o">=</span> <span class="n">days</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>上の通知を送信する間隔です。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_BOUNCE_UNRECOGNIZED_GOES_TO_LIST_OWNER</span> <span class="o">=</span> <span class="n">Yes</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>配送エラーが既知のパターンに合わず処理できなかった場合、リスト管理者に
+転送するかどうかです。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DEFAULT_BOUNCE_NOTIFY_OWNER_ON_DISABLE</span> <span class="o">=</span> <span class="n">Yes</span>
+<span class="n">DEFAULT_BOUNCE_NOTIFY_OWNER_ON_REMOVAL</span> <span class="o">=</span> <span class="n">Yes</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>配送停止になったとき、および会員リストから削除したときに、そのことをリスト管理者に通知するかどうかです。</li>
+</ul>
+</div>
+<div class="section" id="id18">
+<h3>時間制限<a class="headerlink" href="#id18" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">PENDING_REQUEST_LIFE</span> <span class="o">=</span> <span class="n">days</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>入会申請の保留保存期間です。これを過ぎると申請は破棄されます。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DELIVERY_RETRY_PERIOD</span> <span class="o">=</span> <span class="n">days</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>配送が失敗したとき再試行を続ける期間です。これは、配送先のサーバで
+エラーになるのではなく、サイトの MTA へメールを渡すときにエラーになる
+場合ですので、５日間も気づかないというのは問題です。サイトの MTA が
+ちゃんとメールを処理しているか、サイト日報を利用するなどしてチェックして
+ください。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DELIVERY_RETRY_WAIT</span> <span class="o">=</span> <span class="n">hours</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>上の再試行の時間間隔です。</li>
+</ul>
+</div>
+<div class="section" id="id19">
+<h3>データベースロックの管理<a class="headerlink" href="#id19" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ロックとは２つ以上のプロセスが同時にリストの情報を書き変えて矛盾が生じないようにするための機構です。以下の変数は Mailman
+の動作に異常があるなどの時、その原因追及やデバッグのために用意されているものです。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">LIST_LOCK_DEBUGGING</span> <span class="o">=</span> <span class="n">Off</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>ロックの情報をログに書き出すかどうかです。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">LIST_LOCK_LIFETIME</span> <span class="o">=</span> <span class="n">hours</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>ロックが解除されるまでに待つ時間です。5時間もの長い間ロックされたままと
+いうことは普通はあり得ませんが、短くすると重たい処理が失敗するかもし
+れません。しかし、Mailman の処理が止まってしまったというような時は、
+locks ディレクトリをチェックしてみるとよいかもしれません。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">LIST_LOCK_TIMEOUT</span> <span class="o">=</span> <span class="n">seconds</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>qrunner がロック獲得までに待機する時間です。この間にロックできなかった
+場合は、処理すべきデータをキューに戻して、次の runner 起動 (incoming
+runner の場合 1秒後) を待ちます。</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">PENDINGDB_LOCK_DEBUGGING</span> <span class="o">=</span> <span class="n">Off</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>保留要求データベースのためのロックのデバッグメッセージをログに出力する
+かどうかを決めます。</li>
+</ul>
+</div>
+<div class="section" id="id20">
+<h3>その他<a class="headerlink" href="#id20" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>以降の Defaults.py
+にはサイトで変更できるものは無いとされていますが、利用できる言語についてカスタマイズしたいと思うかもしれません。その場合、mm_cfg.py
+には以下のように記述します。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="k">return</span> <span class="n">s</span>
+<span class="n">add_language</span><span class="p">(</span><span class="s">&#39;en&#39;</span><span class="p">,</span>    <span class="n">_</span><span class="p">(</span><span class="s">&#39;English (USA)&#39;</span><span class="p">),</span>       <span class="s">&#39;iso-8859-1&#39;</span><span class="p">,</span>    <span class="s">&#39;ltr&#39;</span><span class="p">)</span>
+<span class="k">del</span> <span class="n">_</span>
+</pre></div>
+</div>
+<p>上の例では、英語で使用する文字コードを (us-ascii でなく) iso-8859-1 (latin-1) に変更しています。</p>
+</div>
+</div>
+<div class="section" id="mailman">
+<h2>Mailman のサイト日報を受け取るには<a class="headerlink" href="#mailman" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>mmdsr は Mailman Daily Status Report を略したシェルスクリプトで、配布ソースの contrib
+ディレクトリに入っています。このスクリプトは &lt;prefix&gt;/cron ディレクトリに置いて、他の cron
+スクリプトと同様に定時に実行するように作られています。</p>
+<p>実際には、このシェルスクリプトを使う前にエディタで編集して、OS
+の種類やインストールしたディレクトリに合わせて、ちゃんと動作するようにしてあげないといけません。修正するところは</p>
+<ul class="simple">
+<li>185行目（あたり）から始まる、システムコマンドのパスと、一時ディレクトリの作成コマンド。</li>
+<li>214行目（あたり）から始まる、mailman のインストールディレクトリに合わせた各種パス。</li>
+<li>264行目（あたり）にある、sort コマンドのオプション指定（デフォルトは BSD/Solaris etc 用で、Linux の場合は
+&#8220;-k 2&#8221; にする）</li>
+<li>271,272行目（あたり）の SENDER（送信メールアドレス） と RCPTS （受信メールアドレス）</li>
+</ul>
+<p>mailman ユーザ権限でスクリプトが実行できる事を確認してください。</p>
+<p>crontab の設定は、:</p>
+<div class="highlight-python"><pre>59 23 * * * /usr/local/mailman/cron/mmdsr</pre>
+</div>
+<p>です。/usr/local/mailman のところは実際のインストールに合わせてください。cron/crontab.in
+ファイルを編集して、sudo crontab -u mailman crontab.in でもいいですし、直接 sudo -u
+mailman crontab -e で編集してもよいでしょう。</p>
+</div>
+<div class="section" id="id21">
+<h2>機種依存文字を含むメールが配送されない問題<a class="headerlink" href="#id21" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Mailman が利用している Python の文字コードにおける問題、というよりは、非
+標準の文字を JIS コードと偽って使用する日本での慣習の問題によって、本家
+より配布される Mailman には、いわゆる「機種依存文字」を含むメールが配送さ
+れなくなるという問題があります。</p>
+<p>以下のような解決策がありますので、どれかひとつを選んでください。</p>
+<div class="section" id="id22">
+<h3>日本語対応 mailman に入れ替える<a class="headerlink" href="#id22" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>本サイトでの推奨です。 <a class="reference external" href="releases.html">リリース情報</a> をご覧下さい。</p>
+</div>
+<div class="section" id="id23">
+<h3>機種依存文字を全て &#8216;?&#8217; に変えてしまう。<a class="headerlink" href="#id23" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>mailman が使っている email パッケージを修正します。email パッケージは
+2.1.11 以前は &lt;prefix&gt;/pythonlib/email にありますが、2.1.12 以降は
+インストールに使用した Python の lib/python2.x/email にあります。</p>
+<p>email ディレクトリに charset.py 又は Charset.py というファイルが
+ありますが、class Charset の中の convert() 関数定義を探してください。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">return</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_codec</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_codec</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>と、なっている行を次のように修正します</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">return</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_codec</span><span class="p">,</span> <span class="s">&#39;replace&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_codec</span><span class="p">,</span> <span class="s">&#39;replace&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>使用している Python のバージョンによっては input_codec, output_codec でなく
+input_charset, output_charset になっているかもしれません。
+修正ができたら、mailman を再起動して、正常にメールが配信されることを確認
+してください。</p>
+</div>
+<div class="section" id="id24">
+<h3>機種依存文字を適当と思われる文字（列）に置き換える。<a class="headerlink" href="#id24" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>昔作った <a class="reference external" href="_static/misc/behave.py">behave.py</a> を
+&lt;prefix&gt;/Mailman/Handlers に入れます。
+また、 <a class="reference external" href="http://sourceforge.jp/projects/pykf/">pykf</a> を入手して、
+mailman のインストールに使った Python に追加します。
+pykf は 日本語対応 mailman の配布パッケージにも含まれています。
+その後、mm_cfg.py に以下の記述を追加して mailman を再起動してください。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">GLOBAL_PIPELINE</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;behave&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="総合索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="listadmin.html" title="リスト管理の手引"
+             >次へ</a> |</li>
+        <li class="right" >
+          <a href="mailmaninstall.html" title="GNU Mailman - インストールマニュアル"
+             >前へ</a> |</li>
+        <li><a href="index.html">Mailman日本語情報</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Tokio Kikuchi.
+      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7 で生成しました。
+    </div>
+  </body>
+</html>

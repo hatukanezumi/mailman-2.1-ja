@@ -1,0 +1,1271 @@
+
+サイト管理の手引
+================
+サイト管理者にできること、サイトの日常的業務などについて簡単に解説します。
+
+
+はじめに
+--------
+
+サイト管理者はそのサーバマシンで運用する全てのメーリングリストの管理を監督する立場にあります。新しくメーリングリストを作成したり、複数のリス
+トにわたる問題の解決にあたったりします。
+
+Mailman のサイト管理は他のメーリングリスト管理システムに比べると簡単です。しかし、Webインタフェースではなく、シェルログインした状
+態でコマンドを実行するということになりますので、unix システムの経験や windows でもコマンドツールを使った経験が必須となります。
+
+ここでは、 
+`Site Administrator Documentation <http://www.list.org/site.html>`_ や 
+`Mailman FAQ <http://wiki.list.org/display/DOC/Frequently+Asked+Questions>`_ の  
+`Site Administrator Tasks <http://wiki.list.org/display/DOC/4+Site+administrator+tasks>`_ 
+の中から重要なものを取り出して解説します。
+
+
+コマンドラインツール
+--------------------
+
+Mailman のサイト管理に使用するコマンドは Python スクリプトで書かれていて、<prefix>/bin
+に入っています。実行にはリストのデータベースの変更権限が必要なので、sudo 又は sudo -u mailman
+を付けて実行する必要があるかもしれません。
+
+以下の実行例では bash のコマンドプロンプト $ の後に書いてある文字列をキーボードから入力して、Return (Enter)
+キーを押すことで実行ができます。($ を入力する必要はありません)
+
+コマンドラインツールのヘルプは、<command> --help で読む事ができます。ヘルプの日本語訳を読むには、端末の日本語表示を
+EUC-JP に設定し、環境変数 LANG を日本語 (EUC) にする必要があります。環境変数の変更は、Linux でよく使われている
+bash の場合、
+
+
+.. sourcecode:: python
+
+    $ export LANG=ja_JP.EUC-JP
+
+
+となります。
+
+詳しいことはヘルプを参照していただくことにして、ここでは有用なコマンドの名前とその機能を簡単に列挙することにします。
+
+
+add_members
+~~~~~~~~~~~~~~~~~~~~~~
+
++ コマンドラインから会員を登録します。登録する会員は基本的にファイルに準備しておきますが、標準入力を指定する事もできます。
+
+
+
+arch
+~~~~~~~~
+
+
++ メーリングリストの保存書庫を再構築します。保存書庫内のメールを編集したり削除したときに、このコマンドを実行するとよいでしょう。保存書庫は
+  mbox 形式で保存されたメールから作成していますので、編集や削除は mbox
+  ファイルに対して行い、その後、このコマンドを使用します。詳しくは別項目で。
+
+
+
+check_db
+~~~~~~~~~~~~~~~~
+
+
++ リストの設定データベースをチェックします。
+
+
+
+check_perms
+~~~~~~~~~~~~~~~~~~~~~~
+
+
++ Mailman インストールのためのパーミッションをチェックします。
+
+
+
+config_list
+~~~~~~~~~~~~~~~~~~~~~~
+
+
++ テキストファイルの記述からリストの設定を行います。このコマンドは設定をファイルに書き出すこともできますので、あるリストをひな形にして別の
+  リストを設定することができます。
+
+
+
+discard
+~~~~~~~~~~~~~~
+
+
++ 保留されているメールを破棄します。メールの指定は <prefix>/data ディレクトリに入っている
+  heldmsg-<listname>-99999.pck のような名前のファイルを指定します。以前のバージョンでは自動廃棄の設定が無かったの
+  でこれが必要でしたが、現在はリスト毎に保存期間を設定して期間終 了すれば自動的に廃棄できますので、そちらを使う方がよいでしょう。
+
+
+
+dumpdb
+~~~~~~~~~~~~
+
+
++ Mailman のデータベースファイルの内容を表示します。データベースは普通 .pck の拡張子を持っています。
+
+
+
+
+find_member
+~~~~~~~~~~~~~~~~~~~~~~
+
+
++ 会員が所属するリストを検索します。検索の鍵は正規表現で与えますので、ユーザのメールアドレスの一部が分かれば検索にヒットします。
+
+
+
+fix_url.py
+~~~~~~~~~~~~~~~~~~~~
+
+
++ リストの仮想ホストの組み合わせ（ウェブサーバとメールサーバ）を修正します。withlist を使って実行します。
+
+
+
+genaliases
+~~~~~~~~~~~~~~~~~~~~
+
+
++ Mailman の aliases を再生成します。Postfix と連携させている場合には <prefix>/data
+  ディレクトリにある aliases ファイルを作成し、postalias コマンドで aliases.db
+  を再構築します。連携が無い場合、/etc/aliases に記入すべき項目が出力されます。
+
+
+
+list_admins
+~~~~~~~~~~~~~~~~~~~~~~
+
+
++ メーリングリストの管理者を表示します。
+
+
+
+list_lists
+~~~~~~~~~~~~~~~~~~~~
+
+
++ 全てのメーリングリストを表示します。
+
+
+
+list_members
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+
++ メーリングリストの会員リストを表示します。
+
+
+
+list_owners
+~~~~~~~~~~~~~~~~~~~~~~
+
+
++ メーリングリストの所有者（管理者）を表示します。list_admins と重なっていますが、機能、表示形式が若干異なります。
+
+
+
+mailmanctl
+~~~~~~~~~~~~~~~~~~~~
+
+
++ Mailman の qrunner デーモンをスタート/停止します。また、ログファイルの回転をした後の処理にも使われます。
+
+
+
+mmsitepass
+~~~~~~~~~~~~~~~~~~~~
+
+
++ サイトのマスターパスワードを作成／変更します。また、リスト作成だけのパスワードを設定する事もできます。マスターパスワードを使うと、どのリ
+  ストの管理もできるようになりますので、サイト管理者がリスト管理を肩代わりしなければならないときに使うと便利です。
+
+
+
+newlist
+~~~~~~~~~~~~~~
+
+
++ コマンドラインから新規にメーリングリストを作成します。
+
+
+
+remove_members
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
++ メーリングリストから会員を削除します。add_members
+  同様、削除するメールアドレスはファイルに準備する事が基本です。サイトで管理している全てのメーリングリストから会員を削除する機能もあります。
+
+
+
+rmlist
+~~~~~~~~~~~~
+
+
++ メーリングリストを削除します。デフォルトでは、保存書庫を削除しませんが、削除することもできます。
+
+
+
+show_qfiles
+~~~~~~~~~~~~~~~~~~~~~~
+
+
++ Mailman の <prefix>/qfiles
+  に入っているファイルを表示します。（順調に動いている時は、これで見える確率は非常に低いはずです。）
+
+
+
+sync_members
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+
++ メーリングリストの会員を平文のテキスト形式で書かれたファイルに同期させます。会員リストを他のデータベースなどで管理しているときに使うと便
+  利です。
+
+
+
+unshunt
+~~~~~~~~~~~~~~
+
+
++ <prefix>/qfiles/shunt には、qrunner
+  が処理中にエラーを発生させて処理できなかったメールが保存されます。unshunt
+  はそのメールを取り出して、元の処理を継続させます。しかし、エラーの原因が解決されないと、またエラーになるだけなので、unshunt
+  する前にエラーの原因を調べて問題を解決しなければなりません。shunt に入るメールは spam であることが多いので、その場合単純に rm
+  で削除してもよいかもしれません。Mailman のバージョンが古い場合、最新バージョンに更新してから unshunt
+  すると解決するかもしれません。
+
+
+
+update
+~~~~~~~~~~~~
+
+
++ Mailman のリストデータベースの更新を行います。Mailman
+  をバージョンアップしたときに、自動的に実行されますので、手動でこれを実行する必要はありません。
+
+
+
+version
+~~~~~~~~~~~~~~
+
+
++ Mailman のバージョンを表示します。
+
+
+
+
+withlist
+~~~~~~~~~~~~~~~~
+
+
++ Mailman の内部でリストの設定や状態を保持する、MailList
+  オブジェクトを操作するためのスクリプトです。使い方としては、fix_url.py
+  の例のように、サイト管理者が作成したスクリプトを実行するための環境を提供するものと、Python
+  のインタラクティブモードを使って端末からリストデータベースを操作するものとがあります。
+
+
+
+
+
+サイトデフォルト設定ファイル
+----------------------------
+
+インストールマニュアルで書いてあるようにサイトのデフォルトは Defaults.py というファイルに書いてあり、
+**mm_cfg.py** でそれを上書きします。Mailman 2.1.12 の時点でのDefaults.py
+の日本語訳が配布ソースに入っていますが、ここでは必要度に応じて省略しながら解説します。
+
+また、ここで設定を推奨している項目を入れた `mm_cfg.py の例
+<_static/mm_cfg.py.example.txt>`__ を置いておきますので参考にしてください。
+
+
+
+デフォルトのホスト名
+~~~~~~~~~~~~~~~~~~~~
+
+.. sourcecode:: python
+
+    DEFAULT_EMAIL_HOST = '@MAILHOST@'
+    DEFAULT_URL_HOST = '@URLHOST@'
+    DEFAULT_URL_PATTERN = 'http://%s/mailman/'
+
++ @MAILHOST@ と @URLHOST@ は configure
+  のときに決まります。システムのホスト名から自動的に出てくるものが正しくないなら、configure
+  のオプションで指定できます。mm_cfg.py で上書きする事もできますが、その場合には
+
+  .. sourcecode:: python
+
+    add_virtualhost(DEFAULT_URL_HOST, DEFAULT_EMAIL_HOST)
+
+
+  を、（もう一度）書いておかなくてはいけません。また、リスト作成後に変更する場合には **fix_url.py**
+  を使って既存のリストにおける設定を修正してください。
+
+
+サイトクッキー
+~~~~~~~~~~~~~~
+
+.. sourcecode:: python
+
+    ALLOW_SITE_ADMIN_COOKIES = No
+
++ サイト管理者は ALLOW_SITE_ADMIN_COOKIES が Yes
+  になっているとき、複数のリストを管理するのにいちいちパスワードを入れ直す
+  必要が無くなります。しかし、強力であるがため、もしこれが（XSS
+  などで）漏れたりするとダメージが大きくなります。
+
+
+仮想ドメイン
+~~~~~~~~~~~~
+
+Mailman では複数のドメインに対してメーリングリストを作る事ができます。但し、ローカルパート（つまり@の左側）はサイトで一意的になって
+いないといけません。そのように「使えるドメイン」として何があるのかを設定します。ドメイン名はウェブページのホスト名とメールのドメイン名（つま
+り＠の右側）のペアで **VIRTUAL_HOSTS** というディクショナリに入りますが、これは
+**add_virtualhost()** という関数で設定します。
+
+
+スパム防止
+~~~~~~~~~~
+
+SpamDetect.py というモジュールで mailman にやってきたメールをチェックします。このとき、ヘッダ名, 正規表現 のペアで
+**KNOWN_SPAMMERS** に登録しておくと、これにマッチするメールは破棄します。
+
+
+
+保存書庫の既定値
+~~~~~~~~~~~~~~~~
+
+``DEFAULT`` で始まる変数はリスト作成時に設定される値である事を示します。
+保存書庫を作るかどうか、そのプライバシーはどうするか、保存書庫を分割して 
+巻にする期間はどの程度にするかなどを決めます。これらの既定値の多くは後で
+Web 管理インタフェースから変更できます。
+
+.. sourcecode:: python
+
+    PUBLIC_ARCHIVE_URL = 'http://%(hostname)s/pipermail/%(listname)s'
+
++ 公開保存書庫の URL パターンです。
+
+.. sourcecode:: python
+
+    DEFAULT_ARCHIVE = On
+
++ リストの保存書庫を作成するかどうか。既定で保存書庫を作成しない場合は Off です。
+
+.. sourcecode:: python
+
+    DEFAULT_ARCHIVE_PRIVATE = 0
+
++ 保存書庫をプライベートにするかどうか。既定でプライベートにする場合は 1 です。
+
+.. sourcecode:: python
+
+    DEFAULT_ARCHIVE_VOLUME_FREQUENCY = 1
+
++ 保存書庫の 巻 を作成する頻度を決めます。0 は年毎、1 は月毎、2 は四半期毎、3 は週毎、4 は日毎です。
+
+.. sourcecode:: python
+
+    SCRUBBER_DONT_USE_ATTACHMENT_FILENAME = True
+
++ 添付ファイルを保管するときにファイル名をどうするかを決めます。
+  False にすると、メールに書いてあるファイル名を使おうとしますが、
+  多くは日本語でその扱い方が決まっていないため、True のままにして
+  attachment(-000) となるようにしておいた方がよいです。
+
+.. sourcecode:: python
+
+    SCRUBBER_USE_ATTACHMENT_FILENAME_EXTENSION = False
+
++ 添付ファイルを保存するときに Content-Type から推定できる最適な拡張子を
+  使います。これを True にするとファイル名についている拡張子をそのまま
+  使います。ウィルス対策が十分にできているサイトであれば True にして
+  おいてもよいかもしれません。
+
+.. sourcecode:: python
+
+    ARCHIVE_HTML_SANITIZER = 1
+
++ 保管した HTML ファイルに入っているタグをどうするかを決めます。数字の
+  意味は、0 は HTML 部分を保管しない、1 はタグなどをエスケープして
+  保管する、2 はメール本文に対応する HTML 部は保管するが、添付ファイルに
+  なってる HTML ファイルは保管しない、3 はエスケープせずに保管する、です。
+  メールに何か悪さをするような javascript が入っているとタグなどを
+  エスケープしていおいた方がよいのですが、スパムやウィルスが流れないよう
+  に対策ができていれば、3 にしてそのまま HTML を表示させても大丈夫です。
+
+
+
+メール配送に関する既定値
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. sourcecode:: python
+
+    DELIVERY_MODULE = 'SMTPDirect'
+
++ ここは、'SMTPDirect' か 'Sendmail' かのどちらかですが、Sendmail は
+  メンテナンスされていないのでよほどのことが無い限り使うことは無いで
+  しょう。（よほどのことがあるのであれば、その障害を解消する方向での
+  努力をお願いします）
+
+.. sourcecode:: python
+
+    MTA = 'Manual'
+
++ ここは、'Manual' か 'Postfix' かのどちらかです。MTA に Postfix を使って
+  いる場合に Postfix と Mailman の連携がうまくとれていれば、これを 
+  'Postfix' にすることができます。そうでない場合には、'Manual' にして、
+  /etc/aliases ファイルを手動で編集する必要があります。
+
+.. sourcecode:: python
+
+    POSTFIX_STYLE_VIRTUAL_DOMAINS = []
+    VIRTUAL_MAILMAN_LOCAL_DOMAIN = None
+
++ Postfix で仮想ドメインを使っている場合のパラメータです。仮想ドメインが
+  Mailman の中だけで、他のメールボックスでは単一ドメインであれば、これを
+  使う必要はありません。
+
+.. sourcecode:: python
+
+    POSTFIX_ALIAS_CMD = '/usr/sbin/postalias'
+    POSTFIX_MAP_CMD = '/usr/sbin/postmap'
+
++ Postfix で使用するデータベースの更新コマンドです。標準でないところにインストールされている場合にはそのパスを記入します。
+
+.. sourcecode:: python
+
+    SMTP_MAX_RCPTS = 500
+
++ SMTP の１回のセッションで何人まで受信者を指定できるかを記入します。制限の無い場合は 0 とします。
+
+.. sourcecode:: python
+
+    SMTP_MAX_SESSIONS_PER_CONNECTION = 0
+
++ SMTP の１回のコネクションで何回セッションを開始できるかを記入します。制限が無い場合は 0 です。
+
+.. sourcecode:: python
+
+    SMTPHOST = 'localhost'
+
++ SMTP サーバが動いているホスト名です。localhost が IPv6 アドレスを返すのに
+  SMTP サーバが IPv6に対応していない場合、'127.0.0.1' に変更しておく必要が
+  あるかもしれません。
+
+.. sourcecode:: python
+
+    SMTPPORT = 0
+
++ SMTP サーバのポート番号を指定します。ただし、0 は標準の 25 であることを
+  示します。MTA でスパム防止やウィルスチェックを入れている場合に、
+  Mailman から出て行くメールがスパムやウィルスチェック済みであれば、
+  標準でないポートを指定する方が効率がよいかもしれません。
+
+.. sourcecode:: python
+
+    REMOVE_DKIM_HEADERS = No
+
++ DKIM ヘッダを付けたままメールを配信すると、Mailman で手を加えているため、
+  受信側でスパム判定されてしまうという意見と、付けたままでその値が変わって
+  いても価値があるという意見があります。
+  現実問題として配送先に届かなければどうしようもないので、Yes にして、取り
+  除いておいた方がよいように思われます。
+
+
+
+パイプライン
+~~~~~~~~~~~~
+
+Mailman 内部でのメールの処理（件名にプレフィクスを付けるとか、受信者のリス
+トを作るとか）は Python のモジュールを順に呼び出して行うようになっています。
+この処理モジュールの並びをパイプラインと呼びます。
+GLOBAL_PIPELINE と OWNER_PIPELINE が定義されていますので、後から 
+mm_cfg.py で適当な位置にモジュールを追加することができます。
+
+例えば +j バージョンでは
+
+.. sourcecode:: python
+
+    GLOBAL_PIPELINE.insert(1, 'iso2022jpfix')
+
+
+のようにして日本語処理のモジュールを入れるように推奨されています。
+
+あるいは、Usenet とのコネクションが無いのであれば
+
+.. sourcecode:: python
+
+    GLOBAL_PIPELINE.remove('ToUsenet')
+
+
+のようにして Usenet へ配信するモジュールを除いておいてもよいでしょう。
+
+
+VERP
+~~~~~~~~
+
+VERP とは Variable Enverope Return Path の略で、送信者 (SMTP の FROM) アドレスに宛先を組み
+込むことで、エラー通知があったときに宛先を取り出すことが容易になるという方法です。例えばリストの会員がメールを転送していてその転送先でエラー
+になったとき、エラー通知には元の会員メールアドレスは書いてないことが多いのですが、SMTP_FROM
+アドレスに最初の宛先が組み込んであるので、会員が登録しているメールアドレスを知ることができます。そのためには、MTA
+がメールアドレスのローカルパートのうち + 以降は無視してその前のメールボックスに配信するように設定する必要があります。
+
+.. sourcecode:: python
+
+    VERP_PROBES = No
+    VERP_PASSWORD_REMINDERS = No
+    VERP_PERSONALIZED_DELIVERIES = No
+
++ VERP は個別化した普通配送の配信メール、毎月のパスワード通知、配送エラー
+  で停止した会員へのプローブに使うことができます。デフォルトでは使いません
+  ので、MTA での設定ができたら No を Yes に変えておいた方がよいでしょう。
+
+.. sourcecode:: python
+
+    VERP_DELIVERY_INTERVAL = 0
+
++ 個別化していない普通配送でも 時々 VERP を使ってエラー処理を確実にしたいと
+  思う場合に、この数字を 1 以上の整数にしておきます。例えば 1 は毎回、2 は
+  1回おきに VERP を使います。既定値の 0 は VERP を使いません。
+
+.. sourcecode:: python
+
+    VERP_CONFIRMATIONS = No
+
++ 入会などの確認メールに VERP を使うかどうかを決めます。
+
+
+
+自動応答の回数上限
+~~~~~~~~~~~~~~~~~~
+
+.. sourcecode:: python
+
+    MAX_AUTORESPONSES_PER_DAY = 10
+
++ 自動応答を使うとき、そのメールがエラーになったりするとユーザのMTA と
+  Mailman の間で無限のメール交換が発生する恐れがあります。これを防ぐため、
+  1日の自動応答限度を定めています。
+
+
+バックスキャッタ予防
+~~~~~~~~~~~~~~~~~~~~
+
+バックスキャッタとはスパムメールの送信者に本当に配信したいアドレスを設定しておいて、エラーになったメールをその人に届けようとする（あるいは届
+いてしまう）ことを言います。Mailman
+ではメールコマンドが成功／失敗したことを送信者に知らせますので、バックスキャッタに悪用される危険があります。
+
+.. sourcecode:: python
+
+    DISCARD_MESSAGE_WITH_NO_COMMAND = Yes
+
++ -request や -confirm アドレスに来たメールにコマンドが無ければそのメールを破棄します。
+
+.. sourcecode:: python
+
+    RESPONSE_INCLUDE_LEVEL = 2
+
++ 応答のメールに元のメッセージをどの程度入れておくかです。
+  デフォルトの 2 だとメール本文を全部入れてしまうので、0の処理できなかった
+  部分は応答メールに入れない、または 1 のオリジナルメールはヘッダ部分だけを
+  付けるのどちらかにしておいた方がよいでしょう。
+
+.. sourcecode:: python
+
+    DEFAULT_RESPOND_TO_POST_REQUESTS = Yes
+
++ 新しいリストを作成したときに、投稿リクエストに自動応答を返すように設定する
+  かどうかを決めます。リストの管理者は管理インタフェースでこれを変更
+  できます。互換性により Yes になっていますが、No にしておいた方がよいでしょう。
+
+
+Qrunners
+~~~~~~~~~~~~~~~~
+
+Mailman のメール処理は上記のパイプラインで行われますが、それぞれのパイプラインを駆動するプロセスが Qrunner です。上では
+GLOBAL と OWNER が出ていましたが、その他保存書庫、エラー処理、メールコマンド処理、Usenet ニュースへの配送、MTA
+への送信、Mailman 自体から発信するメールの処理、一時的にエラーになった処理の再開のためにそれぞれ Qrunner
+が起動されます。QRUNNERS には qrunner
+の名前と同時処理のプロセス数が記述されます。例えば個別配送を多用するトラフィックの多いサイトでは OutgoingRunner
+を増やしたいかもしれません。プロセス数は 2 のべき乗で書いてください。(2,4...) しかし、多くの場合では各１の Runner
+で十分でしょう。逆に Usenet への配信をしていない場合には、
+
+.. sourcecode:: python
+
+    QRUNNERS.remove(('NewsRunner', 1))
+
+
+のようにして、NewsRunner を止めておきたいかもしれません。
+
+
+一般的な既定値
+~~~~~~~~~~~~~~
+
+.. sourcecode:: python
+
+    DEFAULT_SERVER_LANGUAGE = 'en'
+
++ デフォルトのサーバ言語です。日本語にするには 'ja' とします。
+
+.. sourcecode:: python
+
+    USE_ENVELOPE_SENDER = No
+
++ リストに投稿されたメールが会員からのものであるかどうかを判定するのに、
+  SMTP_FROM (Envelope Sender)だけを使うかどうかです。一般には Envelope 
+  Sender はごまかしにくいと言われていますが、完全でないうえに、From 
+  アドレスとは違うアドレスを使って転送で発信するようなケースもあります。
+  No のままでよいでしょう。
+
+.. sourcecode:: python
+
+    SENDER_HEADERS = ('from', None, 'reply-to', 'sender')
+
++ リストに投稿されたメールが会員からのものであるかどうかを判定するのに
+  使うヘッダのリストです。None は Envelope Sender です。
+
+.. sourcecode:: python
+
+    DEFAULT_ADMIN_MEMBER_CHUNKSIZE = 30
+
++ 管理インタフェースの会員リストを表示するのに、この数を超えたらメール
+  アドレスの最初の文字で分割し、それぞれも、この数を超えないように
+  分割します。リスト管理者は管理インタフェースからこれを変更できます。
+
+.. sourcecode:: python
+
+    ADMINDB_PAGE_TEXT_LIMIT = 4096
+
++ 管理データベースでメールの内容を表示するときどこまで表示するかを決めます。
+
+.. sourcecode:: python
+
+    OWNERS_CAN_DELETE_THEIR_OWN_LISTS = No
+
++ リスト管理者が管理インタフェースからリストを削除してもよいかどうかを
+  決めます。Webからの実行は間違いが起こりやすいので、デフォルトでは No に
+  なっています。サイト管理者が rmlist コマンドを使って削除してください。
+
+.. sourcecode:: python
+
+    OWNERS_CAN_ENABLE_PERSONALIZATION = No
+
++ メール配送の個別化を許可する場合は Yes にします。Yes にすると
+  管理インタフェースの普通配送のところに個別化についてのメニューが出てきます。
+
+.. sourcecode:: python
+
+    OWNERS_CAN_CHANGE_MEMBER_PASSWORDS = No
+
++ リスト管理者の権限で会員オプションページから会員のパスワードを変更できるかどうかを決めます。
+
+.. sourcecode:: python
+
+    ADMIN_CATEGORIES
+
++ 管理インタフェースのカテゴリーとしてどの下位のページをメニューとして
+  表示するかを決めます。例えば Usenet News とのメッセージ交換を行わない
+  のであれば、
+
+  .. sourcecode:: python
+
+    ADMIN_CATEGORIES.remove('gateway')
+
+
+  を mm_cfg.py に書いておくとよいでしょう。
+
+.. sourcecode:: python
+
+    DEFAULT_NEW_MEMBER_OPTIONS = 256
+
++ 新規入会会員のオプションの既定値です。リスト管理者はこれを変更できます。
+  256 は notmetoo つまり To や Cc にその会員のメールアドレスがあったら、
+  リストとしては配送を行いません。0 にしておいてもよいかもしれません。
+
+.. sourcecode:: python
+
+    USER_FRIENDLY_PASSWORDS = Yes
+
++ Mailman がランダムにパスワードを選ぶときに、わりと発音しやすいような形で
+  パスワードを作成します。No にすると難しいパスワードになりますが、その方が
+  セキュリティ的には安全です。
+
+.. sourcecode:: python
+
+    MEMBER_PASSWORD_LENGTH = 8
+    ADMIN_PASSWORD_LENGTH = 10
+
++ ランダムに作成されるパスワードの長さです。
+
+
+リスト作成時の既定値
+~~~~~~~~~~~~~~~~~~~~
+
+リストを作成するときに設定される値を決めます。既に作成されたリストには影響しません。また、DEFAULT
+で決められた値は管理インタフェースで変更できます。
+
+.. sourcecode:: python
+
+    DEFAULT_LIST_ADVERTISED = Yes
+    DEFAULT_MAX_NUM_RECIPIENTS = 10
+    DEFAULT_MAX_MESSAGE_SIZE = 40
+
++ 作成時に、公開リストにし、From: の受信者数の最大を 10 にし、
+  投稿メールの長さを 40 (KB) に制限します。
+
+.. sourcecode:: python
+
+    DEFAULT_SUBJECT_PREFIX = "[%(real_name)s] "
+
++ 件名に付けるプレフィックスの既定値です。メールに番号を付けるのを
+  デフォルトにする場合には、
+
+  .. sourcecode:: python
+
+    DEFAULT_SUBJECT_PREFIX = "[%(real_name)s %%d]"
+
+  のようにしておくとよいでしょう。
+
+.. sourcecode:: python
+
+    DEFAULT_MSG_HEADER
+    DEFAULT_MSG_FOOTER
+
++ メール本文の最初と最後にそれぞれ付加されるヘッダとフッタの既定値です。
+
+.. sourcecode:: python
+
+    DECORATE_LCSET = 1
+    DECORATE_MCSET = 2
+    DECORATE_CHARSETS = [DECORATE_LCSET, DECORATE_MCSET, 'utf-8']
+    DECORATE_PREFER_8BIT = No
+
++ +j バージョンに新しく付けたヘッダ／フッタ付加における文字コードの
+  決定順を決めます。デフォルトではリストの文字コード、メールに付いて
+  いた文字コードの順に試してうまく行かない場合には utf-8 を使います。
+  また、デフォルトでは 8bitでのメールを MIME符号化します。
+
+.. sourcecode:: python
+
+    OLD_STYLE_PREFIXING = Yes
+
++ 件名の最初に付け加えるプレフィックスのスタイルについて、元の件名が
+  Re: で始まっていたらどうするかを決めます。日本で番号を付ける場合
+  には [prefix 123] Re: の形にするのが慣例でしたので、そうなるように
+  したところ、番号を付けない場合には Re: [prefix] の形になってたのだから
+  おかしいという話が出てきました。後者を仮に old style と呼んでいます。
+  ただし、番号を付ける場合には前者の new style となります。
+  どちらにしても、Google group のように blah blah blah (was Re:
+  [prefix 123] foo bar) のようなプレフィックスが件名の後ろに行って
+  しまうようなことはありません。
+
+.. sourcecode:: python
+
+    DEFAULT_SCRUB_NONDIGEST = False
+
++ 普通配送の添付ファイルを保存書庫に保管して、それへのリンクに置き換える
+  かどうか、の既定値です。
+
+.. sourcecode:: python
+
+    DEFAULT_MAIL_COMMANDS_MAX_LINES = 25
+
++ -request メールのコマンドを最大何行まで処理するかの既定値です。
+
+.. sourcecode:: python
+
+    DEFAULT_ADMIN_IMMED_NOTIFY = Yes
+
++ メールの配送保留、会員の入退会申請などが発生したときに直ぐに管理者に知らせるかどうかの既定値です。
+
+.. sourcecode:: python
+
+    DEFAULT_ADMIN_NOTIFY_MCHANGES = No
+
++ リストの入退会が発生したときに直ぐに管理者に知らせるかどうかの既定値です。
+
+.. sourcecode:: python
+
+    DEFAULT_MAX_DAYS_TO_HOLD = 0
+
++ 保留となった申請について毎朝 8時に管理者に知らせますが、一定の日数
+  保留になったままの申請は破棄するように設定できます。その既定値ですが、
+  互換性のため 0 (いつまでも破棄しない) になっています。3 (日) 程度にして
+  おいた方がよいでしょう。リスト管理者はいつでもこれを自分で適当な値に
+  変更できます。
+
+.. sourcecode:: python
+
+    DEFAULT_DEFAULT_MEMBER_MODERATION = No
+
++ リスト作成時に会員からの投稿をすべて保留するようにしたいかどうかです。
+  デフォルトでは会員の誰でもが投稿できます。リスト作成時に変更できますし、
+  リスト管理者は作成後に変更することもできます。もっぱらメルマガの
+  サービスをするようなサイトでしたら、Yes にしておくとよいでしょう。
+
+.. sourcecode:: python
+
+    DEFAULT_FORWARD_AUTO_DISCARDS = Yes
+
++ 非会員のメールをリストに流さず破棄するとした場合に、そのメールを司会者に
+  転送するかどうかの既定値です。
+
+.. sourcecode:: python
+
+    DEFAULT_GENERIC_NONMEMBER_ACTION = 1
+
++ 非会員で処理が特に定めてない場合の処理方法の既定値です。
+  ただし、0 = 承認、1 = 保留、2 = 拒否、3 = 破棄です。
+
+.. sourcecode:: python
+
+    DEFAULT_REQUIRE_EXPLICIT_DESTINATION = Yes
+
++ 明示的にリストへの宛先が To: 又は Cc: に書いてあることを必要とするか
+  どうかの既定値。
+
+.. sourcecode:: python
+
+    DEFAULT_ACCEPTABLE_ALIASES = ""
+
++ リストへの宛先と同等に扱うメールアドレスのリストの既定値。
+
+.. sourcecode:: python
+
+    DEFAULT_UMBRELLA_LIST = No
+
++ 傘リストの親とするかどうかの既定値。
+
+.. sourcecode:: python
+
+    DEFAULT_UMBRELLA_MEMBER_ADMIN_SUFFIX = "-owner"
+
++ 傘リストの親である場合の管理者アドレスのサフィックスの既定値。
+
+.. sourcecode:: python
+
+    DEFAULT_REGULAR_EXCLUDE_LISTS = []
+    DEFAULT_REGULAR_INCLUDE_LISTS = []
+    ALLOW_CROSS_DOMAIN_SIBLING = False
+
++ 普通配送で兄弟姉妹リスト（排除／包含リスト）の既定値、およびドメインを
+  またいでの兄弟姉妹リストを許可するかどうか。
+
+.. sourcecode:: python
+
+    DEFAULT_SEND_REMINDERS = Yes
+
++ 毎月のパスワード通知を送るかどうかの既定値
+
+.. sourcecode:: python
+
+    DEFAULT_SEND_WELCOME_MSG = Yes
+
++ 新入会員にようこそメールを送るかどうかの既定値
+
+.. sourcecode:: python
+
+    DEFAULT_SEND_GOODBYE_MSG = Yes
+
++ 退会者にさようならメールを送るかどうかの既定値
+
+.. sourcecode:: python
+
+    DEFAULT_BOUNCE_MATCHING_HEADERS = ...
+
++ スパム防止のための ヘッダ と その中身の正規表現をリストします。
+  これだけでスパム防止を実現しようとするのは無理がありますが、例が
+  ありますので必要であれば参考にしてください。
+
+.. sourcecode:: python
+
+    DEFAULT_REPLY_GOES_TO_LIST = 0
+
++ 返信がリストにだけ行くように Reply-To: ヘッダを書き変えるかどうかの
+  既定値です。0 は書き変えない、1 はリストのアドレスにする、2 は別に
+  指定するアドレスにするです。
+
+.. sourcecode:: python
+
+    DEFAULT_FIRST_STRIP_REPLY_TO = No
+
++ 投稿メールに Reply-To: があったとき、それを取り除くかどうかの既定値です。
+
+.. sourcecode:: python
+
+    DEFAULT_SUBSCRIBE_POLICY = 1
+
++ 入会手続きのポリシーの既定値です。0 は確認無しに入会、1 は確認が必要、
+  2 は管理者の承認が必要、3 は会員の確認と管理者の承認が必要です。
+
+.. sourcecode:: python
+
+    ALLOW_OPEN_SUBSCRIBE = No
+
++ 確認無しで入会を許可するかどうかを決めます。他人が勝手に入会させることが
+  ないように、ここは No のままにしておくべきです。
+
+.. sourcecode:: python
+
+    DEFAULT_UNSUBSCRIBE_POLICY = 0
+
++ 退会許可ポリシーの既定値です。0 は会員の意思のみで退会処理が完了します。
+  1 は、リスト管理者の承認が必要です。
+
+.. sourcecode:: python
+
+    DEFAULT_PRIVATE_ROSTER = 1
+
++ 会員名簿の公開範囲をどうするかの既定値です。0 は誰でも見える、1は会員のみ
+  に公開、2 は管理者だけが見ることができます。
+
+.. sourcecode:: python
+
+    DEFAULT_OBSCURE_ADDRESSES = Yes
+
++ 会員名簿を表示するときに、メールアドレスらしく見えないように @ を別の
+  文字で置き換えます。
+
+.. sourcecode:: python
+
+    ALLOW_RFC2369_OVERRIDES = Yes
+
++ ``List-*`` ヘッダを付けるかどうかを管理インタフェースで決めることができます。
+
+.. sourcecode:: python
+
+    ALLOW_SENDER_OVERRIDES = Yes
+
++ Sender ヘッダを付けないように管理インタフェースで設定することができます。
+
+.. sourcecode:: python
+
+    DEFAULT_FILTER_CONTENT = No
+
++ 添付ファイルや HTML ファイルを通さないようにフィルターを有効にするか
+  どうかの既定値です。
+
+.. sourcecode:: python
+
+    DEFAULT_FILTER_MIME_TYPES = []
+
++ フィルターで通さない MIME タイプの既定値。
+
+.. sourcecode:: python
+
+    DEFAULT_PASS_MIME_TYPES = [ ... ]
+
++ フィルターで通す MIME タイプの既定値。 Defaults.py.in の例では
+  テキスト形式の平文だけを通します。
+
+.. sourcecode:: python
+
+    DEFAULT_FILTER_FILENAME_EXTENSIONS = [ ... ]
+
++ フィルターで通さないファイルの拡張子の既定値。よくあるウィルスに付いて
+  いる拡張子を並べてあります。
+
+.. sourcecode:: python
+
+    DEFAULT_PASS_FILENAME_EXTENSIONS = []
+
++ フィルターで通すファイルの拡張子の既定値。
+
+.. sourcecode:: python
+
+    DEFAULT_COLLAPSE_ALTERNATIVES = Yes
+
++ メール本文が平文とHTMLで同時に送られているとき、代替部を捨てて平文だけに
+  します。
+
+.. sourcecode:: python
+
+    DEFAULT_CONVERT_HTML_TO_PLAINTEXT = Yes
+
++ メールが HTML だけになったとき、平文に変換するかどうかの既定値。
+
+.. sourcecode:: python
+
+    DEFAULT_FILTER_ACTION = 0
+
++ フィルターの結果配送するものがなくなったときどうするかの既定値。
+  0 は破棄、1 は拒否、2 は管理者に転送、3 はサーバに保存。
+
+.. sourcecode:: python
+
+    OWNERS_CAN_PRESERVE_FILTERED_MESSAGES = Yes
+
++ フィルターされたメールをシステムの特別のディレクトリに保存することが
+  できるかどうかを決めます。実際に保存されたメッセージについて何かしようと
+  するとリスト管理者の権限だけではできないので、サイト管理者が協力して
+  あげる必要があります。
+
+.. sourcecode:: python
+
+    DEFAULT_ADMINISTRIVIA = Yes
+
++ リスト会員のメールコマンドは -request アドレス宛に送るのですが、間違えて
+  リストの投稿アドレスに送ってしまう人がよくいます。そのようなメールが
+  リストに配信されてしまうのをある程度防ぐことができます。
+
+
+まとめ読みの既定値
+~~~~~~~~~~~~~~~~~~
+
+.. sourcecode:: python
+
+    DEFAULT_NONDIGESTABLE = Yes
+
++ 既定値ではまとめ読みを無効にすることができます。
+
+.. sourcecode:: python
+
+    DEFAULT_DIGESTABLE = Yes
+    DEFAULT_DIGEST_HEADER = ""
+    DEFAULT_DIGEST_FOOTER = DEFAULT_MSG_FOOTER
+    DEFAULT_DIGEST_IS_DEFAULT = No
+    DEFAULT_MIME_IS_DEFAULT_DIGEST = No
+    DEFAULT_DIGEST_SIZE_THRESHHOLD = 30 # kB
+    DEFAULT_DIGEST_SEND_PERIODIC = Yes
+
++ まとめ読みの既定値です。リスト管理者はこれらを変更できます。
+
+.. sourcecode:: python
+
+    MIME_DIGEST_KEEP_HEADERS = [ ... ]
+
++ MIME形式でのまとめ読み（１通１通が添付メッセージになって配送されます）で、保存するヘッダ情報をリストします。
+
+.. sourcecode:: python
+
+    PLAIN_DIGEST_KEEP_HEADERS = [ ... ]
+
++ テキスト形式 (RFC1135) でのまとめ読みで、保存するヘッダ情報をリストします。
+  このリストは RFC1135 で定義されているものに準拠しています。（順番も指定されています）
+
+
+配送エラー処理の既定値
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. sourcecode:: python
+
+    DEFAULT_BOUNCE_PROCESSING = Yes
+
++ 配送エラー処理を行うかどうか。既定値では行います。
+
+.. sourcecode:: python
+
+    REGISTER_BOUNCES_EVERY = minutes(15)
+
++ 配送エラー処理はキューに入っているものを 15分おきに処理します。
+
+.. sourcecode:: python
+
+    DEFAULT_BOUNCE_SCORE_THRESHOLD = 5.0
+
++ 配送エラーによる得点がこの値を越えたら配送を停止します。
+
+.. sourcecode:: python
+
+    DEFAULT_BOUNCE_INFO_STALE_AFTER = days(7)
+
++ この期間（日数）を過ぎた配送エラー得点は期限切れとみなしてゼロに
+  リセットします。
+
+.. sourcecode:: python
+
+    DEFAULT_BOUNCE_YOU_ARE_DISABLED_WARNINGS = 3
+
++ 配送エラーで配送停止になっていることを何回通知するかの既定値です。
+
+.. sourcecode:: python
+
+    DEFAULT_BOUNCE_YOU_ARE_DISABLED_WARNINGS_INTERVAL = days(7)
+
++ 上の通知を送信する間隔です。
+
+.. sourcecode:: python
+
+    DEFAULT_BOUNCE_UNRECOGNIZED_GOES_TO_LIST_OWNER = Yes
+
++ 配送エラーが既知のパターンに合わず処理できなかった場合、リスト管理者に
+  転送するかどうかです。
+
+.. sourcecode:: python
+
+    DEFAULT_BOUNCE_NOTIFY_OWNER_ON_DISABLE = Yes
+    DEFAULT_BOUNCE_NOTIFY_OWNER_ON_REMOVAL = Yes
+
++ 配送停止になったとき、および会員リストから削除したときに、そのことをリスト管理者に通知するかどうかです。
+
+
+時間制限
+~~~~~~~~
+
+.. sourcecode:: python
+
+    PENDING_REQUEST_LIFE = days(3)
+
++ 入会申請の保留保存期間です。これを過ぎると申請は破棄されます。
+
+.. sourcecode:: python
+
+    DELIVERY_RETRY_PERIOD = days(5)
+
++ 配送が失敗したとき再試行を続ける期間です。これは、配送先のサーバで
+  エラーになるのではなく、サイトの MTA へメールを渡すときにエラーになる
+  場合ですので、５日間も気づかないというのは問題です。サイトの MTA が
+  ちゃんとメールを処理しているか、サイト日報を利用するなどしてチェックして
+  ください。
+
+.. sourcecode:: python
+
+    DELIVERY_RETRY_WAIT = hours(1)
+
++ 上の再試行の時間間隔です。
+
+
+データベースロックの管理
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+ロックとは２つ以上のプロセスが同時にリストの情報を書き変えて矛盾が生じないようにするための機構です。以下の変数は Mailman
+の動作に異常があるなどの時、その原因追及やデバッグのために用意されているものです。
+
+.. sourcecode:: python
+
+    LIST_LOCK_DEBUGGING = Off
+
++ ロックの情報をログに書き出すかどうかです。
+
+.. sourcecode:: python
+
+    LIST_LOCK_LIFETIME = hours(5)
+
++ ロックが解除されるまでに待つ時間です。5時間もの長い間ロックされたままと
+  いうことは普通はあり得ませんが、短くすると重たい処理が失敗するかもし
+  れません。しかし、Mailman の処理が止まってしまったというような時は、
+  locks ディレクトリをチェックしてみるとよいかもしれません。
+
+.. sourcecode:: python
+
+    LIST_LOCK_TIMEOUT = seconds(10)
+
++ qrunner がロック獲得までに待機する時間です。この間にロックできなかった
+  場合は、処理すべきデータをキューに戻して、次の runner 起動 (incoming 
+  runner の場合 1秒後) を待ちます。
+
+.. sourcecode:: python
+
+    PENDINGDB_LOCK_DEBUGGING = Off
+
++ 保留要求データベースのためのロックのデバッグメッセージをログに出力する
+  かどうかを決めます。
+
+
+その他
+~~~~~~
+
+以降の Defaults.py
+にはサイトで変更できるものは無いとされていますが、利用できる言語についてカスタマイズしたいと思うかもしれません。その場合、mm_cfg.py
+には以下のように記述します。
+
+.. sourcecode:: python
+
+    def _(s): return s
+    add_language('en',    _('English (USA)'),       'iso-8859-1',    'ltr')
+    del _
+
+
+上の例では、英語で使用する文字コードを (us-ascii でなく) iso-8859-1 (latin-1) に変更しています。
+
+
+Mailman のサイト日報を受け取るには
+------------------------------------------
+
+mmdsr は Mailman Daily Status Report を略したシェルスクリプトで、配布ソースの contrib
+ディレクトリに入っています。このスクリプトは <prefix>/cron ディレクトリに置いて、他の cron
+スクリプトと同様に定時に実行するように作られています。
+
+実際には、このシェルスクリプトを使う前にエディタで編集して、OS
+の種類やインストールしたディレクトリに合わせて、ちゃんと動作するようにしてあげないといけません。修正するところは
+
+
+
+
++ 185行目（あたり）から始まる、システムコマンドのパスと、一時ディレクトリの作成コマンド。
++ 214行目（あたり）から始まる、mailman のインストールディレクトリに合わせた各種パス。
++ 264行目（あたり）にある、sort コマンドのオプション指定（デフォルトは BSD/Solaris etc 用で、Linux の場合は
+  "-k 2" にする）
++ 271,272行目（あたり）の SENDER（送信メールアドレス） と RCPTS （受信メールアドレス）
+
+
+
+
+mailman ユーザ権限でスクリプトが実行できる事を確認してください。
+
+crontab の設定は、::
+
+    59 23 * * * /usr/local/mailman/cron/mmdsr
+
+です。/usr/local/mailman のところは実際のインストールに合わせてください。cron/crontab.in
+ファイルを編集して、sudo crontab -u mailman crontab.in でもいいですし、直接 sudo -u
+mailman crontab -e で編集してもよいでしょう。
+
+
+機種依存文字を含むメールが配送されない問題
+--------------------------------------------
+
+Mailman が利用している Python の文字コードにおける問題、というよりは、非
+標準の文字を JIS コードと偽って使用する日本での慣習の問題によって、本家
+より配布される Mailman には、いわゆる「機種依存文字」を含むメールが配送さ
+れなくなるという問題があります。
+
+以下のような解決策がありますので、どれかひとつを選んでください。
+
+日本語対応 mailman に入れ替える
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+本サイトでの推奨です。 `リリース情報 <releases.html>`__ をご覧下さい。
+
+機種依存文字を全て '?' に変えてしまう。
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+mailman が使っている email パッケージを修正します。email パッケージは
+2.1.11 以前は <prefix>/pythonlib/email にありますが、2.1.12 以降は
+インストールに使用した Python の lib/python2.x/email にあります。
+
+email ディレクトリに charset.py 又は Charset.py というファイルが
+ありますが、class Charset の中の convert() 関数定義を探してください。
+
+.. sourcecode:: python
+
+    return unicode(s, self.input_codec).encode(self.output_codec)
+
+と、なっている行を次のように修正します
+
+.. sourcecode:: python
+
+    return unicode(s, self.input_codec, 'replace').encode(self.output_codec, 'replace')
+
+使用している Python のバージョンによっては input_codec, output_codec でなく
+input_charset, output_charset になっているかもしれません。
+修正ができたら、mailman を再起動して、正常にメールが配信されることを確認
+してください。
+
+
+機種依存文字を適当と思われる文字（列）に置き換える。
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+昔作った `behave.py <_static/misc/behave.py>`__ を 
+<prefix>/Mailman/Handlers に入れます。
+また、 `pykf <http://sourceforge.jp/projects/pykf/>`__ を入手して、
+mailman のインストールに使った Python に追加します。
+pykf は 日本語対応 mailman の配布パッケージにも含まれています。
+その後、mm_cfg.py に以下の記述を追加して mailman を再起動してください。
+
+.. sourcecode:: python
+
+    GLOBAL_PIPELINE.insert(1, 'behave')
+
+

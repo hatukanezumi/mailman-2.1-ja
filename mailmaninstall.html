@@ -1,0 +1,1497 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>GNU Mailman - インストールマニュアル &mdash; Mailman日本語情報</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="shortcut icon" href="_static/mailman.ico"/>
+    <link rel="top" title="Mailman日本語情報" href="index.html" />
+    <link rel="next" title="サイト管理の手引" href="siteadmin.html" />
+    <link rel="prev" title="Mailman 日本語情報へようこそ" href="index.html" /> 
+  <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-34175846-1', 'python.jp');
+        ga('send', 'pageview');
+
+      </script>
+  <body>
+
+
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="siteadmin.html" title="サイト管理の手引"
+             accesskey="N">次へ</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Mailman 日本語情報へようこそ"
+             accesskey="P">前へ</a> |</li>
+        <li><a href="index.html">Mailman日本語情報</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/mailman.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">GNU Mailman - インストールマニュアル</a><ul>
+<li><a class="reference internal" href="#id2">インストールの必要事項</a></li>
+<li><a class="reference internal" href="#id4">システムセットアップ</a><ul>
+<li><a class="reference internal" href="#id5">グループとユーザの追加</a></li>
+<li><a class="reference internal" href="#create-install-dir">インストールディレクトリの作成</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mailman">Mailman の構築とインストール</a><ul>
+<li><a class="reference internal" href="#configure"><strong class="program">configure</strong> を実行</a></li>
+<li><a class="reference internal" href="#make">Make とインストール</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id10">インストールのチェック</a></li>
+<li><a class="reference internal" href="#id11">ウェブサーバの設定</a></li>
+<li><a class="reference internal" href="#mail-server">メールサーバの設定</a><ul>
+<li><a class="reference internal" href="#id13">Postfix メールサーバを使う場合</a><ul>
+<li><a class="reference internal" href="#postfix-mailman">Postfix と Mailman の統合</a></li>
+<li><a class="reference internal" href="#postfix-virtual">仮想ドメイン</a></li>
+<li><a class="reference internal" href="#id17">他の方法</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id18">Exim メールサーバを使う場合</a><ul>
+<li><a class="reference internal" href="#id20">Exim の設定</a></li>
+<li><a class="reference internal" href="#id22">全般的な設定</a></li>
+<li><a class="reference internal" href="#exim-3">Exim 3 のトランスポート</a></li>
+<li><a class="reference internal" href="#id23">Exim 3 のダイレクタ</a></li>
+<li><a class="reference internal" href="#exim-4">Exim 4 のルータ</a></li>
+<li><a class="reference internal" href="#id24">Exim 4 のトランスポート</a></li>
+<li><a class="reference internal" href="#id25">その他の注意点</a></li>
+<li><a class="reference internal" href="#id27">問題点</a></li>
+<li><a class="reference internal" href="#id28">受信者検証</a></li>
+<li><a class="reference internal" href="#smtp">SMTP 呼出し検証</a></li>
+<li><a class="reference internal" href="#exim-mailman-verp">Exim と Mailman で VERP を使う</a></li>
+<li><a class="reference internal" href="#id29">仮想ドメイン</a></li>
+<li><a class="reference internal" href="#id31">リストの検証</a></li>
+<li><a class="reference internal" href="#id32">この文書の履歴</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id33">Sendmail メールサーバを使う場合</a><ul>
+<li><a class="reference internal" href="#sendmail-smrsh">Sendmail の &#8220;smrsh&#8221; との適合</a></li>
+<li><a class="reference internal" href="#sendmail-mailman">Sendmail と Mailman の統合</a></li>
+<li><a class="reference internal" href="#id35">性能について</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#qmail-issues">qmail メールサーバを使う場合</a><ul>
+<li><a class="reference internal" href="#verp">VERP についての情報</a></li>
+<li><a class="reference internal" href="#id40">仮想メール サーバ</a></li>
+<li><a class="reference internal" href="#id41">更なる情報</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#customizing">サイトのデフォルトを点検</a></li>
+<li><a class="reference internal" href="#id46">サイト全体のメーリングリストを作る</a></li>
+<li><a class="reference internal" href="#cron">Cron の設定</a></li>
+<li><a class="reference internal" href="#mailman-qrunner">Mailman の qrunner を起動する</a></li>
+<li><a class="reference internal" href="#id48">ホスト名の設定をチェックする</a></li>
+<li><a class="reference internal" href="#id49">サイトパスワードの作成</a></li>
+<li><a class="reference internal" href="#id50">初めてリストを作成する</a></li>
+<li><a class="reference internal" href="#troubleshooting">トラブルと対策</a></li>
+<li><a class="reference internal" href="#id55">プラットフォームやオペレーティング システムごとの注</a><ul>
+<li><a class="reference internal" href="#gnu-linux">GNU/Linux について</a></li>
+<li><a class="reference internal" href="#bsd">BSD について</a></li>
+<li><a class="reference internal" href="#macosx">MacOSX について</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="index.html"
+                        title="前の章へ">Mailman 日本語情報へようこそ</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="siteadmin.html"
+                        title="次の章へ">サイト管理の手引</a></p>
+  <h3>このページ</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/mailmaninstall.txt"
+           rel="nofollow">ソースコードを表示</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>クイック検索</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="検索" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    モジュール、クラス、または関数名を入力してください
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="gnu-mailman">
+<h1>GNU Mailman - インストールマニュアル<a class="headerlink" href="#gnu-mailman" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Barry Warsaw</td>
+</tr>
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">2011 年 12 月 11 日</td>
+</tr>
+</tbody>
+</table>
+<div class="topic" id="front">
+<p class="topic-title first">Abstract</p>
+<p>この文書は GNU Mailman を POSIX システム (例: Unix, MacOSX, GNU/Linux)
+にインストールする方法を説明するものです. 基本的なインストール手順 だけでなく, あなたが使用するウェブとメールサーバに統合するための
+ガイドラインを含んでいます <a class="footnote-reference" href="#id56" id="id1">[1]</a>.</p>
+<p>GNU Mailman のウェブサイトは <a class="reference external" href="http://www.list.org">http://www.list.org</a> です.</p>
+</div>
+<div class="section" id="id2">
+<h2>インストールの必要事項<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>GNU Mailman は Unix や MacOSX, GNU/Linux といった POSIX に基くシステム のほとんどで稼動します. 現在のところ
+Windows では動きません. あなたが メールを送信できるメールサーバを必要とし, CGI/1.1 API を備えたウェブ サーバが必要です.
+ウェブサーバには <a class="reference external" href="http://httpd.apache.org">Apache</a> が, ぴったりです. メールサーバには 例えば, <a class="reference external" href="http://www.postfix.org">Postfix</a>, <a class="reference external" href="http://www.exim.org">Exim</a>, <a class="reference external" href="http://www.sendmail.org">Sendmail</a>,  <a class="reference external" href="http://cr.yp.to/qmail.html">qmail</a>  などはどれも使えます.</p>
+<p>Mailman をソースからインストールするには, セキュリティ向上のために 用いられている ラップ <a class="footnote-reference" href="#id57" id="id3">[2]</a> プログラムを構築するときに, ANSI C
+コンパイラーが 必要です. <a class="reference external" href="http://gcc.gnu.org">GNU C コンパイラ gcc</a> の 2.8.1 以降の バージョンでうまくいきます.</p>
+<p>システムには <a class="reference external" href="http://www.python.org">Python</a> インタプリタが どこかにインストールされていなければなりません.
+Mailman 2.1 には Python 2.1 またはそれよりも新しいものが必要です. Python 2.3 以上を推奨します.</p>
+</div>
+<div class="section" id="id4">
+<h2>システムセットアップ<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Mailman ソフトウェアのインストールの前に, 特定のユーザとグループを 追加登録することでシステムの準備をする必要があります. このため,
+この節のステップを実行するには root になる必要があります.</p>
+<div class="section" id="id5">
+<h3>グループとユーザの追加<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Mailman は, ファイルを所有し, プロセスを走らせるために, 他で使用されていない ユーザとグループの名前を必要とします. Mailman
+の基本的なセキュリティは グループ所有権の許可(パーミッション)に基いています. 従って, このステップを きちんとしておくことが重要です <a class="footnote-reference" href="#id58" id="id6">[3]</a>.
+典型的には, <tt class="docutils literal"><span class="pre">mailman</span></tt> という名前のユーザとグループを作成することになります. <tt class="docutils literal"><span class="pre">mailman</span></tt> ユーザは <tt class="docutils literal"><span class="pre">mailman</span></tt>
+グループのメンバーでなければ なりません. Mailman は <tt class="docutils literal"><span class="pre">mailman</span></tt> ユーザとグループの下に, set-group-id (setgid)
+ビットを立ててインストールされます.</p>
+<p>もし, この名前が既に使われていたなら, 別のユーザとグループ名を選ぶことが できますが, <strong class="program">configure</strong>
+を走らせるときに覚えておかないといけません. もし, 別のユーザ名を選んだなら, これを <strong class="program">configure</strong> の
+<em class="xref std std-option">--with-username</em> オプションで指定します. また, 別の グループ名を選んだ場合には,
+<strong class="program">configure</strong> の  <em class="xref std std-option">--with-username</em> オプションで指定してください.</p>
+<p>Linux システムでは, 次のコマンドでこれらのアカウントを作成することが できます. ご利用のシステムのマニュアルで詳細を確認してください:</p>
+<div class="highlight-python"><pre>% groupadd mailman
+% useradd -c''GNU Mailman'' -s /no/shell -d /no/home -g mailman mailman</pre>
+</div>
+</div>
+<div class="section" id="create-install-dir">
+<span id="id7"></span><h3>インストールディレクトリの作成<a class="headerlink" href="#create-install-dir" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>通常, Mailman は単一のディレクトリにインストールされ, そこには Mailman ソースコードと,
+実行時のデータ(リストと保存書庫)の両方が入ります. 静的なプログラムファイルと変化するデータファイルを分離して, 別のディレクトリ に入れることも可能です.
+ここではこのことに関するオプションを説明します.</p>
+<p>Mailman のデフォルトのインストールディレクトリは <tt class="file docutils literal"><span class="pre">/usr/local/mailman</span></tt> <a class="footnote-reference" href="#id59" id="id8">[4]</a>
+このインストールディレクトリ(<em>$prefix</em> で参照します) を変更するには configure で <em class="xref std std-option">--prefix</em>
+オプションを使います. 以前のバージョンから更新するには, インストールディレクトリを変更す るので無い限り, <em class="xref std std-option">--prefix</em>
+を設定する必要があります.</p>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">Mailman を <tt class="docutils literal"><span class="pre">nosuid</span></tt> オプションでマウントされたファイルシステムに インストールすることはできません. これがあると Mailman
+のインストールに 失敗します. というのは, セキュリティ上の理由で setgid プログラムの利用を 前提としているからです. もし,
+これがあてはまるようでしたら, 単純に, setgid プログラムを許している場所に Maiman をインストールしてください.</p>
+</div>
+<p>インストールのディレクトリが <tt class="docutils literal"><span class="pre">mailman</span></tt> グループに設定されて いることを確認してください (あるいは
+<em class="xref std std-option">--with-groupname</em> で指定 しようとしているグループ). そして, setgid ビットがセットされ
+ていることを確認してください <a class="footnote-reference" href="#id60" id="id9">[5]</a> また, このディレクトリが全ての ユーザに読み取りと実行(移動)可能であることを保証したいと思う でしょう.
+以下のシェルコマンドでこれらのことが設定できます:</p>
+<div class="highlight-python"><pre>% cd $prefix
+% chgrp mailman .
+% chmod a+rx,g+ws .</pre>
+</div>
+<p>これで, Mailman ソフトウェアを configure しインストールする 準備ができました.</p>
+</div>
+</div>
+<div class="section" id="mailman">
+<span id="building"></span><h2>Mailman の構築とインストール<a class="headerlink" href="#mailman" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<div class="section" id="configure">
+<h3><strong class="program">configure</strong> を実行<a class="headerlink" href="#configure" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Mailman をインストールする前に <strong class="program">configure</strong> を実行して, システム
+で必要になるいろいろなインストールオプションを設定しなければなりません.</p>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">下にある,  <em class="xref std std-option">--with-mail-gid</em> と <em class="xref std std-option">--with-cgi-gid</em> のオプションに特に注意.
+多分これが必要になります.</p>
+</div>
+<p>この節に書いてある手順を実行する間は, あなたは root に なるべきではあり <strong>ません</strong>. 自分自身のログイン名か, 他のソフトを
+インストールするときに使うアカウントを使ってください. また, <tt class="docutils literal"><span class="pre">mailman</span></tt> ユーザになる必要はありませんが, そうしても構いません. 但し,
+前の手順で作成した <em>$prefix</em> ディレクトリの書き込み許可を 得るためには, そのアカウントが <tt class="docutils literal"><span class="pre">mailman</span></tt> グループに所属している
+必要があります. ターゲットのインストールディレクトリに書き込み権限があることと, そこに setgid ファイルを作成できることを確認してください. (NFS
+や他のマウント方式で setgid を禁止している場合があります)</p>
+<p>もし, 他の GNU ソフトをインストールしたことがあるなら, <strong class="program">configure</strong> スクリプトにはおなじみでしょう. Mailman の
+tarball を開いた ディレクトリに <strong class="program">cd</strong> して, <strong class="program">configure</strong> を引数を付けずに実行して ください:</p>
+<div class="highlight-python"><pre>% cd mailman-&lt;version&gt;
+% ./configure
+% make install</pre>
+</div>
+<p>以下のオプションで Mailman のインストールをカスタマイズできます.</p>
+<dl class="docutils">
+<dt><em class="xref std std-option">--prefix</em> = <em>dir</em></dt>
+<dd>標準的な GNU configure のオプションで Mailman がインス トールされることになるベースのディレクトリを変更します.  デフォルトでは
+<em>$prefix</em> は <tt class="file docutils literal"><span class="pre">/usr/local/mailman</span></tt> です. この ディレクトリはその時点で存在していなければならず,
+<a class="reference internal" href="#create-install-dir"><em>インストールディレクトリの作成</em></a> で説明したようにセットアップされていなけれ ばなりません.</dd>
+<dt><em class="xref std std-option">--exec-prefix</em> = <em>dir</em></dt>
+<dd>標準的な GNU configure のオプションでアーキテクチャに 依存したバイナリのインストールディレクトリを指定できます.</dd>
+<dt><em class="xref std std-option">--with-var-prefix</em> = <em>dir</em></dt>
+<dd>交換可能なデータを <em>$prefix</em> や <em>$exec-prefix</em> の代わりに <em>dir</em> の下に保存します. このようなデータの例としては,
+リストの保存書庫やリスト設定データベースがあります.</dd>
+<dt><em class="xref std std-option">--with-python</em> = <tt class="file docutils literal"><span class="pre">/path/to/python</span></tt></dt>
+<dd>ラッププログラムで使用する Python インタプリタを変更 して指定することができます. デフォルトはシェルの <em>$PATH</em>
+の中で最初に見つかったものを使います.</dd>
+<dt><em class="xref std std-option">--with-username</em> = <em>username-or-uid</em></dt>
+<dd><tt class="docutils literal"><span class="pre">mailman</span></tt> でないユーザ名を使う場合に指定する. このオプションの値には整数のユーザID またはユーザ名を使うことができます. <em>$prefix</em>
+ディレクトリがこのユーザの所有であることを確認してください.</dd>
+<dt><em class="xref std std-option">--with-groupname</em> = <em>groupname-or-gid</em></dt>
+<dd><tt class="docutils literal"><span class="pre">mailman</span></tt> でないグループ名を使う場合に指定する. このオプションの値には整数のグループID またはグループ名を使うことができます.
+<em>$prefix</em> ディレクトリがこのグループの所有であることを確認してください.</dd>
+<dt><em class="xref std std-option">--with-mail-gid</em> = <em>group-or-groups</em></dt>
+<dd><p class="first">メールラップ を介してスクリプトを実行する際のグループを 指定します. <em>group-or-groups</em> は, １個または複数の整数 のグループID
+でも, グループの名前であっても可です. リス トの最初の値で実際に存在 するグループの値が使用されます.  デフォルトでは, これは <tt class="docutils literal"><span class="pre">mailman</span></tt>
+<tt class="docutils literal"><span class="pre">other</span></tt> <tt class="docutils literal"><span class="pre">mail</span></tt> <tt class="docutils literal"><span class="pre">daemon</span></tt> のリストになっています.</p>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">これは高度にシステム依存であり, 正しい値を知っておく必 要があります. というのは, グループ ID が メールラップ プロ
+グラムにコンパイルされてセキュリティを高めるからです. <strong class="program">Sendmail</strong> を使っているシステムでは,
+<tt class="file docutils literal"><span class="pre">sendmail.cf</span></tt> に  <em>DefaultUser</em> を使って <strong class="program">sendmail</strong> プロセスの gid が 設定
+されています. (もし, コメントアウトされていたら, それで もデフォルトを示しているかもしれません)</p>
+</div>
+<p class="last">このスイッチの正しい値を知るために, 使用しているメールサーバの 説明や設定ファイルをチェックしてください.</p>
+</dd>
+<dt><em class="xref std std-option">--with-cgi-gid</em> = <em>group-or-groups</em></dt>
+<dd><p class="first">CGI ラップ を介してスクリプトを実行する際のグループを 指定します. <em>group-or-groups</em> は, 1個または複数の整数 のグループID
+でも, グループの名前であっても可です. リス トの最初の値で実際に存在 するグループの値が使用されます.  デフォルトでは, これは <tt class="docutils literal"><span class="pre">www</span></tt>
+<tt class="docutils literal"><span class="pre">www-data</span></tt> <tt class="docutils literal"><span class="pre">nobody</span></tt> の リスト になっています.</p>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">この値は Web サーバの設定に依存します. 正しい値を知っ ておく必要があります.  というのは, グループIDがCGI ラップ
+プログラムにコンパイルされてセキュリティを高めるからで す. これが違っていると Mailman CGI スクリプトは 動きま せん.</p>
+</div>
+<p class="last">もし Apache を使っていれば, <tt class="file docutils literal"><span class="pre">httpd.conf</span></tt> に書かれている  <em>Group</em> オプション の値をチェックしてください.</p>
+</dd>
+<dt><em class="xref std std-option">--with-cgi-ext</em> = <em>extension</em></dt>
+<dd>cgi プログラムの拡張子を指定します. <tt class="file docutils literal"><span class="pre">$prefix/cgi-bin</span></tt> に 置かれた CGI ラップ はこの拡張子を持ちます. (ウェブサーバ
+によっては 拡張子が必要です) <em>extension</em> には区切りの . (dot)  を入れておくこと.</dd>
+<dt><em class="xref std std-option">--with-mailhost</em> = <em>hostname</em></dt>
+<dd>メールが出て行く時のホスト名(FQDN)を指定します. インストール が完了すれば, この値は
+<tt class="file docutils literal"><span class="pre">$prefix/Mailman/mm_cfg.py</span></tt> で上書き することができます.</dd>
+<dt><em class="xref std std-option">--with-urlhost</em> = <em>hostname</em></dt>
+<dd>ウェブ URL のホスト名 (FQDN) を指定します. インストールが 完了すれば, この値は
+<tt class="file docutils literal"><span class="pre">$prefix/Mailman/mm_cfg.py</span></tt> で上書き することができます.</dd>
+<dt><em class="xref std std-option">--with-gcc</em> =no</dt>
+<dd>gcc が見つかっても使いません. <strong class="program">cc</strong> が <em>$PATH</em> に無いとい けません.</dd>
+</dl>
+</div>
+<div class="section" id="make">
+<h3>Make とインストール<a class="headerlink" href="#make" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p><strong class="program">configure</strong> を実行したら, <strong class="program">make</strong> を走らせ, 次に <strong class="program">make install</strong>
+とすることで, Mailman を構築しインストールする ことができます.</p>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>インストールのチェック<a class="headerlink" href="#id10" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><strong class="program">make install</strong> を実行した後, 正しいパーミッションとグループ 所有権が設定されていることを
+<strong class="program">check_perms</strong> スクリプトで 確かめてください. まずインストールディレクトリ(<em>$prefix</em>)に移動します. そして,
+<strong class="program">bin/check_perms</strong> プログラムを実行します.  ソースディレクトリで <strong class="program">bin/check_perms</strong>
+を実行しようとしないでく ださい. インストールディレクトリでのみ実行可能です.</p>
+<p>これが問題を報告しなければ, あなたのインストールは正しく設定さ れていた可能性が高い &lt;ウィンク&gt; です. もし, 問題点が報告されたら, 手で修正するか,
+もう一度インストールをやりなおすか, <strong class="program">check_perms</strong> を使って(多分, 一番簡単)修正することが出来ます.</p>
+<ul class="simple">
+<li>インストールを行ったユーザ (<em>$prefix</em> のファイルの所有権を持つ ユーザ) になるか, root になります.</li>
+<li><strong class="program">bin/check_perms -f</strong> を実行します.</li>
+<li>エラーの報告がなくなるまで, 上の手順を繰り返す!</li>
+</ul>
+</div>
+<div class="section" id="id11">
+<h2>ウェブサーバの設定<a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>おめでとう！Mailman ソフトウェアのインストールが完了しました.   しかし, 実際に全てをうまく動かすには, Mailman を ウェブサーバと
+メールシステムの 両方に接続しないといけません.</p>
+<p>もし, メールとウェブサーバを別のマシンで動かして, Mailman を NFS  経由で 共有したいと考えていたら, その２つのマシンの時計が同期 していることを
+確かめてください. この手の環境では,  <tt class="file docutils literal"><span class="pre">Mailman/LockFile.py</span></tt> に定義された <em>CLOCK_SLOP</em> という定数を使って,
+時計のずれを補償したファイルロック機構 にすることができます.</p>
+<p>この節では Mailman のウェブインタフェースをウェブサーバに接続するために 必要な事柄を説明します. ここでの手順は Apache
+ウェブサーバに若干偏って いますので, 詳細についてはご利用のウェブサーバの説明書を参照してください.</p>
+<p>ウェブサーバの設定で <tt class="file docutils literal"><span class="pre">$prefix/cgi-bin</span></tt> に CGI スクリプトの 実行許可を与えてください. 書き加える行は以下のようなものになる
+はずです. (もちろん, <em>$prefix</em> のところは実際の絶対パスに してください.)</p>
+<div class="highlight-python"><pre>Exec        /mailman/*      $prefix/cgi-bin/*</pre>
+</div>
+<p>又は:</p>
+<div class="highlight-python"><pre>ScriptAlias /mailman/       $prefix/cgi-bin/</pre>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">CGIスクリプトを実行する ユーザIDが <tt class="docutils literal"><span class="pre">mailman</span></tt> グループに入って <strong>いない</strong> ことをよく確認してください. でないと, 非公開の保存書庫
+が誰にでも見られてしまいます.</p>
+</div>
+<p>Mailman, Python, GNU のロゴをWebサーバのアクセス可能なところに コピーしてください. 例えば Apacheの場合, 画像ファイルを入れて
+おくのに <tt class="file docutils literal"><span class="pre">icons</span></tt> ディレクトリが用意されているはずです. 例:</p>
+<div class="highlight-python"><pre>% cp $prefix/icons/*.{jpg,png} /path/to/apache/icons</pre>
+</div>
+<p><tt class="file docutils literal"><span class="pre">$prefix/Mailman/mm_cfg.py</span></tt> にロゴのベースディレクトリを書いた 行を追加してください. 例えば:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">IMAGE_LOGOS</span> <span class="o">=</span> <span class="s">&#39;/images/&#39;</span>
+</pre></div>
+</div>
+<p><em>IMAGE_LOGOS</em> のデフォルト値は <tt class="file docutils literal"><span class="pre">/icons/</span></tt> です.  <tt class="file docutils literal"><span class="pre">Defaults.py.in</span></tt>
+に書かれたコメントを読んでください.</p>
+<p>Pipermail の公開メーリングリスト保存書庫を参照できるように  Web サーバを 設定してください. 例えば Apache の場合:</p>
+<div class="highlight-python"><pre>Alias   /pipermail/     $varprefix/archives/public/</pre>
+</div>
+<p>ここで, <em>$varprefix</em> は通常は <em>$prefix</em> と同じで, <em class="xref std std-option">--with-var-prefix</em> オプションを付けて
+<strong class="program">configure</strong> した場合にはその値となります. また, このディレクトリでシンボリックリンクをたどることができるように
+ウェブサーバを設定してください. でないと, Pipermail の書庫にアク セスできません. Apache のユーザは <em>FollowSymLinks</em>
+オプションを  調べてください.</p>
+<p>また, もし公開保存書庫を国際化したいのであれば, Pipermail ディレクトリのデフォルト文字集合の指示をオフにした方がよいかも しれません. でないと,
+多言語の保存書庫は正しく見ることができな いでしょう. Apache の標準のインストールについての設定例は:</p>
+<div class="highlight-python"><pre>&lt;Directory "/usr/local/mailman/archives/public/"&gt;
+    AddDefaultCharset Off
+&lt;/Directory&gt;</pre>
+</div>
+<p>ここで, ウェブサーバを再起動してください.</p>
+</div>
+<div class="section" id="mail-server">
+<span id="id12"></span><h2>メールサーバの設定<a class="headerlink" href="#mail-server" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>この節では Mailman のメールインタフェースをメールサーバに 接続するのに必要な事柄を説明します. ここでの手順はメールサーバによって 異なりますが;
+もしあなたのメールサーバが次の小節に見当たらない 場合は, ここにある文書から一般化することを試してください. そして, 文書の更新を Mailman
+開発者にプレゼントすることも考えてください.</p>
+<div class="section" id="id13">
+<h3>Postfix メールサーバを使う場合<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Mailman は標準の Postfix インストールとうまく合うようになっています. Postfix 2.1.5 (を含む)
+までの各種バージョンで試験済みです.</p>
+<p>デフォルトでは, Postfix は <tt class="docutils literal"><span class="pre">-owner</span></tt> と <tt class="docutils literal"><span class="pre">-request</span></tt> のアドレスを 特殊扱いします. このようなメールも Mailman
+に届けてもらうために,  次のように <tt class="file docutils literal"><span class="pre">main.cf</span></tt> に追加してこのオプションをオフにします:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">owner_request_special</span> <span class="o">=</span> <span class="n">no</span>
+</pre></div>
+</div>
+<p>Mailman のオプションである VERP 配送をサポートするためには,  <tt class="docutils literal"><span class="pre">luser_relay</span></tt> を無効(これが既定値)にしたままで,
+<tt class="docutils literal"><span class="pre">recipient_delimiter</span></tt> を 設定して 拡張アドレス <a class="footnote-reference" href="#id61" id="id14">[6]</a> を有効にします. <tt class="file docutils literal"><span class="pre">main.cf</span></tt> の
+<tt class="docutils literal"><span class="pre">luser_relay</span></tt> の値をどれもコメントアウトし, デフォルトのままにします. また, 次のように <tt class="file docutils literal"><span class="pre">main.cf</span></tt> ファイルに
+追加します.</p>
+<div class="highlight-python"><pre>recipient_delimiter = +</pre>
+</div>
+<p>区切り記号として <tt class="docutils literal"><span class="pre">+</span></tt> を使うと <tt class="file docutils literal"><span class="pre">Defaults.py</span></tt> にある <em>VERP_FORMAT</em> と <em>VERP_REGEXP</em>
+のデフォルト値とうまく合います.</p>
+<p>存在しないローカルアドレスにメールを送信しようとすると, Postfix は 450 のエラーコードを返すかもしれません. これは一時的なエラーを表す
+コードなので, Mailman はデフォルトで <em>DELIVERY_RETRY_PERIOD</em> &#8211; 5 日間メールを送信しようとし続けます. 次のように
+<tt class="file docutils literal"><span class="pre">main.cf</span></tt> に 設定することで, 存在しないローカルユーザについて恒久的なエラーコード を返させることができます.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">unknown_local_recipient_reject_code</span> <span class="o">=</span> <span class="mi">550</span>
+</pre></div>
+</div>
+<p>最後に, もし Postfix スタイルの仮想ドメインを使っているなら, 下の仮想ドメインサポートの節を読んでください.</p>
+<div class="section" id="postfix-mailman">
+<h4>Postfix と Mailman の統合<a class="headerlink" href="#postfix-mailman" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>Postfix と Mailman を統合すると, 新しいリストを作成したり, リストを削除したときに, Postfix のエイリアスデータベースが自動的に
+更新されるようになります. これを実現するための手順は以下のとおりです.</p>
+<p>以下の説明では, Mailman がデフォルトの位置, つまり <tt class="file docutils literal"><span class="pre">/usr/local/mailman</span></tt> にインストールされているものと仮定します.
+もし, そうでなければ, <strong class="program">configure</strong> で用いた <em class="xref std std-option">--prefix</em> と
+<em class="xref std std-option">--with-var-prefix</em> のオプションに従って読み替えてください.</p>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">もし, 仮想ドメインを使っていて, 仮想ドメインの設定を優先させたいと いう場合には, <a class="reference internal" href="#postfix-virtual"><em>仮想ドメイン</em></a> 節を先に読んでください!</p>
+</div>
+<ul>
+<li><p class="first"><tt class="file docutils literal"><span class="pre">$prefix/Mailman/mm_cfg.py</span></tt> ファイルの最後に次のように 追加してください:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">MTA</span> <span class="o">=</span> <span class="s">&#39;Postfix&#39;</span>
+</pre></div>
+</div>
+<p>変数 MTA は <tt class="file docutils literal"><span class="pre">Mailman/MTA</span></tt> ディレクトリにあるモジュールの 名前を指定します. ここには, リストが作成／削除されるときに
+実行される, メールサーバ固有の関数が入っています.</p>
+</li>
+<li><p class="first"><tt class="file docutils literal"><span class="pre">Defaults.py</span></tt> ファイルを見て, <em>POSTFIX_ALIAS_CMD</em> と <em>POSTFIX_MAP_CMD</em>
+コマンド変数の値を確認してください. これらは, それぞれ <strong class="program">postalias</strong> と <strong class="program">postmap</strong> プログラム
+を指していなければなりません. もし変更が必要の場合は <tt class="file docutils literal"><span class="pre">mm_cfg.py</span></tt> の中で行うようにしてください.</p>
+</li>
+<li><p class="first"><strong class="program">bin/genaliases</strong> スクリプトを実行して <tt class="file docutils literal"><span class="pre">aliases</span></tt>  ファイルを初期化してください.</p>
+<div class="highlight-python"><pre>% cd /usr/local/mailman
+% bin/genaliases</pre>
+</div>
+<p><tt class="file docutils literal"><span class="pre">data/aliases</span></tt> と <tt class="file docutils literal"><span class="pre">data/aliases.db</span></tt> の所有者が <tt class="docutils literal"><span class="pre">mailman</span></tt> で, グループ所有者が
+<tt class="docutils literal"><span class="pre">mailman</span></tt> であることを 確認してください. これらは configure コマンドで設定したユーザ グループです. また,
+両方のファイルはグループ書き込み許可が必要 です:</p>
+<div class="highlight-python"><pre>% su
+% chown mailman:mailman data/aliases*
+% chmod g+w data/aliases*</pre>
+</div>
+</li>
+<li><p class="first">Postfix の <tt class="file docutils literal"><span class="pre">main.cf</span></tt> ファイルの <em>alias_maps</em> 変数が 次のパスを含むように書き換えてください:</p>
+<div class="highlight-python"><pre>/usr/local/mailman/data/aliases</pre>
+</div>
+<p>最後の <tt class="docutils literal"><span class="pre">.db</span></tt> が付いていないことにも注意してください.  <em>alias_database</em> にこれを入れてはいけません. なぜなら, Postfix
+の <strong class="program">newaliases</strong> コマンドが Mailman の <tt class="file docutils literal"><span class="pre">aliases.db</span></tt>  ファイルを書き換えてしまうからです.
+しかし, ローカルアドレスを探索する ときには <tt class="file docutils literal"><span class="pre">aliases.db</span></tt> を見てもらいます.</p>
+<p>このエントリについて <tt class="docutils literal"><span class="pre">hash:</span></tt> スタイルのデータベースを作りたい と思うでしょう. これが記入例です:</p>
+<div class="highlight-python"><pre>alias_maps = hash:/etc/postfix/aliases,
+    hash:/usr/local/mailman/data/aliases</pre>
+</div>
+</li>
+<li><p class="first">Mailman を configure するときに, <em class="xref std std-option">--with-mail-gid=mailman</em> スイッチを使用してください;
+これは <tt class="docutils literal"><span class="pre">mailman</span></tt> ユーザを追加した 後で Mailman を configure していればデフォルトになります.
+<tt class="file docutils literal"><span class="pre">aliases.db</span></tt> ファイルの所有者が <tt class="docutils literal"><span class="pre">mailman</span></tt> なので, Postfix は Mailman の ラッププログラムを
+<tt class="docutils literal"><span class="pre">mailman</span></tt> の uid と gid で 実行します.</p>
+</li>
+</ul>
+<p>これで完了! 問題がひとつ: リストを作成したり削除すると, <tt class="file docutils literal"><span class="pre">aliases.db</span></tt> は更新されますが, <strong class="program">postfix
+reload</strong> を自動的に実行するわけでは ありません. これを実行するには root にならなければなりませんが, root に suid
+したスクリプトは安全でないからです. Postfix が <tt class="file docutils literal"><span class="pre">aliases.db</span></tt> ファイルの変更とテーブルの更新に気が付くのに
+1分ほどかかるだけです.</p>
+</div>
+<div class="section" id="postfix-virtual">
+<span id="id15"></span><h4>仮想ドメイン<a class="headerlink" href="#postfix-virtual" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>Postfix 2.0 は &#8220;仮想エイリアス ドメイン <a class="footnote-reference" href="#id62" id="id16">[7]</a>&#8221; をサポートします.  これは, 以前のバージョンの Postfix では &#8220;Postfix
+スタイルの仮想ドメイン&#8221; と呼ばれていたものです.  Mailman で動作する仮想エイリアスドメインを作るには,  Postfix と Mailman
+の両方で設定をする必要があります.  Mailman は, (既定では)
+<tt class="file docutils literal"><span class="pre">/usr/local/mailman/data/virtual-mailman</span></tt>
+という名前のファイルにすべての仮想エイリアスのマップを書き込みます.  また, Postfix が実際に使う
+<strong class="program">virtual-mailman.db</strong> ファイルを作成するために <strong class="program">postmap</strong> を使います.</p>
+<p>まず, Postfix の仮想エイリアス ドメインを Postfix の文書の説明どおりに作ります (Postfix の <tt class="docutils literal"><span class="pre">virtual(5)</span></tt>
+マニュアルページを参照してください).  マニュアルページの説明にある <tt class="docutils literal"><span class="pre">virtual-alias.domain</span> <span class="pre">anything</span></tt> の行は,
+自分で入れなければいけないことに注意してください.  Mailman は <tt class="file docutils literal"><span class="pre">virtual-mailman</span></tt> にこの行を入れてくれません.
+Mailman と統合する前に,  この仮想エイリアス ドメインが正しく動作するようにしておくことが,  とても大事です.</p>
+<p>次に, Postfix と <em>virtual_alias_maps</em> 変数に, virtual-mailman ファイルの位置のパス名を追加します. 例:</p>
+<div class="highlight-python"><pre>virtual_alias_maps = &lt;通常の仮想エイリアスのファイル&gt;,
+    hash:/usr/local/mailman/data/virtual-mailman</pre>
+</div>
+<p>ここでは, Mailman は既定の場所にインストールしてあると仮定しています.  <em>virtual_alias_maps</em> 変数のない古いバージョンの
+Postfix を使っているのなら,  かわりに <em>virtual_maps</em> 変数を使います.</p>
+<p>次に, <tt class="file docutils literal"><span class="pre">mm_cfg.py</span></tt> ファイルで,  <em>POSTFIX_STYLE_VIRTUAL_DOMAINS</em> に,  Mailman
+が更新する仮想ドメインのリストを設定するとよいでしょう.  これは, Postfix のほうでサポートする仮想ドメインすべてとは限りません!
+このリストの要素は, メーリングリスト オブジェクトの <em>host_name</em> 属性と照合されます. 完全一致でなければいけません.</p>
+<p>例を挙げます.  Postfix は仮想ドメイン <tt class="docutils literal"><span class="pre">dom1.ain</span></tt>, <tt class="docutils literal"><span class="pre">dom2.ain</span></tt>, <tt class="docutils literal"><span class="pre">dom3.ain</span></tt>,
+を扱うよう設定してあるものとし, さらに,  <tt class="file docutils literal"><span class="pre">main.cf</span></tt> ファイルに次の設定がしてあるものとします:</p>
+<div class="highlight-python"><pre>myhostname = mail.dom1.ain
+mydomain = dom1.ain
+mydestination = $myhostname, localhost.$mydomain
+virtual_alias_maps =
+    hash:/some/path/to/virtual-dom1,
+    hash:/some/path/to/virtual-dom2,
+    hash:/some/path/to/virtual-dom2</pre>
+</div>
+<p>たとえば <tt class="file docutils literal"><span class="pre">virtual-dom1</span></tt> ファイルに, つぎの行があるとします:</p>
+<div class="highlight-python"><pre>dom1.ain  IGNORE
+@dom1.ain @mail.dom1.ain</pre>
+</div>
+<p>これは Postfix に, <tt class="docutils literal"><span class="pre">dom1.ain</span></tt> 宛てのものはなんでも,  <tt class="docutils literal"><span class="pre">mail.dom1.com</span></tt> の同名のメールボックス (既定の配送先)
+に配送するよう 指示していることになります.</p>
+<p>この場合, <em>POSTFIX_STYLE_VIRTUAL_DOMAINS</em> には <tt class="docutils literal"><span class="pre">dom1.ain</span></tt> を含めません. なぜなら そうしなければ,
+Mailman は dom1.ain ドメインのメーリングリストの項目を</p>
+<div class="highlight-python"><pre>mylist@dom1.ain         mylist
+mylist-request@dom1.ain mylist-request
+# 等々...</pre>
+</div>
+<p>のように書き込むからです.</p>
+<p>より特定した項目が, より一般的な項目を上書きするので,  <tt class="docutils literal"><span class="pre">dom1.ain</span></tt> メーリングリストへの配送は止められてしまいます.</p>
+<p>いっぽう, <tt class="docutils literal"><span class="pre">dom2.ain</span></tt> と <tt class="docutils literal"><span class="pre">dom3.ain</span></tt> は <tt class="file docutils literal"><span class="pre">mm_cfg.py</span></tt> に含めます:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">POSTFIX_STYLE_VIRTUAL_DOMAINS</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;dom2.ain&#39;</span><span class="p">,</span> <span class="s">&#39;dom3.ain&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>こうして, この二つのドメインのいずれかに属するメーリングリストを Mailman が作ったら,
+<tt class="file docutils literal"><span class="pre">/usr/local/mailman/data/virtual-mailman</span></tt> には正しい項目が入ります.</p>
+<p>上の <tt class="file docutils literal"><span class="pre">data/aliases*</span></tt> ファイルと同じく,  <tt class="file docutils literal"><span class="pre">data/virtual-mailman</span></tt> と
+<tt class="file docutils literal"><span class="pre">data/virtual-mailman.db</span></tt> の両方とも, <tt class="docutils literal"><span class="pre">mailman</span></tt> のユーザ, グループに
+所有されているようにしたほうがいいでしょう.</p>
+</div>
+<div class="section" id="id17">
+<h4>他の方法<a class="headerlink" href="#id17" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>Fil <a class="reference external" href="mailto:fil&#37;&#52;&#48;rezo&#46;net">fil<span>&#64;</span>rezo<span>&#46;</span>net</a> は,  virtual マップと正規表現を使った他の方法を紹介しています.  以下に説明があります:</p>
+<ul class="simple">
+<li>(フランス語)  <a class="reference external" href="http://listes.rezo.net/comment.php">http://listes.rezo.net/comment.php</a></li>
+<li>(英語) <a class="reference external" href="http://listes.rezo.net/how.php">http://listes.rezo.net/how.php</a></li>
+</ul>
+<p>リストにアクセスするときのアドレスのドメインに 余分なホスト部がつくのが気にならなければ, これは良い (そしてよりシンプルな) 代替案です.  つまり,
+<tt class="docutils literal"><span class="pre">mylist&#64;dom.ain</span></tt> のかわりに <tt class="docutils literal"><span class="pre">mylist&#64;lists.dom.ain</span></tt> を使わないといけないのでもよければ, ということです.</p>
+</div>
+</div>
+<div class="section" id="id18">
+<h3>Exim メールサーバを使う場合<a class="headerlink" href="#id18" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">本節は, Nigel Metheringham の &#8220;HOWTO - Exim で Mailman を使う&#8221; <a class="footnote-reference" href="#id63" id="id19">[8]</a> から採りました. これは Mailman
+2.0.x と Exim 3 に対応していました. それを Mailman 2.1 と Exim 4 に対応するように改訂しました.
+元の文書は次の場所にあります: <a class="reference external" href="http://www.exim.org/howto/mailman.html">http://www.exim.org/howto/mailman.html</a>.</p>
+</div>
+<p>Mailman のインストールについて説明した箇所の標準的なオプション以外には, Mailman の設定は必要ありません. Exim の設定は Mailman
+に対して透過的です. Mailman のユーザとグループの設定は, 以下に述べる設定のものと一致していなければいけません.</p>
+<div class="section" id="id20">
+<h4>Exim の設定<a class="headerlink" href="#id20" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>Exim の設定では, Mailman 側で作成したリストは自動的に Exim 側で有効になります. 新たにエイリアスを定義する必要はありません.</p>
+<p>ここで説明する設定方法の欠点は, 複数の異なるメールドメインのリストに対応したシステムでは, 満足に動作しないことです. Mailman は,
+仮想ドメインを扱えるものの, ひとつの Mailman のインストレーションで異なる仮想ドメインが同じ名前のリストを別々に持つことには, まだ対応していません.
+そのうち変わるでしょう (なお, 後で述べるように, 仮想ドメインをもっとうまく扱う方法もあります).</p>
+<p>以下で説明する設定は, 抜粋です. Exim が使えるような設定になっており, リストが属するドメインへのメールを受け付けるようになっていれば, 使えます.
+このドメインが Exim の設定で扱う他のドメインと分離されているときは, 次のようにする必要があります:</p>
+<ul class="simple">
+<li>リストのドメイン &#8220;my.list.domain&#8221; を <em>local_domains</em> に追加する</li>
+<li>&#8220;domains=my.list.domain&#8221; オプションを, リストへのダイレクタ (ルータ) に追加する <a class="footnote-reference" href="#id64" id="id21">[9]</a></li>
+<li>(必要なら) 他のダイレクタ (ルータ) からそのドメインを除外する</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">この文書での説明は, Exim 3 と Exim 4 のどちらでも動作するようになっています. Exim 3 では, <em>local_domains</em>
+の設定がなければいけません &#8212; Exim 4 では, たいていは <em>local_domains</em> ドメインリストのようなものがあります. ないのなら,
+どこをどう調整すればうまくいくかは自分でわかっていることと思います. また, Exim 4 では &#8220;ダイレクタ&#8221; の概念がなくなってしまいました &#8211;
+ルータしかありません. ですから Exim 4 を使っているのなら, この文書で &#8220;ダイレクタ&#8221; と言ったときは &#8220;ルータ&#8221; と読みかえてください.</p>
+</div>
+<p>Exim 3 と Exim 4 のいずれを使っていても, Exim 設定ファイルの 首節 [#]_に若干のマクロを追加する必要があります. また,
+新たにトランスポートを定義する必要があります. Exim 3 では, 新たにダイレクタを追加する必要があります &#8212; Exim 4 では,
+新たにルータを追加して同じことをさせます.</p>
+<p>なお, ここで提供する設定では, Mailman 2.0 と 2.1 のインストレーションを共存させることもできます. ただしその場合は,
+<tt class="docutils literal"><span class="pre">mailman</span></tt> のかわりに <tt class="docutils literal"><span class="pre">mm21</span></tt> を使うとよいかもしれません &#8211; 例えば,  <em>MM21_HOME</em>, <em>mm21_transport</em>
+などです.</p>
+</div>
+<div class="section" id="id22">
+<h4>全般的な設定<a class="headerlink" href="#id22" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>まず, Exim 設定ファイルの最初でいくつかマクロを追加する必要があります. これによって, 以下で作成するダイレクタ (ルータ)
+とトランスポートが少し見やすくなります. 当然, Mailman をどう設定しインストールしたかによって, 変更する必要があります.</p>
+<div class="highlight-python"><pre># インストールした Mailman のホームディレクトリ -- つまり Mailman のプリフィクス
+# ディレクトリ
+MAILMAN_HOME=/usr/local/mailman
+MAILMAN_WRAP=MAILMAN_HOME/mail/mailman
+
+# Mailman のユーザとグループ. Mailman の configure スクリプトに与えた
+# --with-mail-gid スイッチと一致しなければいけない.
+MAILMAN_USER=mailman
+MAILMAN_GROUP=mailman</pre>
+</div>
+</div>
+<div class="section" id="exim-3">
+<span id="exim3-transport"></span><h4>Exim 3 のトランスポート<a class="headerlink" href="#exim-3" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>次のものを, Exim 設定ファイルの transports 節 &#8211; つまり, 最初と2番めの &#8220;end&#8221; 行の間のどこか &#8211; に入れます:</p>
+<div class="highlight-python"><pre>mailman_transport:
+  driver = pipe
+  command = MAILMAN_WRAP \
+            '${if def:local_part_suffix \
+                  {${sg{$local_part_suffix}{-(\\w+)(\\+.*)?}{\$1}}} \
+                  {post}}' \
+            $local_part
+  current_directory = MAILMAN_HOME
+  home_directory = MAILMAN_HOME
+  user = MAILMAN_USER
+  group = MAILMAN_GROUP</pre>
+</div>
+</div>
+<div class="section" id="id23">
+<h4>Exim 3 のダイレクタ<a class="headerlink" href="#id23" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>Exim 3 を使っているのなら, 設定ファイルに以下のダイレクタを追加する必要があります (ダイレクタは, 2つめと3つめの &#8220;end&#8221; 行の間にきます).
+また, 順序が問題になることを忘れないでください &#8211; 例えば, このダイレクタをエイリアスファイルのダイレクタよりも前に置けば, Mailman
+のリストをシステムエイリアスより優先させることができます. 逆も言えます.</p>
+<div class="highlight-python"><pre># リスト 'foo' (投稿アドレス) に関するアドレスすべてを扱う.
+# MAILMAN_HOME 下の lists/$local_part/config.pck を探して,
+# 自動的にリストの存在を検知する.
+mailman_director:
+  driver = smartuser
+  require_files = MAILMAN_HOME/lists/$local_part/config.pck
+  suffix_optional
+  suffix = -bounces : -bounces+* : \
+           -confirm+* : -join : -leave : \
+           -owner : -request : -admin
+  transport = mailman_transport</pre>
+</div>
+</div>
+<div class="section" id="exim-4">
+<h4>Exim 4 のルータ<a class="headerlink" href="#exim-4" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>Exim 4 では, ダイレクタのようなものはありません &#8211; かわりに, 新しくルータを追加する必要があります. なお Exim 4 では,
+設定ファイル内の標準的な順序はルータがトランスポートの前にくるように変更されたため, まずルータについて述べます. 以下のルータを, 設定ファイルの
+&#8220;begin routers&#8221; の行の後のどこかに入れます. ルータの順序が問題になることを忘れないでください.</p>
+<div class="highlight-python"><pre>mailman_router:
+  driver = accept
+  require_files = MAILMAN_HOME/lists/$local_part/config.pck
+  local_part_suffix_optional
+  local_part_suffix = -bounces : -bounces+* : \
+                      -confirm+* : -join : -leave : \
+                      -owner : -request : -admin
+  transport = mailman_transport</pre>
+</div>
+</div>
+<div class="section" id="id24">
+<h4>Exim 4 のトランスポート<a class="headerlink" href="#id24" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>Exim 4 でのトランスポートは Exim 3 のものと同じです (<a class="reference internal" href="#exim3-transport"><em>Exim 3 のトランスポート</em></a> を見てください) &#8212;
+先に示したトランスポートを, Exim 設定ファイルの &#8220;begin transports&#8221; 行の後のどこかにコピーします.</p>
+</div>
+<div class="section" id="id25">
+<h4>その他の注意点<a class="headerlink" href="#id25" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>Exim は, 充分な量の処理ができるように設定しておかないといけません &#8212; 例えば, <em>max_recipients</em>
+をやたらと小さな値にしてはいけません &#8212; また, 充分なセキュリティ強度に設定しなければいけません &#8212; 特に, 127.0.0.1 からの中継は許可し,
+ほかからはほとんど許可しないように気をつけてください <a class="footnote-reference" href="#id65" id="id26">[10]</a>. 並列配送のようなちょっとした技巧を使ってみたければ, やってみましょう &#8212;
+設定を少しずつ変えてみて, うまくいくか確かめます. 配送遅延の警告メッセージは, 出さないようにするか,
+リスト以外のメールでのみ出すように設定しなければいけません. どこかでホストが落ちるたびに大量のメールを受け取るのは嫌でしょうから.</p>
+</div>
+<div class="section" id="id27">
+<h4>問題点<a class="headerlink" href="#id27" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<ul class="simple">
+<li>Mailman は, 必要に応じてできるだけ多くの <tt class="docutils literal"><span class="pre">MAIL</span> <span class="pre">FROM</span></tt>/<tt class="docutils literal"><span class="pre">RCPT</span> <span class="pre">TO</span></tt> を送ろうとします. 結果として, 一回の接続で 10
+件, 100 件, あるいはそれ以上のメッセージが送られることもあり, Exim の <em>smtp_accept_queue_per_connection</em>
+の既定の値を超えてしまうかもしれません. これは困ったことです. なぜなら, こうなると Exim は queue モードに切り替わり,
+リストのメッセージの配送が恐ろしく遅れることになるからです. これを直すには, Mailman の
+<em>SMTP_MAX_SESSIONS_PER_CONNECTION</em> を (<tt class="file docutils literal"><span class="pre">$prefix/Mailman/mm_cfg.py</span></tt> で) Exim
+の <em>smtp_accept_queue_per_connection</em> より小さい値に設定します.</li>
+<li>Exim はリストのメッセージに遅延警告メッセージを送ってはいけません. が, Mailman も Exim
+の遅延警告メッセージを無視しなければいけません. Mailman 2.1 の配送エラー処理を VERP に対応させると,
+配送エラー処理の的中率が大幅に向上します.</li>
+<li>リストが存在するかどうかは, リストの <tt class="file docutils literal"><span class="pre">config.pck</span></tt> ファイルが存在するかどうかで決めています.
+誤ってリストを削除してしまったときは, このファイルに気をつけましょう.</li>
+<li>リストにメールを送ったときに, Exim か Mailman でユーザIDに関するエラーが起きるのなら, <em>MAILMAN_USER</em> と
+<em>MAILMAN_GROUP</em> が Mailman 自身のものと一致するか (つまり, <strong class="program">configure</strong> スクリプトで使っているものか)
+を調べます. また, エイリアスファイルに, リストのアドレスがエイリアスとして登録されていないかも確かめましょう.</li>
+</ul>
+</div>
+<div class="section" id="id28">
+<h4>受信者検証<a class="headerlink" href="#id28" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>Exim の受信者検証 [#]_はとても役に立ちます &#8211; SMTPの時点で, 配送不能なアドレスを Exim が拒否するようになります. しかし,
+これがいちばん役立つのは, 外部から来たメールがローカルのドメインのどれかに向かっているときです. Mailman のリストのトラヒックは, 自サーバから出て,
+サーバの預り知らない外部のさまざまなドメインへと向かいます. そのうえ, メッセージはたくさんの受信者 &#8211; Mailman の既定の設定を使い,
+<em>SMTP_MAX_RCPTS</em> をいじっていないときは, 最大 500 箇所 &#8211; へ向かうことになります.</p>
+<p>Mailman のリストのトラヒックで受信者検証をするのは, トラブルのもとです. とりわけ, Mailman からリストの投稿が出ていくときに, Exim
+は全ての受信者アドレスを検証しようとします. ひとつひとつのアドレスについては, DNS 検索にはわずかな時間しか要さないかもしれませんが,
+全体としては著しい遅延を引き起こし得ます. したがって, Mailman のトラヒックに対しては受信者検証を無効にしなければいけません.</p>
+<p>Exim 3 では, 首節に以下のものを入れます:</p>
+<div class="highlight-python"><pre>receiver_verify_hosts = !127.0.0.1</pre>
+</div>
+<p>Exim 4 では, この点についてはおそらく (<tt class="docutils literal"><span class="pre">RCPT</span> <span class="pre">TO</span></tt> ACL 中の) 既定の ACL 文では考慮されていることでしょう:</p>
+<div class="highlight-python"><pre>accept  domains       = +local_domains
+        endpass
+        message       = unknown user
+        verify        = recipient</pre>
+</div>
+<p>これで, 自分のドメインのアドレスに対してだけ受信者検証をするようになります (これは厳密には, 127.0.0.1
+以外のホストから来るメッセージだけに対して受信者検証をすることとは違いますが, Mailman にはよく効きます).</p>
+</div>
+<div class="section" id="smtp">
+<h4>SMTP 呼出し検証<a class="headerlink" href="#smtp" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>Exim の SMTP 呼出し検証 [#]_の仕様は, でたらめな送信者アドレスを検出する方法としては, 通常の送信者検証にくらべてはるかに強力です.
+ところが困ったことに, バウンスメッセージのヘッダにでたらめなアドレスを入れて送るサーバはたくさんありますし, また
+(バウンスメッセージには空のエンヴェロープ送信者を使うことになっているにも関わらず) でたらめなエンヴェロープ送信者を使ってバウンスメッセージを送るサーバも,
+少なからずあるのです.</p>
+<p>Mailman が, バウンスの発生しているアドレスをきちんと配送停止したり登録を抹消したりできるように, Mailman のリストへ届くバウンスメッセージは,
+たとえそういったバウンスメッセージそれ自体はバウンス不可能なものであっても, 受け取るようにしたほうがいいでしょう. そのため, バウンスメッセージに対しては,
+SMTP 呼出し検証は無効にするとよいかもしれません.</p>
+<p>Exim 4 でこれを実現するには, <tt class="docutils literal"><span class="pre">RCPT</span> <span class="pre">TO</span></tt> ACL で以下のようなものを使います:</p>
+<div class="highlight-python"><pre># 呼出し検証などの検査が失敗したとしても, リストへのバウンスメッセージは受け付ける
+warn     message      = X-WhitelistedRCPT-nohdrfromcallback: Yes
+         condition    = \
+         ${if and {{match{$local_part}{(.*)-bounces\+.*}} \
+                   {exists {MAILMAN_HOME/lists/$1/config.pck}}} \
+              {yes}{no}}
+              {yes}{no}}
+
+accept   condition    = \
+         ${if and {{match{$local_part}{(.*)-bounces\+.*}} \
+                   {exists {MAILMAN_HOME/lists/$1/config.pck}}} \
+              {yes}{no}}
+              {yes}{no}}
+
+# そして, SMTP 呼出し検証で送信者アドレスを調べる.
+deny   !verify = sender/callout=90s</pre>
+</div>
+<p>ヘッダのアドレスにも SMTP 呼出し検証をしたければ, 次のようなものを <tt class="docutils literal"><span class="pre">DATA</span></tt> ACL に入れるとよいでしょう.</p>
+<div class="highlight-python"><pre>deny   !condition = $header_X-WhitelistedRCPT-nohdrfromcallback:
+       !verify = header_sender/callout=90s</pre>
+</div>
+</div>
+<div class="section" id="exim-mailman-verp">
+<h4>Exim と Mailman で VERP を使う<a class="headerlink" href="#exim-mailman-verp" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>VERP では, 一つのメールを, リストの購読者ごとに別々の送信者 (返送経路) で送ります &#8211; VERP を使えるようにするためのオプションについては
+<tt class="file docutils literal"><span class="pre">$prefix/Mailman/Defaults.py</span></tt> の情報を読んでください. まとめると, Exim で VERP
+を有効にするのに必要なことは, <tt class="file docutils literal"><span class="pre">$prefix/Mailman/mm_cfg.py</span></tt> に次の行を追加することです:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">VERP_PASSWORD_REMINDERS</span> <span class="o">=</span> <span class="n">Yes</span>
+<span class="n">VERP_PERSONALIZED_DELIVERIES</span> <span class="o">=</span> <span class="n">Yes</span>
+<span class="n">VERP_DELIVERY_INTERVAL</span> <span class="o">=</span> <span class="n">Yes</span>
+<span class="n">VERP_CONFIRMATIONS</span> <span class="o">=</span> <span class="n">Yes</span>
+</pre></div>
+</div>
+<p>(先に説明したダイレクタ (ルータ) は, VERP のバウンスメッセージをちゃんと処理できるようになっています. )</p>
+</div>
+<div class="section" id="id29">
+<h4>仮想ドメイン<a class="headerlink" href="#id29" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>仮想ドメインを扱う手法のひとつとして, 仮想ドメインごとに別々の Mailman をインストールするというものがあります. 現時点では,
+ひとつの計算機で異なる仮想ドメインが同じ名前のリストを別々に持てるようにするには, この方法しかありません <a class="footnote-reference" href="#id66" id="id30">[11]</a>.</p>
+<p>この場合, マクロ <em>MAILMAN_HOME</em> と <em>MAILMAN_WRAP</em> は使えません &#8211; 削除してしまってかまいません. ダイレクタ (ルータ)
+を次のように変更します:</p>
+<div class="highlight-python"><pre>require_files = /virtual/${domain}/mailman/lists/${lc:$local_part}/config.pck</pre>
+</div>
+<p>そして, トランスポートを次のように変更します:</p>
+<div class="highlight-python"><pre>command = /virtual/${domain}/mailman/mail/mailman \
+          ${if def:local_part_suffix \
+               {${sg{$local_part_suffix}{-(\\w+)(\\+.*)?}{\$1}}}
+               {post}} \
+            $local_part
+current_directory = /virtual/${domain}/mailman
+home_directory = /virtual/${domain}/mailman</pre>
+</div>
+</div>
+<div class="section" id="id31">
+<h4>リストの検証<a class="headerlink" href="#id31" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>ここでは, Exim のアドレステストセットを使って, システムの動作の様子を調べる方法を説明します. 問題のリストを <a class="reference external" href="mailto:quixote-users&#37;&#52;&#48;mems">quixote-users<span>&#64;</span>mems</a>-
+exchange.org とし, 次の一連のコマンドを <tt class="docutils literal"><span class="pre">mems-exchange.org</span></tt> メールサーバで実行します (&#8220;% &#8221; は Unix のシェル
+プロンプトを表します):</p>
+<div class="highlight-python"><pre>% exim -bt quixote-users
+quixote-users@mems-exchange.org
+  router = mailman_main_router, transport = mailman_transport
+
+% exim -bt quixote-users-request
+quixote-users-request@mems-exchange.org
+  router = mailman_router, transport = mailman_transport
+
+% exim -bt quixote-users-bounces
+quixote-users-bounces@mems-exchange.org
+  router = mailman_router, transport = mailman_transport
+
+% exim -bt quixote-users-bounces+luser=example.com
+quixote-users-bounces+luser=example.com@mems-exchange.org
+  router = mailman_router, transport = mailman_transport</pre>
+</div>
+<p><strong class="program">exim -bt</strong> の出力がここに示したようなものになっていれば, ここまでは順調と言えます: 少なくとも, Exim
+が適切なメッセージを適切な Mailman のコマンドに渡していることは確認できました. しかし, インストールしてある Exim/Mailman が,
+完全に正しく動作しているという保証はありません!</p>
+</div>
+<div class="section" id="id32">
+<h4>この文書の履歴<a class="headerlink" href="#id32" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>元になる文書は Nigel Metheringham <a class="reference external" href="mailto:postmaster&#37;&#52;&#48;exim&#46;org">postmaster<span>&#64;</span>exim<span>&#46;</span>org</a> が書きました. Marc Merlin
+<a class="reference external" href="mailto:marc_soft&#37;&#52;&#48;merlins&#46;org">marc_soft<span>&#64;</span>merlins<span>&#46;</span>org</a> が Mailman 2.1 と Exim 4 用に改訂しました. Greg Ward
+<a class="reference external" href="mailto:gward&#37;&#52;&#48;python&#46;net">gward<span>&#64;</span>python<span>&#46;</span>net</a> が書き直し/再構成/明確化/簡略化しました.</p>
+</div>
+</div>
+<div class="section" id="id33">
+<h3>Sendmail メールサーバを使う場合<a class="headerlink" href="#id33" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<div class="admonition warning">
+<p class="first admonition-title">警告</p>
+<p class="last">Sendmail メールサーバを使うとき,  <tt class="file docutils literal"><span class="pre">mm_cfg.py</span></tt> の中に <em>DELIVERY_MODULE</em> 設定変数として
+<tt class="docutils literal"><span class="pre">'Sendmail'</span></tt> を入れたいと思うかもしれませんが, そうしては**いけません**. <tt class="file docutils literal"><span class="pre">Sendmail.py</span></tt> のモジュール名は
+間違って付けられています. デフォルトの <tt class="file docutils literal"><span class="pre">SMTPDirect.py</span></tt> で使う SMTP 方式に対して, コマンドラインで
+メッセージを渡す方式を表しています. <tt class="file docutils literal"><span class="pre">Sendmail.py</span></tt> ファイルには既知のセキュリティホールがあり
+概念的可能性を証明するために提供されています <a class="footnote-reference" href="#id67" id="id34">[12]</a>. もし <tt class="file docutils literal"><span class="pre">SMTPDirect.py</span></tt> の利用で問題があるなら
+<tt class="file docutils literal"><span class="pre">Sendmail.py</span></tt> を 使うのでなく, 問題を直すことです. でないとセキュリティ悪用にさらす ことになりかねません.</p>
+</div>
+<div class="section" id="sendmail-smrsh">
+<h4>Sendmail の &#8220;smrsh&#8221; との適合<a class="headerlink" href="#sendmail-smrsh" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>新しいバージョンの Sendmail は Sendmail がメールプログラムとして 使うことを制限するために &#8220;smrsh&#8221; という制限実行ユーティリティが
+付いてきます. 明示的に Mailman のラッププログラムが smrsh で使える ようにしてあげないと Mailman は動作しません. もしメールが
+Mailman の ラッププログラムに届かず, &#8220;operating system error&#8221; がメールの ログに記録されていれば,
+この問題に突き当たっていることになります.</p>
+<p>これを解決するのによい方法は:</p>
+<ul>
+<li><p class="first">Sendmail が smrsh ラッププログラムをどこで実行しているかを探す:</p>
+<div class="highlight-python"><pre>% grep smrsh /etc/mail/sendmail.cf</pre>
+</div>
+</li>
+<li><p class="first">実行許可するメールプログラムを smrsh がどこにシンボリック リンクしているかを探す. 次のコマンドの最初のほうでどこかの ディレクトリ(例えば
+<tt class="file docutils literal"><span class="pre">/var/adm/sm.bin</span></tt> みたいな)のパス が出てくるでしょう:</p>
+<div class="highlight-python"><pre>% strings $path_to_smrsh | less</pre>
+</div>
+</li>
+<li><p class="first"><tt class="file docutils literal"><span class="pre">/var/adm/sm.bin</span></tt> あるいは自分のシステムで見つけた ディレクトリ (<tt class="file docutils literal"><span class="pre">/etc/smrsh</span></tt> とか
+<tt class="file docutils literal"><span class="pre">/var/smrsh</span></tt> とか <tt class="file docutils literal"><span class="pre">/usr/local/smrsh</span></tt> とか...) へ移って:</p>
+<div class="highlight-python"><pre>% cd /var/adm/sm.bin</pre>
+</div>
+</li>
+<li><p class="first">Mailman のラッププログラムへのシンボリックリンクを作成します:</p>
+<div class="highlight-python"><pre>% ln -s /usr/local/mailman/mail/mailman mailman</pre>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="sendmail-mailman">
+<h4>Sendmail と Mailman の統合<a class="headerlink" href="#sendmail-mailman" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>David Champion は Sendmail と Mailman をより密接に統合する, つまり
+リストが作成されたときにエイリアステーブルを手で編集しなくても,  Sendmail が自動的に認識し新しいリストに配送するようにするための
+レシピを寄贈してくれました.</p>
+<p>Mailman のソース配布物 <tt class="file docutils literal"><span class="pre">contrib</span></tt> ディレクトリに次の4つの ファイルがあります:</p>
+<ul class="simple">
+<li><tt class="file docutils literal"><span class="pre">mm-handler.readme</span></tt> - セットアップする方法の説明</li>
+<li><tt class="file docutils literal"><span class="pre">mm-handler</span></tt>        - メール配送エージェント (MDA)</li>
+<li><tt class="file docutils literal"><span class="pre">mailman.mc</span></tt>        - 設定ファイルの例</li>
+<li><tt class="file docutils literal"><span class="pre">virtusertable</span></tt>     - RFC 2142 アドレスを例外にする例</li>
+</ul>
+</div>
+<div class="section" id="id35">
+<h4>性能について<a class="headerlink" href="#id35" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>Sendmail で性能を落とす要因として確実なのは, 受信者のホストを DNS  で同時に検証するように設定されている場合です. Mailman からサーバに
+メールが送信されるときにこれをやると非常に性能が落ちます. Mailman は <tt class="docutils literal"><span class="pre">localhost</span></tt> (つまり, 127.0.0.1) から
+Sendmail の SMTP ポートに接続しますので, ローカルホストからの接続については DNS での同時検証を**しない**ように Sendmail
+を設定してください.</p>
+</div>
+</div>
+<div class="section" id="qmail-issues">
+<span id="id36"></span><h3>qmail メールサーバを使う場合<a class="headerlink" href="#qmail-issues" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ここでは, qmail メール配送エージェントを使うユーザがぶつかった問題をいくつかとりあげます. Mailman の中心的なメンテナで qmail
+を使っている者はいませんので,  以下の情報はすべて, Mailman のユーザ コミュニティから寄贈されたものです. とりわけ, Martin
+Preishuber と Christian Tismer, そして Balazs Nagy (以下 BN) と Norbert Bollow (以下 NB)
+の注釈に負っています.</p>
+<ul>
+<li><p class="first"><em class="xref std std-option">--with-mail-gid</em> <strong class="program">configure</strong> オプションを使って,  mail-gid のユーザを,
+<tt class="docutils literal"><span class="pre">qmail</span></tt>, <tt class="docutils literal"><span class="pre">mailman</span></tt>, <tt class="docutils literal"><span class="pre">nofiles</span></tt> のいずれかにする必要がありそうです.</p>
+<p><em>BN:</em> どれを選ぶかは, メール格納の方針に大いに依存します. たとえば, 単純な <tt class="file docutils literal"><span class="pre">~alias/.qmail-*</span></tt>
+ファイルを使っているのなら,  <strong class="program">&#8216;id -g alias&#8217;</strong> を使います <a class="footnote-reference" href="#id68" id="id37">[13]</a>. しかし
+<tt class="file docutils literal"><span class="pre">/var/qmail/users</span></tt> を使っているのなら,  そこで指定したメール gid を使うことになります.</p>
+<p>仮想ドメインのアドレスが直接 <tt class="docutils literal"><span class="pre">mailman</span></tt> ユーザに向かうようにしている (たとえば, メーリングリスト専用のドメインに
+&#8220;virtualdomains&#8221; を使っている) のなら, <em class="xref std std-option">--with-mail-gid`=*mailmanユーザのグループのGID*
+を使わなければならないでしょう. これは, リストのエイリアスを :file:`~alias</em> に入れることとは両立しません. こういうエイリアスは,
+<tt class="docutils literal"><span class="pre">mailman-リスト名*</span></tt> を転送するものになってしまいます.</p>
+</li>
+<li><p class="first">システムにユーザ <tt class="docutils literal"><span class="pre">mailman</span></tt> があると, エイリアス <tt class="docutils literal"><span class="pre">mailman-owner</span></tt> は <tt class="file docutils literal"><span class="pre">~mailman</span></tt>
+の中でだけ動作します. <tt class="file docutils literal"><span class="pre">~mailman</span></tt> ディレクトリの中で <strong class="program">touch .qmail-owner</strong> すると,
+このエイリアスを作成できます.</p>
+<p><em>NB:</em> かわりに, 私がより良い解決策かと思うのが, <strong class="program">chown root ~mailman</strong> をすることで, こうすると qmail
+は <tt class="docutils literal"><span class="pre">mailman</span></tt>  を, メールを配送できるユーザとみなさなくなります  (&#8220;man 8 qmail-getpw&#8221; を見てください) <a class="footnote-reference" href="#id69" id="id38">[14]</a>.</p>
+</li>
+<li><p class="first">関連する話題として, メーリングリストのどれかと同じ名前のユーザがあると,  <tt class="docutils literal"><span class="pre">-</span></tt> があるリスト名で問題が起きる, というものがあります.
+そのユーザのホームディレクトリに <tt class="file docutils literal"><span class="pre">.qmail</span></tt> リダイレクションファイルを置いても,  Mailman のラッパを正しい GID
+で呼び出せないため, 動作しません. 解決策は, <tt class="file docutils literal"><span class="pre">/var/qmail/users/assign</span></tt> ファイルに次のような行を入れることです:</p>
+<div class="highlight-python"><pre>+zope-:alias:112:11:/var/qmail/alias:-:zope-:
+.</pre>
+</div>
+<p>これは, リスト名が <tt class="docutils literal"><span class="pre">zope-users</span></tt> などである場合です.</p>
+<p><em>NB:</em> かわりに, リストを仮想ドメインで扱うことにして,  <tt class="file docutils literal"><span class="pre">/var/qmail/control/virtualdomains</span></tt>
+ファイルを使って この仮想ドメインを <tt class="docutils literal"><span class="pre">mailman</span></tt> ユーザで管理させることもできます.</p>
+</li>
+<li><p class="first"><em>BN:</em> 受け取るメッセージを <tt class="docutils literal"><span class="pre">mailman</span></tt> 以外のユーザで配送するときは,  そのユーザが <tt class="file docutils literal"><span class="pre">~mailman</span></tt>
+にアクセスできるようになっていることが必須です. <tt class="file docutils literal"><span class="pre">~mailman</span></tt> にグループ書き込み権限があって,  setgid
+ビットがセットしてあることを確かめます. そして, 配送するユーザを <tt class="docutils literal"><span class="pre">mailman</span></tt> グループに入れますが,  ほかのユーザは
+<tt class="file docutils literal"><span class="pre">~mailman</span></tt> にアクセスできなくしてもよいでしょう. WWW サービスについても同じようにできます.</p>
+<p>とにかく, すべてのメールを扱う仮想メールサーバをつくるのが最善のやりかたです. <em>NB:</em> たとえば, 仮想メールサーバ用に 自分の IP アドレスを指す
+DNS &#8220;A&#8221; レコードを追加した上で,  <tt class="file docutils literal"><span class="pre">/var/qmail/control/virtualdomains</span></tt> ファイルに
+<tt class="docutils literal"><span class="pre">lists.kva.hu:mailman</span></tt> という行を,  <tt class="file docutils literal"><span class="pre">/var/qmail/control/rcpthosts</span></tt> ファイルに
+<tt class="docutils literal"><span class="pre">lists.kva.hu</span></tt> という行を, それぞれ追加します. &#8220;virtualdomains&#8221; を変更したら,  qmail-send に HUP
+シグナルを送るのを忘れないようにしてください. これで, lists.kva.hu 宛のすべてのメールは mail.kva.hu の mailman
+ユーザに届くようになります.</p>
+<p>それから, エイリアスを作成します:</p>
+<div class="highlight-python"><pre>.qmail              =&gt; mailman@...へのメール
+.qmail-owner        =&gt; mailman-owner へのメール</pre>
+</div>
+<p>リストのエイリアスについては, 次のように手動で作成することもできます:</p>
+<div class="highlight-python"><pre>.qmail-list         =&gt; 'list' リストへの投稿
+.qmail-list-admin   =&gt; 'list' の管理者への投稿
+.qmail-list-request =&gt; 'list' への要求
+など</pre>
+</div>
+<p>あるいは, (上のように, lists.kva.hu を仮想で使っているときは) リストエイリアスの自動把握をすることもできます.  Mailman
+のソース配布物にある <tt class="file docutils literal"><span class="pre">contrib/qmail-to-mailman.py</span></tt> を見てください <a class="footnote-reference" href="#id70" id="id39">[15]</a>.
+<tt class="file docutils literal"><span class="pre">~mailman/.qmail-default</span></tt> を変更して, 次のものを含めます:</p>
+<div class="highlight-python"><pre>|preline /path/to/python /path/to/qmail-to-mailman.py</pre>
+</div>
+<p>すると, 新しいリストを自動的にみつけてくれるようになります.</p>
+</li>
+<li><p class="first">localhost がメールをリレーできるように気をつけなければいけません. qmail を inetd と tcpenv を通じて起動しているのなら,
+<tt class="file docutils literal"><span class="pre">/etc/hosts.allow</span></tt> につぎのような行が必要です:</p>
+<div class="highlight-python"><pre>tcp-env: 127. 10.205.200. : setenv RELAYCLIENT</pre>
+</div>
+<p>ここで 10.205.200. は, 自分の IP アドレスブロックです. tcpserver を使っているのなら, <tt class="file docutils literal"><span class="pre">/etc/tcp.smtp</span></tt>
+ファイルに 次のようなものが必要です:</p>
+<div class="highlight-python"><pre>10.205.200.:allow,RELAYCLIENT=""
+127.:allow,RELAYCLIENT=""</pre>
+</div>
+</li>
+<li><p class="first"><em>BN:</em> <tt class="file docutils literal"><span class="pre">/var/qmail/control/concurrencyremote</span></tt> の値は, 常識的な範囲で増やせば,
+メッセージの送出がより速く動作するようになります. ただし, システムがさばける数 だと分かっていない限り,  この値は 120 より大きくしてはなりません.</p>
+</li>
+<li><p class="first">qmail とリレーの設定についてのさらなる情報は, qmail の文書にあります.</p>
+</li>
+</ul>
+<p><em>BN:</em> 最後に, リストのエイリアスを生成するスクリプトを挙げておきます (なんらかの理由で,
+<tt class="file docutils literal"><span class="pre">contrib/qmail-to-mailman.py</span></tt>  を使って自動的にエイリアスを拾い出すことができなかったり,
+そうしたくないときに使います):</p>
+<p>Mailman 2.0 系列のためのスクリプト:</p>
+<div class="highlight-python"><pre>#!/bin/sh
+if [ $# = 1 ]; then
+    i=$1
+    echo カレントディレクトリに $i へのリンクを作っています...
+    echo "|preline /home/mailman/mail/mailman post $i" &gt; .qmail-$i
+    echo "|preline /home/mailman/mail/mailman mailowner $i" &gt; .qmail-$i-admin
+    echo "|preline /home/mailman/mail/mailman mailowner $i" &gt; .qmail-$i-owner
+    echo "|preline /home/mailman/mail/mailman mailowner $i" &gt; .qmail-owner-$i
+    echo "|preline /home/mailman/mail/mailman mailcmd $i" &gt; .qmail-$i-request
+fi</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last">以下のスクリプトは, 新たにインストールした Mailman 2.1 のためのものです. Mailman 2.0 からアップグレードするユーザだと,
+ディレクトリを <tt class="file docutils literal"><span class="pre">/usr/local/mailman</span></tt> から <tt class="file docutils literal"><span class="pre">/home/mailman</span></tt> に変えたがるかもしれません.
+これをはっきり指定するには, コンパイルのときに <strong class="program">configure</strong> に <em class="xref std std-option">--prefix</em> オプションを渡します.</p>
+</div>
+<div class="highlight-python"><pre>#!/bin/sh
+if [ $# = 1 ]; then
+    i=$1
+    echo カレントディレクトリに $i へのリンクを作っています...
+    echo "|preline /usr/local/mailman/mail/mailman post $i" &gt; .qmail-$i
+    echo "|preline /usr/local/mailman/mail/mailman admin $i" &gt; .qmail-$i-admin
+    echo "|preline /usr/local/mailman/mail/mailman bounces $i" &gt; .qmail-$i-bounces
+    # 次の行は VERP 用
+    # echo "|preline /usr/local/mailman/mail/mailman bounces $i" &gt; .qmail-$i-bounces-default
+    echo "|preline /usr/local/mailman/mail/mailman confirm $i" &gt; .qmail-$i-confirm
+    echo "|preline /usr/local/mailman/mail/mailman join $i" &gt; .qmail-$i-join
+    echo "|preline /usr/local/mailman/mail/mailman leave $i" &gt; .qmail-$i-leave
+    echo "|preline /usr/local/mailman/mail/mailman owner $i" &gt; .qmail-$i-owner
+    echo "|preline /usr/local/mailman/mail/mailman request $i" &gt; .qmail-$i-request
+    echo "|preline /usr/local/mailman/mail/mailman subscribe $i" &gt; .qmail-$i-subscribe
+    echo "|preline /usr/local/mailman/mail/mailman unsubscribe $i" &gt; .qmail-$i-unsubscribe
+fi</pre>
+</div>
+<div class="section" id="verp">
+<h4>VERP についての情報<a class="headerlink" href="#verp" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>上記の 2.1 用エイリアス生成スクリプトでは, VERP 用の行がコメントアウト してあるのに気づいたことでしょう.  VERP に関心があるのなら,
+2つの選択 肢があります.  一つめは Mailman に VERP 書式化をおこなわせるものです. これを有効にするには, 上のスクリプトでコメントを外し,
+<tt class="file docutils literal"><span class="pre">mm_cfg.py</span></tt>  ファイルに次の行を加えます:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">VERP_FORMAT</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%(bounces)s</span><span class="s">-+</span><span class="si">%(mailbox)s</span><span class="s">=</span><span class="si">%(host)s</span><span class="s">&#39;</span>
+<span class="n">VERP_REGEXP</span> <span class="o">=</span> <span class="s">r&#39;^(?P&lt;bounces&gt;.*?)-\+(?P&lt;mailbox&gt;[^=]+)=(?P&lt;host&gt;[^@]+)@.*$&#39;</span>
+</pre></div>
+</div>
+<p>別の選択肢として, SourceForge にあるパッチも使えます.  次の場所にあります:</p>
+<p><a class="reference external" href="http://sourceforge.net/tracker/?func=detail&amp;atid=300103&amp;aid=645513&amp;group_id=103">http://sourceforge.net/tracker/?func=detail&amp;atid=300103&amp;aid=645513&amp;group_id=103</a></p>
+<p>このパッチは現時点では, テストが充分とは言えないので,  開発者や qmail についてよく分かっている人向きでしょう.  聞くところによると,
+このパッチは qmail とより調和するアプローチで, 効率を大きく改善させるとのことです.</p>
+</div>
+<div class="section" id="id40">
+<h4>仮想メール サーバ<a class="headerlink" href="#id40" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p><a class="reference internal" href="#qmail-issues"><em>qmail メールサーバを使う場合</em></a> 節でも仮想メールサーバについては触れましたが,  テスト中のパッチが以下の場所にあります:</p>
+<p><a class="reference external" href="http://sf.net/tracker/index.php?func=detail&amp;aid=621257&amp;group_id=103&amp;atid=300103">http://sf.net/tracker/index.php?func=detail&amp;aid=621257&amp;group_id=103&amp;atid=300103</a></p>
+<p>念のため.  このパッチも, qmail のインストールについてよく分かっている人向けです.</p>
+</div>
+<div class="section" id="id41">
+<h4>更なる情報<a class="headerlink" href="#id41" title="このヘッドラインへのパーマリンク">¶</a></h4>
+<p>メッセージフッタの変更についての情報に関心があるようなら,  Norbert Bollow が Mailman と qmail について書いたものがあります.
+次の場所にあります:</p>
+<p><a class="reference external" href="http://mailman.cis.to/qmail-verh/">http://mailman.cis.to/qmail-verh/</a> <a class="footnote-reference" href="#id71" id="id42">[16]</a></p>
+</div>
+</div>
+</div>
+<div class="section" id="customizing">
+<span id="id43"></span><h2>サイトのデフォルトを点検<a class="headerlink" href="#customizing" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Mailman には沢山のサイト全体の設定オプションがありますので, ここで点検し,  必要に応じて変更してください. オプションのいくつかは Mailman
+があなたの環境でどう動作するかを制御し, あるいは新規に作成したリストのデフォルトを選びます <a class="footnote-reference" href="#id72" id="id44">[17]</a>.
+またシステムチューニングのパラメータや統合のオプションがあります.</p>
+<p><tt class="file docutils literal"><span class="pre">$prefix/Mailman/Defaults.py</span></tt> ファイルにサイト全体の デフォルトの全部が入っています. しかし, <strong>絶対</strong>
+このファイルを 変更してはいけません. その代わり, 同じディレクトリにある, <tt class="file docutils literal"><span class="pre">mm_cfg.py</span></tt> ファイルを変更してください.
+<tt class="file docutils literal"><span class="pre">Defaults.py</span></tt> に 入っているのと違うものだけ <tt class="file docutils literal"><span class="pre">mm_cfg.py</span></tt> に書き加えればよいだけです. 将来 Mailman
+をバージョンアップする時に, <tt class="file docutils literal"><span class="pre">mm_cfg.py</span></tt> が書き換えられる ことはありません.</p>
+<p><tt class="file docutils literal"><span class="pre">Defaults.py</span></tt> ファイルにはコメントが沢山書いてあります. そこで オプションをここで説明することはしません.
+<tt class="file docutils literal"><span class="pre">Defaults.py</span></tt> と <tt class="file docutils literal"><span class="pre">mm_cfg.py</span></tt> はどちらも <a class="reference external" href="http://www.python.org">Python</a>
+ファイルなので Python の文法を守るようにしないといけません. でないと Mailman は動きません.</p>
+<div class="admonition note">
+<p class="first admonition-title">ノート</p>
+<p class="last"><em>HOME_DIR</em> と <em>MAILMAN_DIR</em> 変数を変えては <strong>いけません</strong>. これらは <strong class="program">configure</strong>
+スクリプトで自動的に設定されます. もし変えると Mailman のインストールが壊れます.</p>
+</div>
+<p><tt class="file docutils literal"><span class="pre">mm_cfg.py</span></tt> の変更は <a class="reference internal" href="#building"><em>Mailman の構築とインストール</em></a> 節で Mailman を インストールしたときのユーザでおこなう必要があります.</p>
+</div>
+<div class="section" id="id46">
+<h2>サイト全体のメーリングリストを作る<a class="headerlink" href="#id46" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Mailman とメールサーバの統合を完成させたら, 次に &#8220;サイト全体&#8221; の メーリングリストを作る必要があります. これはパスワード備忘通知の発信者
+として現れるものであり, Mailman を正しく運用するのに必要なものです. 通常, これは <tt class="docutils literal"><span class="pre">mailman</span></tt> という名前のリストですが,
+変更する必要が ある場合は, <tt class="file docutils literal"><span class="pre">mm_cfg.py</span></tt> の中で <em>MAILMAN_SITE_LIST</em> 変数を 変更してください.
+次のプロンプトに続くコマンドでこのサイトリストを 作成することができます.</p>
+<div class="highlight-python"><pre>% bin/newlist mailman</pre>
+</div>
+<p>ここで, サイトリストの設定をします. これの助けになるように, サイトリストの便利なひな形が <tt class="file docutils literal"><span class="pre">data/sitelist.cfg</span></tt> に作って
+あります. このひな形の設定オプションについて見ておいてください. <tt class="file docutils literal"><span class="pre">sitelist.cfg</span></tt> ファイルに名前が出ていないオプションについては
+変更されないことも注意してください.</p>
+<p>このひな形を適用するには次のようにします:</p>
+<div class="highlight-python"><pre>% bin/config_list -i data/sitelist.cfg mailman</pre>
+</div>
+<p><tt class="file docutils literal"><span class="pre">sitelist.cfg</span></tt> のオプションを適用の後で, リストの管理ページで 設定を見ておくことを忘れないでください. ください.</p>
+<p>サイトリストには自分自身を登録しておいてください.</p>
+</div>
+<div class="section" id="cron">
+<h2>Cron の設定<a class="headerlink" href="#cron" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>多くの Mailman の仕事は定常的なスケジュールで発生します. そのため, 正しい時刻に正しいプログラムを実行するよう <strong class="program">cron</strong>
+を設定しなければ なりません <a class="footnote-reference" href="#id73" id="id47">[18]</a>.</p>
+<p>もし, あなたの crontab が <em class="xref std std-option">-u</em> オプションをサポートして いたら, root になって次のステップを実行してください.
+次のコマンドを実行して <tt class="file docutils literal"><span class="pre">$prefix/cron/crontab.in</span></tt> を crontab のエントリに入れます.</p>
+<div class="highlight-python"><pre>% cd $prefix/cron
+% crontab -u mailman crontab.in</pre>
+</div>
+<p>もし, <em class="xref std std-option">--with-username</em> オプションを使っていたら, <em class="xref std std-option">-u</em> の引数には <tt class="docutils literal"><span class="pre">mailman</span></tt>
+の代わりにそのユーザ名を使います. もし, crontab が <em class="xref std std-option">-u</em> オプションをサポートしていなければ, 次のようにしてください:</p>
+<div class="highlight-python"><pre>% cd $prefix/cron
+% su - mailman
+% crontab crontab.in</pre>
+</div>
+</div>
+<div class="section" id="mailman-qrunner">
+<h2>Mailman の qrunner を起動する<a class="headerlink" href="#mailman-qrunner" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Mailman は全てのメール配送に &#8220;qrunner&#8221; と呼ばれるプロセスを使います. <em>$prefix</em> に移動して, 次のコマンドを実行することで
+qrunner を 起動する必要があります:</p>
+<div class="highlight-python"><pre>% bin/mailmanctl start</pre>
+</div>
+<p>システムをリブートするたびに Mailman を起動したほうがよいでしょう. 実際にどうするかは使用するオペレーティングシステムに依存します. OS が
+<strong class="program">chkconfig</strong> コマンドをサポートしていれば (例えば Red Hat や Mandrake の Linux) 次のようにしてください
+(Mailman の インストールディレクトリから, root になって):</p>
+<div class="highlight-python"><pre>% cp scripts/mailman /etc/init.d/mailman
+% chkconfig --add mailman</pre>
+</div>
+<p><tt class="file docutils literal"><span class="pre">/etc/init.d</span></tt> はシステムによっては <tt class="file docutils literal"><span class="pre">/etc/rc.d/init.d</span></tt> かも しれません.</p>
+<p>Gentoo Linux では次のようにします:</p>
+<div class="highlight-python"><pre>% cp scripts/mailman /etc/init.d/mailman
+% rc-update add mailman default</pre>
+</div>
+<p>Debian ではこうするとよいでしょう:</p>
+<div class="highlight-python"><pre>% update-rc.d mailman defaults</pre>
+</div>
+<p><strong class="program">chkconfig</strong> をサポートしない Unix では次の一連のコマンド を試してみるとよいかもしれません:</p>
+<div class="highlight-python"><pre>% cp scripts/mailman /etc/init.d/mailman
+% cp misc/mailman /etc/init.d
+% cd /etc/rc.d/rc0.d
+% ln -s ../init.d/mailman K12mailman
+% cd ../rc1.d
+% ln -s ../init.d/mailman K12mailman
+% cd ../rc2.d
+% ln -s ../init.d/mailman S98mailman
+% cd ../rc3.d
+% ln -s ../init.d/mailman S98mailman
+% cd ../rc4.d
+% ln -s ../init.d/mailman S98mailman
+% cd ../rc5.d
+% ln -s ../init.d/mailman S98mailman
+% cd ../rc6.d
+% ln -s ../init.d/mailman K12mailman</pre>
+</div>
+</div>
+<div class="section" id="id48">
+<h2>ホスト名の設定をチェックする<a class="headerlink" href="#id48" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><tt class="file docutils literal"><span class="pre">Defaults.py</span></tt> の中の <em>DEFAULT_EMAIL_HOST</em> と <em>DEFAULT_URL_HOST</em> をチェックしてください.
+変更が必要な場合は <tt class="file docutils literal"><span class="pre">Defaults.py</span></tt> で <strong>なく</strong> <tt class="file docutils literal"><span class="pre">mm_cfg.py</span></tt> に書きます.  また,
+どちらかの値を変更したときには, <tt class="file docutils literal"><span class="pre">mm_cfg.py</span></tt> の変更の後に, 次のように追加してください.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">add_virtualhost</span><span class="p">(</span><span class="n">DEFAULT_URL_HOST</span><span class="p">,</span> <span class="n">DEFAULT_EMAIL_HOST</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>もし既に作成したリストがあったら, <strong class="program">bin/fix_url.py</strong> を使って ドメイン名を変更してください.</p>
+</div>
+<div class="section" id="id49">
+<h2>サイトパスワードの作成<a class="headerlink" href="#id49" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p><strong class="program">bin/mmsitepass</strong> スクリプトを使用すると, コマンドラインから ２つのサイト全体のパスワードを作成できます. 一つ目は,
+&#8220;サイトパスワード&#8221; でシステム上でパスワードが必要の 場合はどこでも使うことができます. サイトパスワードはどのリストの 管理ページへも入ることができますし,
+どのユーザとしてもログインできます. Unix システムでの <tt class="docutils literal"><span class="pre">root</span></tt> を考えてください. このパスワードは 賢く考えて選んでください.</p>
+<p>２番目のパスワードはサイト全体の &#8220;リスト作成&#8221; パスワードです. これを使うと, サイトパスワードの全ての特権を与えずに, 新しいリストを
+作成するだけの権限を持たせることができます. もちろん, サイトパスワードでも新しいメーリングリストを作成できますが,
+リスト作成パスワードは特別の役割だけに限定するものです.</p>
+<p>サイトパスワードの設定には次のコマンドを使います:</p>
+<div class="highlight-python"><pre>% $prefix/bin/mmsitepass &lt;あなたのサイトパスワード&gt;</pre>
+</div>
+<p>リスト作成パスワードの設定は次のコマンドを使ってください:</p>
+<div class="highlight-python"><pre>% $prefix/bin/mmsitepass -c &lt;リスト作成パスワード&gt;</pre>
+</div>
+<p>リスト作成パスワードを設定しなくても結構ですが, サイトパスワードは 必要になるはずです.</p>
+</div>
+<div class="section" id="id50">
+<h2>初めてリストを作成する<a class="headerlink" href="#id50" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Mailman を使うに当たってリストを作成したり設定したりといった詳しい情報 については, Mailman リスト管理マニュアルを参照してください.
+ここでは, ウェブインタフェースを使って最初のメーリングリストを作成 するための簡単なガイドを説明します:</p>
+<ul class="simple">
+<li>まず URL <tt class="docutils literal"><span class="pre">http://my.dom.ain/mailman/create</span></tt> を開いてください.</li>
+<li>画面に出ている指示に従ってフォームに記入して, &#8220;リスト作成者の パスワード&#8221; のところに <a class="reference internal" href="#customizing"><em>サイトのデフォルトを点検</em></a> 節で作成した
+パスワードを入れてください. 自分のメールアドレスを &#8220;リスト管理者アドレスの初期設定&#8221; のところに入れ,
+&#8220;「リスト作成完了」をメールで管理者に知らせますか&#8221; で &#8220;はい&#8221; を 選んでください.</li>
+<li>&#8220;リストを作成する&#8221; ボタンをクリックしてください.</li>
+<li>Mailman からあなた宛に新しいメーリングリストが作成されたことを メールで知らせますのでチェックしてください.</li>
+<li>確認のウェブページか Mailman が送信したメールに書かれたリンクを たどって, リストの管理ページへ行って下さい. たいがいは, URL は
+<tt class="docutils literal"><span class="pre">http://my.dom.ain/mailman/admin/mylist</span></tt> みたいになってる はずです.</li>
+<li>リストのパスワードを入れて, &#8220;ログイン...&#8221; をクリックします.</li>
+<li>&#8220;会員管理&#8221; をクリックし, 続いて &#8220;まとめて入会登録&#8221; へ行って ください.</li>
+<li>大きいテキスト入力エリアに自分のメールアドレスを入れ, &#8220;変更を送信する&#8221; をクリックしてください.</li>
+<li>自分のメールソフトで, <tt class="docutils literal"><span class="pre">mylist&#64;my.dom.ain</span></tt> 宛てにメールを 出してください. 1,2分のうちに, Mailman
+経由で自分のメールが返って 来るでしょう.</li>
+</ul>
+<p>おめでとう! あなたの最初のメーリングリストの設定とテストが完了しました. 何か問題が起こったら, <a class="reference internal" href="#troubleshooting"><em>トラブルと対策</em></a>
+節を見てください.</p>
+</div>
+<div class="section" id="troubleshooting">
+<span id="id51"></span><h2>トラブルと対策<a class="headerlink" href="#troubleshooting" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>もし, Mailman の実行で問題が発生したら, まず以下の「一般的な 問題」の節をチェックしましょう. もし, 問題がそこに含
+まれていなければ, <a class="reference external" href="http://www.list.org/help.html">オンラインヘルプ</a> を見てください. そこから, <a class="reference external" href="http://www.list.org/faq.html">FAQ</a> と <a class="reference external" href="http://www.python.org/cgi-bin/faqw-mm.py">インタラクティブな FAQ ウィザード</a> へ行くことができます.</p>
+<p>それから, システムの syslog と, Mailman の <tt class="file docutils literal"><span class="pre">$prefix/logs/error</span></tt> ファイルにエラーが入っていないかもチェック
+しましょう.  それでも問題があれば, <a class="reference external" href="mailto:mailman-users&#37;&#52;&#48;python&#46;org">mailman-users<span>&#64;</span>python<span>&#46;</span>org</a> メーリングリスト  <a class="footnote-reference" href="#id74" id="id54">[19]</a> に質問を書いてください.
+<a class="reference external" href="http://mail.python.org/mailman/listinfo/mailman-users">http://mail.python.org/mailman/listinfo/mailman-users</a> に詳しい 案内があります.</p>
+<p>オペレーティングシステムや, 使用している Python のバージョン, インストール中の Mailman のバージョンなどについての情報も
+忘れずに入れてください.</p>
+<p>以下は, 一般的な質問と回答のリストです: Here is a list of some common questions and answers:</p>
+<ul>
+<li><p class="first"><strong>問題:</strong> Mailman の ウェブページが全て 404 File not found エラーに なります.</p>
+<p><strong>解決法:</strong> ウェブサーバの設定で Mailman の CGI コマンドを正しく 扱えるように設定できていません. 以下を確認:</p>
+</li>
+</ul>
+<ol class="arabic simple">
+<li>ウェブサーバで <tt class="file docutils literal"><span class="pre">$prefix/cgi-bin</span></tt> に正しく許可 (パーミッション) を設定する.</li>
+<li>ウェブサーバを正しく再起動する.</li>
+</ol>
+<blockquote>
+<div>ウェブサーバの説明書をよく読んでどうしたらよいか調べてください.</div></blockquote>
+<ul>
+<li><p class="first"><strong>問題:</strong> Mailman のウェブページが全て &#8220;Internal Server Error&#8221; になります.</p>
+<p><strong>解決法:</strong> 間違ったユーザまたはグループを使って CGI を 実行しようとしている可能性があります. ウェブサーバのログをチェックして ください.
+例えば以下のような行があったら,</p>
+<div class="highlight-python"><pre>Attempt to exec script with invalid gid 51, expected 99</pre>
+</div>
+<p>Mailman を再インストールしなければなりません.</p>
+<p><a class="reference internal" href="#building"><em>Mailman の構築とインストール</em></a> 節に書かれていたように, 正しい CGI グループ ID を指定して ください.</p>
+</li>
+<li><p class="first"><strong>問題:</strong> メールをリストに送ったら, リストが見つからないという メールを受け取りました.</p>
+<p><strong>解決法:</strong> 多分, システムのエイリアスデータベースに必要な エイリアスを登録していなかったのでしょう. あるいは, Mailman と
+メールサーバの組み合わせが正しく行われていないのかもしれません. エイリアスデータベースを更新していないか, あなたのシステムでは
+<strong class="program">newaliases</strong> を明示的に実行する必要があるのかしれません. あなたがご利用のサーバについて:ref:<cite>mail-server</cite> 節で
+確認してください.</p>
+</li>
+<li><p class="first"><strong>問題:</strong> リストにメールを送ったら, &#8220;unknown mailer error&#8221; が帰ってきました.</p>
+<p><strong>解決法:</strong> メールラップで間違ったユーザまたはグループID を使っている可能性があります. メールサーバのログをチェックして ください.
+次のような行があったら,</p>
+<div class="highlight-python"><pre>Attempt to exec script with invalid gid 51, expected 99</pre>
+</div>
+<p>Mailman を再インストールしなければなりません.</p>
+<p><a class="reference internal" href="#building"><em>Mailman の構築とインストール</em></a> 節に書かれていたように, 正しいメールグループ ID を指定して ください.</p>
+</li>
+<li><p class="first"><strong>問題:</strong> 私は Postfix をメールサーバに使っています. そして, メールラッププログラムは GID が違っていると不平をログに残します.</p>
+<p><strong>解決法:</strong> <tt class="file docutils literal"><span class="pre">$prefix/data/aliases.db</span></tt> ファイルの 所有者が <tt class="docutils literal"><span class="pre">mailman</span></tt> (又は
+<strong class="program">configure</strong> コマンドで使った名前)  であることを確認してください. もし <tt class="docutils literal"><span class="pre">mailman</span></tt> 以外のユーザに
+所有されている場合は, Postfix は正しいユーザでメールプログラムを 実行しません.</p>
+</li>
+<li><p class="first"><strong>問題:</strong> 私は Sendmail をメールサーバに使っています. そして, メールをリストに送ると  &#8220;sh: mailman not
+available for sendmail programs&#8221; というメールが返ってきます.</p>
+<p><strong>解決法:</strong> あなたのシステムでは Sendmail restricted shell (smrsh) が使われています. メールラッププログラム
+(<tt class="file docutils literal"><span class="pre">$prefix/mail/mailman</span></tt>) から smrsh で実行が許可されて いるディレクトリにシンボリックリンクを張る必要があります.</p>
+<p>一般的にこのディレクトリは <tt class="file docutils literal"><span class="pre">/var/admin/sm.bin</span></tt>, <tt class="file docutils literal"><span class="pre">/usr/admin/sm.bin</span></tt>,
+<tt class="file docutils literal"><span class="pre">/etc/smrsh</span></tt> などに設定されています.</p>
+<p>Debian Linux ではシステムは <tt class="file docutils literal"><span class="pre">/usr/lib/sm.bin</span></tt> を作成します が, これは間違っています.
+<tt class="file docutils literal"><span class="pre">/usr/admin/sm.bin</span></tt> を 作ってそ こへリンクを作成する必要があります.  注：:program:<cite>newaliases</cite>
+が吐き出すどのエイリアスもラップへの 安全なリンクを指す必要があります.</p>
+</li>
+<li><p class="first"><strong>問題:</strong>  <strong class="program">configure</strong> を呼び出すときに散らかして しまいました.
+掃除をして再インストールするにはどうしたらいいですか?</p>
+<p><strong>解決法:</strong></p>
+<div class="highlight-python"><pre>% make clean
+% ./configure --with-the-right-options
+% make install</pre>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="id55">
+<h2>プラットフォームやオペレーティング システムごとの注<a class="headerlink" href="#id55" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>一般に, Mailman は POSIX 準拠のシステム (Solaris,  BSD のさまざまな変種, Linux 系システム, MacOSX,  その他の
+Unix システムなど) でなら動作します.  Windows では動作しません.  たいていの場合,  Mailman
+がサポートされているプラットフォームで動作するようにするには,  この文書で説明した一般的な手順だけで充分です.  しかし, 一部のオペレーティング
+システムでは,  このほかに, インストールや設定の際に推奨される手順があります.</p>
+<div class="section" id="gnu-linux">
+<h3>GNU/Linux について<a class="headerlink" href="#gnu-linux" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Linux は, Mailman を実行するプラットフォームとしては,  もっとも普及しているもののようです.  Mailman を Linux
+で実行できるようにするためのヒントをいくつか挙げます:</p>
+<ul>
+<li><p class="first">ハードリンクの作成でエラーが起こったり,  特別なセキュア カーネル (securelinux/openwall/grsecurity)
+を使っているときは,  Mailman のソース配布物のファイル <tt class="file docutils literal"><span class="pre">contrib/README.check_perms_grsecurity</span></tt>
+を見てください.</p>
+<p>Linux Mandrake をセキュア モードで使っているのなら,  これは役にたつでしょう.</p>
+</li>
+<li><p class="first">Mandrake は 9.0 あたりから gcc の実行権限を変更しています.  <tt class="docutils literal"><span class="pre">mailman</span></tt> ユーザになってビルドするのなら,
+<tt class="docutils literal"><span class="pre">mailman</span></tt> が <tt class="docutils literal"><span class="pre">cctools</span></tt> グループにも所属しているようにします.</p>
+</li>
+<li><p class="first">Python を Linux ディストリビューションのパッケージ管理 (例えば Redhat 系のシステムなら .rpm, Debian なら .deb)
+でインストールしたのなら,  Python &#8220;開発用&#8221; パッケージもインストールしなければいけません.  そうしないと期待したとおりの結果になりません.</p>
+<p>例えば, Debian で Python 2.2 を使っているのなら,  <tt class="docutils literal"><span class="pre">python2.2-dev</span></tt> パッケージをインストールする必要があります.
+Redhat では, たぶん <tt class="docutils literal"><span class="pre">python2-devel</span></tt> パッケージが必要でしょう.</p>
+<p>Python をソースからインストールしたのなら, うまくいくはずです.</p>
+<p>理屈はよくわかりませんが, インストールの最中につぎのようなエラーが起こるのなら,  この問題がおきていると判断してよいでしょう:</p>
+<div class="highlight-python"><pre>Traceback (most recent call last):
+  File "bin/update", line 44, in ?
+    import paths
+ImportError: No module named paths
+make: *** [update] Error 1</pre>
+</div>
+<p>これがおこるのなら,  Python の開発用パッケージをインストールしてから もう一度 <strong class="program">configure</strong> と
+<strong class="program">make install</strong> をやってみましょう.  あるいは, 最新バージョンの Python
+(<a class="reference external" href="http://www.python.org">http://www.python.org</a> で入手できる) をソースからインストールします.</p>
+<p>この問題は, 上記以外の Linux ディストリビューションでは 違ったふうに表れるかもしれませんが,  普通は <tt class="docutils literal"><span class="pre">ImportError</span></tt>
+として表れます.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="bsd">
+<span id="bsd-issues"></span><h3>BSD について<a class="headerlink" href="#bsd" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Vivek Khera によれば, 一部の BSD システムでは,  夜間のセキュリティ スキャンで setuid ファイルの変更を調べます.  setgid
+ディレクトリも, 変更されるとスキャン結果に現れます.  また, BSD システムでは, ディレクトリの中にファイルを作ると,
+ディレクトリのグループ所有権を自動的に継承するので,  setgid ビットはなくてもいいのです.  他の Unix システムでは, ディレクトリの
+setgid ビットがオンになっていないと こうはなりません.</p>
+<p>ディレクトリの setgid ビットをオンにせずにインストールするには,  <strong class="program">configure</strong> を実行したあとで,
+<strong class="program">make</strong> に <em>DIRSETGID</em> 変数を渡せばいいです:</p>
+<div class="highlight-python"><pre>% make DIRSETGID=: install</pre>
+</div>
+<p>これで, インストールされるディレクトリに対する <strong class="program">chmod g+s</strong> コマンドが無効になります.</p>
+</div>
+<div class="section" id="macosx">
+<h3>MacOSX について<a class="headerlink" href="#macosx" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Mailman を MacOSX で実行している人も大勢います.  ここでは, Mailman を MacOSX で実行できるようにするために集めた
+情報へのポインタを挙げておきます.</p>
+<ul>
+<li><p class="first">Jaguar (MacOSX 10.2) には Python 2.2 がついてきます.  が, これは Python のあまり最近の安定バージョンではなく,
+Mailman 2.1 を実行するのには充分ではありません.</p>
+</li>
+<li><p class="first">David B. O&#8217;Donnell は, Web サイトで,  自分の MacOSX 上の Mailman 2.0.13 と Postfix
+の設定を説明しています.</p>
+<p><a class="reference external" href="http://www.afp548.com/Articles/mail/python-mailman.html">http://www.afp548.com/Articles/mail/python-mailman.html</a></p>
+</li>
+<li><p class="first">Kathleen Webb は, Jaguar で Sendmail を使って Mailman を実行できるように した経験を投稿してくれました.</p>
+<p><a class="reference external" href="http://mail.python.org/pipermail/mailman-users/2002-October/022944.html">http://mail.python.org/pipermail/mailman-users/2002-October/022944.html</a></p>
+</li>
+<li><p class="first">Panther サーバ (MacOSX 10.3) には Mailman が入っています; オペレーティング システムには助けになる文書が含まれていますし,
+Apple は, Mailman を MacOSX Server 10.3 で動作させる際にぶつかりそうな 問題についての技術文書を出しています:</p>
+<p><a class="reference external" href="http://docs.info.apple.com/article.html?artnum=107889">http://docs.info.apple.com/article.html?artnum=107889</a></p>
+</li>
+</ul>
+<p>Terry Allen は, 「クライアント」版の OSX や初期の版の OSX での Mailman の実行について,
+以下のような詳細な説明を提供してくれました &#8212;&#8212;</p>
+<p>Mac OSX の 10.3 以降では, Mailman ははじめからインストールしてあります. Mac OSX のそれ以前の版では [訳注: MTA として
+Postfix ではなく] Sendmail が入っているので, そういうユーザは, このマニュアルの Sendmail でのインストールの節を見て,
+こつをつかんでください. このマニュアルの前のほうで説明している基本的なインストール手順を, 本節で概説している手順で適当に読み換えながら, 実施します.</p>
+<p>Mac OSX 10.3 の「クライアント」版には, 既定ではフル機能版の Postfix が入っていません. Postfix などの MTA
+を動作させる設定の説明はこの文書の範囲を超えますから, <a class="reference external" href="http://www.postfix.org">http://www.postfix.org</a> を見て, Postfix
+が実行できるようにするこつをつかんでください. Postfix をインストールして動作するように設定する簡単な方法としては, Postfix Enabler
+を実行するというものがあります. Mac OSX で Postfix を設定するためのスタンドアロンのツールです.
+<a class="reference external" href="http://www.roadstead.com/weblog/Tutorials/PostfixEnabler.html">http://www.roadstead.com/weblog/Tutorials/PostfixEnabler.html</a> にあります.</p>
+<p>また, Mac OSX 「クライアント」版でも 10.1 以降なら, Apache ウェブサーバが動作するようになっています.
+「システム管理設定」を使って「共有」タブの中で有効にします. Webmin というツールは, Mac OSX で Apache を設定するのに役立ちます.
+<a class="reference external" href="http://www.webmin.com">http://www.webmin.com</a> で手に入ります.</p>
+<p>Webmin では, システムのほかの機能についての設定もできます. Postfix の設定, crontab へのジョブの追加, ユーザやグループの追加,
+などができます. また, スタートアップジョブやシャットダウンジョブの追加もできます.</p>
+<p>OSX の標準的なインストレーションでの Mailman の要求事項として, Python がインストールされていること, というものがありますが,
+Python は既定ではインストールされていません. そこで, 開発ツール パッケージをインストールすることをお勧めします. このパッケージは,
+システムとともに提供されているかもしれません. また, Apple Developer Connection サイト
+<a class="reference external" href="http://connect.apple.com">http://connect.apple.com</a> からダウンロードすることもできます. 開発ツール パッケージは, Mailman
+をインストールするのにどうしても必要というわけではないのですが, いつか他のツールが必要になったときにも役立ちそうなものではあります. 開発ツールは XCode
+Tools ともいいます.</p>
+<p>Python のバージョンは, 最低限, 2.2 でなければなりません. しかし, 2.3 をお勧めします.</p>
+<p>Webmin などの GUI インタフェースではなく, OSX のコマンドラインを使ってユーザやグループを追加したければ, ターミナル アプリケーションを開き,
+以下に示すコマンドを入力します (<tt class="docutils literal"><span class="pre">#</span></tt> ではじまるコメント行は, 単なる説明なので, 入力しません):</p>
+<div class="highlight-python"><pre>sudo tcsh
+niutil -create / /users/mailman
+niutil -createprop / /users/mailman name mailman
+# xxx は, システム上で空いているユーザ ID 番号であることに注意
+niutil -createprop / /users/mailman uid xxx
+niutil -createprop / /users/mailman home /usr/local/mailman
+mkdir -p /usr/local/mailman
+niutil -createprop / /users/mailman shell /bin/tcsh
+passwd mailman
+# ここでは, 悪意のあるハッキングを防ぐため, セキュアなパスワードを与えること
+niutil -create / /groups/mailman
+niutil -createprop / /groups/mailman name mailman
+# xxx は, システム上で空いているグループ ID 番号であることに注意
+niutil -createprop / /groups/mailman gid xxx
+niutil -createprop / /groups/mailman passwd '*'
+niutil -createprop / /groups/mailman users 'mailman'
+chown mailman:mailman /usr/local/mailman
+cd /usr/local/mailman
+chmod a+rx,g+ws .
+exit
+su mailman</pre>
+</div>
+<p>OSX の Apache で Mailman が使えるように設定する手順は, [訳注: このマニュアルで説明しているのと] ほとんど同じです. Mac OSX
+クライアント版の標準的な設定ファイルは <tt class="file docutils literal"><span class="pre">/etc/httpd/httpd.conf</span></tt> (これが標準の場所) あたりに格納されています.</p>
+<p><a class="reference external" href="http://www.afp548.com">AFP548.com</a> のサイトには, スタートアップアイテムの自動作成ツールがあり,
+これを使うと手間が省けます. <a class="reference external" href="http://www.afp548.com/Software/MailmanStartup.tar.gz">http://www.afp548.com/Software/MailmanStartup.tar.gz</a>
+で見つかります.</p>
+<p>インストールするには, このファイルを <tt class="file docutils literal"><span class="pre">/Library/StartupItems</span></tt> ディレクトリにコピーします. ターミナルで root
+かスーパユーザになって, 次のものを入力します:</p>
+<div class="highlight-python"><pre>gunzip MailmanStartup.tar.gz
+tar xvf MailmanStartup.tar</pre>
+</div>
+<p>これでスタートアップアイテムが作成されるので, 再起動すれば Mailman が開始されます.</p>
+<p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="id56" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>訳注：現時点で翻訳は訳者（菊地・池田）の環境において確認できる部分 に限られています.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id57" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[2]</a></td><td>訳註: wrapper ... ○○ラップ(商品名)と同じ 「包む」という意味なので, こう訳してみました</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id58" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6">[3]</a></td><td>インストールが完了してから パーミッションをチェックして修正することができます.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id59" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id8">[4]</a></td><td>これは Mailman 2.1 のデフォルトです. 以前のバージョンでは, /home/mailman に全てインストールしていました.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id60" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id9">[5]</a></td><td>もし, BSD システムを使うなら <a class="reference internal" href="#bsd-issues"><em>BSD について</em></a> も読んでください</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id61" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id14">[6]</a></td><td>訳注：原文は extended address  semantics なので, &#8216;拡張されたアドレスの意味論&#8217;. 実際には, extended address
+とだけ書いてある文献が多いようなので, &#8216;意味論&#8217; を省略した.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id62" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id16">[7]</a></td><td>訳注：virtual alias domains.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id63" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id19">[8]</a></td><td>訳注: &#8220;HOWTO - Using Exim and Mailman together&#8221;.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id64" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id21">[9]</a></td><td>訳注: 後の節で説明するダイレクタ (ルータ) の設定をしたあとで追加します.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id65" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id26">[10]</a></td><td>訳注: main section. Exim の設定ファイルで, 最初の &#8220;begin ...&#8221; 行より前の, 全般的な設定を記述する部分.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id66" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id30">[11]</a></td><td>訳注: Mailman は, MTA を通じてメールを送る際に, HELO (EHLO) コマンドの引数として, 自ホストのプライマリ FQDN を使います.
+スパム排除のために, HELO (EHLO) の引数に自ホスト名をかたるクライアントからの配送を拒否するような設定をしている場合は, localhost
+(127.0.0.1) からの配送が拒否されないように気をつけてください.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id67" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id34">[12]</a></td><td>訳注: recipient verification.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id68" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id37">[13]</a></td><td>訳注: SMTP callback.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id69" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id38">[14]</a></td><td>訳注: 異なる仮想ドメインで同じ名前のリストを別々に使えなくてもかまわなければ, 本節の設定は不要です.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id70" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id39">[15]</a></td><td>実際, Mailman の 最近のバージョンでは, このモジュールをわざと動かなくしてあります. もしこれを有効にしたいのであれば,
+なにが起こるかよく理解していなければ いけません.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id71" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id42">[16]</a></td><td>訳注: ユーザ <tt class="docutils literal"><span class="pre">alias</span></tt> の GID を使う, という意味です.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id72" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id44">[17]</a></td><td>訳注: <tt class="docutils literal"><span class="pre">mailman</span></tt> ユーザのホームディレクトリが存在しない場合 (「グループとユーザの追加」の節の手順のとおりにするとそうなります) も,
+qmail は <tt class="docutils literal"><span class="pre">mailman</span></tt> を, メールを配送できるユーザとみなしません.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id73" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id47">[18]</a></td><td>訳注: qmail-to-mailman.py は, 仮想メールサーバでないアドレスにも使えるでしょう.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id74" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id54">[19]</a></td><td>訳注: 翻訳時点ではアクセスできませんでした.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id75" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[20]</td><td>一般的に, ここで変更したリストのデフォルトは既に作成済みのリストには 適用されません. リストが作成された後に変更を加えるには, ウェブインタフェース
+を使うか <strong class="program">bin/withlist</strong> や <strong class="program">bin/config_list</strong> のような コマンド行スクリプトを使います.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id76" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[21]</td><td>以前のバージョンから更新するときには, 新しい crontab を入れないといけないかもしれません. しかし, 複数の Mailman を
+インストールしている場合には注意が必要です. crontab を変更すると 他の平行した Mailman を壊すかもしれません.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id77" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[22]</td><td>メールを投稿するにはこメーリングリストに入らないといけませんが, リストの保存書庫は一般公開されています.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="総合索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="siteadmin.html" title="サイト管理の手引"
+             >次へ</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Mailman 日本語情報へようこそ"
+             >前へ</a> |</li>
+        <li><a href="index.html">Mailman日本語情報</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Tokio Kikuchi.
+      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7 で生成しました。
+    </div>
+  </body>
+</html>

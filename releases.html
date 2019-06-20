@@ -1,0 +1,209 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>リリース情報 &mdash; Mailman日本語情報</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="shortcut icon" href="_static/mailman.ico"/>
+    <link rel="top" title="Mailman日本語情報" href="index.html" />
+    <link rel="next" title="その他の文書" href="misc.html" />
+    <link rel="prev" title="GNU Mailman - リスト会員の手引" href="mailmanmember.html" /> 
+  <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-34175846-1', 'python.jp');
+        ga('send', 'pageview');
+
+      </script>
+  <body>
+
+
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="misc.html" title="その他の文書"
+             accesskey="N">次へ</a> |</li>
+        <li class="right" >
+          <a href="mailmanmember.html" title="GNU Mailman - リスト会員の手引"
+             accesskey="P">前へ</a> |</li>
+        <li><a href="index.html">Mailman日本語情報</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/mailman.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">リリース情報</a><ul>
+<li><a class="reference internal" href="#id2">最新バージョン</a></li>
+<li><a class="reference internal" href="#launchpad-bazaar">Launchpad (bazaar) レポジトリ</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="mailmanmember.html"
+                        title="前の章へ">GNU Mailman - リスト会員の手引</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="misc.html"
+                        title="次の章へ">その他の文書</a></p>
+  <h3>このページ</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/releases.txt"
+           rel="nofollow">ソースコードを表示</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>クイック検索</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="検索" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    モジュール、クラス、または関数名を入力してください
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>リリース情報<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>日本語での利用に合わせて修正した Mailman のリリース情報を提供します。
+このページの公式 URL は <a class="reference external" href="http://www.python.jp/doc/contrib/mailman/releases.html">http://www.python.jp/doc/contrib/mailman/releases.html</a> です。</p>
+<p>この文書を書いている時点で、Mailman の本家でのバージョンは 2.1.14 です。
+Mailman はそのままでも日本語で利用することができますが、それは文字コード
+集合についての規則 (JIS) を守っている場合であって、機種依存文字の使用な
+どでエラーになったり不具合も残っています。このあたりは、日本人でも正確に
+問題を把握している人は少なく、その事情を本家の開発者に伝えるのも結構大変
+です。</p>
+<p>そこで、Mailman に少々手を加えて、日本語メールで機種依存文字を使われても、
+文字コード集合の規則にかなったメールを配信できるようにしたものを +j バー
+ジョンとして作成しました。</p>
+<p>現在のバージョンは、2011 年 12 月 13 日にリリースした、mailman-2.1.14+j7
+です。日本語対策を有効にする mailman の設定法については同梱の
+README.japan.utf-8 を読んでください。</p>
+<p><strong>重要</strong> ：Mailman/mm_cfg.py に次のように記述して、iso2022jpfix を有効にして
+ください。本家版との整合性を考慮して Mailman/Defaults.py の方には入れて
+いません。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">GLOBAL_PIPELINE</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;iso2022jpfix&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h2>最新バージョン<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<ul>
+<li><p class="first"><a class="reference external" href="_static/mailman-2.1.14+j7.tgz">mailman-2.1.14+j7.tgz</a> (tar + gzip 圧縮)</p>
+</li>
+<li><p class="first"><a class="reference external" href="_static/mailman-2.1.14+j7.tgz.md5">mailman-2.1.14+j7.tgz.md5</a> (md5 チェックサム)</p>
+</li>
+<li><p class="first"><a class="reference external" href="_static/README.japan.utf-8">README.japan.utf-8</a></p>
+</li>
+<li><p class="first">リリースノート</p>
+<p>基本的に +j リリース開始後の本家のレポジトリ更新に追従するものです。
+ですから次期リリース予定の 2.1.15 の機能／修正が含まれています。
+どのような修正が入っているかは、NEWS ファイルをご覧ください。
+なお、この中には、セキュリティ上の問題も入っていますので、日本語版でも
+特に言及しておきます。</p>
+<p>日本語バージョン (+j7まで) に追加された機能</p>
+<ul class="simple">
+<li>XSS (Cross Site Scripting) 脆弱性 (CVE-2011-0707) の修正。
+(+j5 で修正済み)</li>
+<li>CSRF (Cross Site Request Forgery) 脆弱性の修正。2.1.15 には、
+mm_cfg.py に AUTHENTICATION_COOKIE_LIFETIME という変数を導入して、
+ログアウト忘れによって CSRF に引っかかる確率を減らす対策が行われ
+ているが、 +j6 では、これに加えてフォームの有効期限 FORM_LIFETIME
+を導入し、ほぼ CSRF は不可能というレベルにしている。
+FORM_LIFETIME はデフォルトで hours(1) (1時間) となっている。変更
+する場合には他の Defaults.py の変数同様、mm_cfg.py で変更すること。
+(lp:~tkikuchi/mailman/form-lifetime として Merge Propose)</li>
+<li>「まとめて会員登録」に、同期モードを追加。
+ファイルアップロードにのみ対応で、そのファイルに記入が無い会員は退会
+となる。コマンドラインでの bin/sync_members に相当するが、まとめ読み
+を区別することができないので注意。</li>
+<li>まとめ読み (digest) の目次に、Subject を並べるところでエラーになった
+場合に処理が止まらないように修正。</li>
+<li>Gmail では、一度システムを通過した Message-ID を持つメールは２度目以
+降破棄されてしまうため、Bcc で自分宛のコピーを確保しておかないとメッ
+セージのスレッド表示がおかしくなる。また Bcc していても Subject
+Prefix の結果を見ることができない。Mailman を通過する際に Message-ID
+を新規に振ることで Gmail で表示されるようにする。
+mm_cfg.py において、USE_MAILMAN_MESSAGE_ID を Yes にしておくことで、
+この機能を有効にすることができる。(デフォルトでは No)</li>
+</ul>
+<p>その他、アイコンやバナーの画像を更新しました。これらも変更可能ですので、
+画像ファイルのコピー後、mm_cfg.py で、適当な新しい画像に変更してください。
+また、最近日本語端末の文字コードを UTF-8 にしている人が多いと思うのですが、
+その場合、bin 配下のコマンド実行で文字化けしないようにちょっと工夫を入れて
+みました。</p>
+</li>
+</ul>
+</div>
+<div class="section" id="launchpad-bazaar">
+<h2>Launchpad (bazaar) レポジトリ<a class="headerlink" href="#launchpad-bazaar" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://code.launchpad.net/~tkikuchi/mailman/2.1-japan">lp:~tkikuchi/mailman/2.1-japan</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="総合索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="misc.html" title="その他の文書"
+             >次へ</a> |</li>
+        <li class="right" >
+          <a href="mailmanmember.html" title="GNU Mailman - リスト会員の手引"
+             >前へ</a> |</li>
+        <li><a href="index.html">Mailman日本語情報</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Tokio Kikuchi.
+      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7 で生成しました。
+    </div>
+  </body>
+</html>

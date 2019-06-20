@@ -1,0 +1,529 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>リスト管理の手引 &mdash; Mailman日本語情報</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '2.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="shortcut icon" href="_static/mailman.ico"/>
+    <link rel="top" title="Mailman日本語情報" href="index.html" />
+    <link rel="next" title="GNU Mailman - リスト会員の手引" href="mailmanmember.html" />
+    <link rel="prev" title="サイト管理の手引" href="siteadmin.html" /> 
+  <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-34175846-1', 'python.jp');
+        ga('send', 'pageview');
+
+      </script>
+  <body>
+
+
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="総合索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="mailmanmember.html" title="GNU Mailman - リスト会員の手引"
+             accesskey="N">次へ</a> |</li>
+        <li class="right" >
+          <a href="siteadmin.html" title="サイト管理の手引"
+             accesskey="P">前へ</a> |</li>
+        <li><a href="index.html">Mailman日本語情報</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/mailman.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">目次</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">リスト管理の手引</a><ul>
+<li><a class="reference internal" href="#id2">はじめに</a></li>
+<li><a class="reference internal" href="#id3">リストの性格</a><ul>
+<li><a class="reference internal" href="#id4">ディスカッションリスト</a></li>
+<li><a class="reference internal" href="#id5">アナウンスリスト</a></li>
+<li><a class="reference internal" href="#id6">サポートリスト</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7">リストの設定</a><ul>
+<li><a class="reference internal" href="#id8">全体的オプション</a></li>
+<li><a class="reference internal" href="#id11">パスワード</a></li>
+<li><a class="reference internal" href="#id12">言語オプション</a></li>
+<li><a class="reference internal" href="#id13">会員管理</a></li>
+<li><a class="reference internal" href="#id14">普通配送オプション</a></li>
+<li><a class="reference internal" href="#id15">まとめ読みオプション</a></li>
+<li><a class="reference internal" href="#id16">プライバシーオプション</a></li>
+<li><a class="reference internal" href="#id17">配送エラー処理</a></li>
+<li><a class="reference internal" href="#id18">保存書庫オプション</a></li>
+<li><a class="reference internal" href="#id19">メール&lt;-&gt;ニュース相互配送</a></li>
+<li><a class="reference internal" href="#id20">自動応答</a></li>
+<li><a class="reference internal" href="#id21">添付ファイル除去</a></li>
+<li><a class="reference internal" href="#id22">話題</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id23">リストの日常的管理</a><ul>
+<li><a class="reference internal" href="#id24">会員以外からのメール</a></li>
+<li><a class="reference internal" href="#id25">配送エラー通知</a></li>
+<li><a class="reference internal" href="#id26">会員の入退会</a></li>
+<li><a class="reference internal" href="#id27">会員のメールアドレス変更</a></li>
+<li><a class="reference internal" href="#id28">拒否か破棄か（迷惑メール）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>前のトピックへ</h4>
+  <p class="topless"><a href="siteadmin.html"
+                        title="前の章へ">サイト管理の手引</a></p>
+  <h4>次のトピックへ</h4>
+  <p class="topless"><a href="mailmanmember.html"
+                        title="次の章へ">GNU Mailman - リスト会員の手引</a></p>
+  <h3>このページ</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/listadmin.txt"
+           rel="nofollow">ソースコードを表示</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>クイック検索</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="検索" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    モジュール、クラス、または関数名を入力してください
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="id1">
+<h1>リスト管理の手引<a class="headerlink" href="#id1" title="このヘッドラインへのパーマリンク">¶</a></h1>
+<p>リスト管理者にできること、リストの日常業務などについて解説します。</p>
+<div class="section" id="id2">
+<h2>はじめに<a class="headerlink" href="#id2" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Mailman のメーリングリストはリスト毎に管理者が設定されています。管理者
+は管理インタフェースを通じてリストの設定を行ったり、リストへのリクエス
+トが保留されているとき、管理データベースページで処理したりといった、日
+常的なリスト管理者としての業務を行います。</p>
+</div>
+<div class="section" id="id3">
+<h2>リストの性格<a class="headerlink" href="#id3" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>メーリングリストを運用するとき、そのリストがどのような性格を持つのかを
+決めておく事が重要です。また、ここを読んで頂けるとメーリングリストがこ
+んなことにも使えるのかと認識を新たにしていただけるのではないかと思いま
+す。</p>
+<p>メーリングリストの性格とは、主にその用途を表すもので代表的な３つの用途
+をとりあげ、 <strong>ディスカッションリスト</strong> 、 <strong>アナウンスリスト</strong> 、
+<strong>サポートリスト</strong> に分けてそれぞれを説明したいと思います。</p>
+<div class="section" id="id4">
+<h3>ディスカッションリスト<a class="headerlink" href="#id4" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>世間一般にメーリングリストと呼ばれているものは、このディスカッションリ
+ストを想定している事が多いようです。会員として登録されたメールアドレス
+から投稿されたメールはリストの全員宛に配送されます。Mailman で作成され
+たメーリングリストはデフォルトでこのタイプになりますが、会員登録を始め
+る前に、管理インタフェースの <tt class="docutils literal"><span class="pre">プライバシーオプション</span></tt> -&gt; <tt class="docutils literal"><span class="pre">送信者フィルター</span></tt>
+のところで、 <tt class="docutils literal"><span class="pre">新しく登録する会員のデフォルトを制限付き会員にしますか?</span></tt>
+が <tt class="docutils literal"><span class="pre">いいえ</span></tt> になっていることを確認しておくとよいかもしれません。</p>
+<p>また、普通は <tt class="docutils literal"><span class="pre">動作が定義されていない非会員からの投稿に対する動作</span></tt>
+のところを <tt class="docutils literal"><span class="pre">保留</span></tt> にしておきます。会員以外からの投稿を認める場合もあるか
+もしれませんが、これだとスパムメールを防ぐ事ができません。それでもリス
+ト会員に何かの用事で連絡を取りたい外部の人にもオープンにしておきたいと
+いうのであれば、ここを <tt class="docutils literal"><span class="pre">承認</span></tt> にしておくことができます。スパムメールを含
+む外部からのメールを完全にシャットアウトしたければ、 <tt class="docutils literal"><span class="pre">破棄</span></tt>
+にしてください。 <tt class="docutils literal"><span class="pre">拒否</span></tt> の設定はあまりお勧めできません。</p>
+</div>
+<div class="section" id="id5">
+<h3>アナウンスリスト<a class="headerlink" href="#id5" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>いわゆるメールマガジン（メルマガ）がこれに相当します。リストに参加して
+いる会員からの直接の投稿は認めず、ひたすら主催者側からの情報を流すだけ
+になります。会員登録を始める前に、管理インタフェースの <tt class="docutils literal"><span class="pre">プライバシーオプ</span>
+<span class="pre">ション</span></tt> -&gt; <tt class="docutils literal"><span class="pre">送信者フィルター</span></tt> のところで、
+<tt class="docutils literal"><span class="pre">新しく登録する会員のデフォルトを制限付き会員にしますか?</span></tt> を <tt class="docutils literal"><span class="pre">はい</span></tt> にして
+おきます。サイト管理者にリスト作成を依頼するときにアナウンス用であるこ
+とを伝えておけば、リスト作成の時の初期設定でそのようにしてもらえるかも
+しれません。念のために自分でも確認しておきましょう。初期設定を忘れて制
+限付きでない会員を登録してしまった後であっても、 <tt class="docutils literal"><span class="pre">会員管理</span></tt> -&gt; <tt class="docutils literal"><span class="pre">会員リスト</span></tt>
+の <tt class="docutils literal"><span class="pre">会員関連のその他の操作</span></tt> にある
+<tt class="docutils literal"><span class="pre">全員の制限(モデレーション)フラグをセットする.</span> <span class="pre">(隠れ会員を含む)</span></tt> を <tt class="docutils literal"><span class="pre">オン</span></tt>
+にして <tt class="docutils literal"><span class="pre">セット</span></tt> ボタンを押すことで設定ができます。</p>
+<p>では、会員がこの <strong>アナウンスリストに投稿</strong> したいと思ったときはどうしたらよ
+いでしょう。基本的には主催者に連絡をとって、主催者側から流してもらうこ
+とになりますが、主催者がアナウンスにふさわしいかどうかをチェックしてそ
+のまま流すようにもできます。この場合、 <tt class="docutils literal"><span class="pre">プライバシーオプション</span></tt> -&gt;
+<tt class="docutils literal"><span class="pre">送信者フィルタ</span></tt> のところで、 制限付き会員から投稿があったときの動作 を
+<tt class="docutils literal"><span class="pre">保留</span></tt> にしておきます。主催者（管理者または司会者）には保留メールがあっ
+たことが通知されますので、管理インタフェースのウェブページからそのメー
+ルをリストに流すかどうかを決めることができます。</p>
+<p>また、この <strong>アナウンスリストにいつでも投稿できる人</strong> はどのように定めたらよ
+いでしょうか？もしその人（のメールアドレス）が会員に入っていたら、 <tt class="docutils literal"><span class="pre">会員</span>
+<span class="pre">管理</span></tt> -&gt; <tt class="docutils literal"><span class="pre">会員リスト</span></tt> からその会員を探して <tt class="docutils literal"><span class="pre">制限</span></tt> のチェックをはずしておき
+ます。会員リストに入っていない場合には、 <tt class="docutils literal"><span class="pre">プライバシーオプション</span></tt> -&gt;
+<tt class="docutils literal"><span class="pre">送信者フィルタ</span></tt> で <tt class="docutils literal"><span class="pre">非会員フィルタ</span></tt> の
+<tt class="docutils literal"><span class="pre">自動的に投稿を承認すべき非会員のアドレス</span></tt> に入れておきます。しかし、ア
+ナウンスリストというのは、間違いがあって何度も訂正メールがやって来たり
+すると迷惑がられることが多いですので、誰からのメールでも一旦保留して、
+実際に配送する前にもう一度チェックする機会を設けておいた方がよいかもし
+れません。</p>
+</div>
+<div class="section" id="id6">
+<h3>サポートリスト<a class="headerlink" href="#id6" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>企業の製品相談窓口のメールアドレスや、イベントについての問い合わせ受付
+メールアドレスは、一般の人たちにとって、その裏側の仕組みは分からなくて
+よいことです。しかし、その裏側にまわってみると、このサポートメールアド
+レスをメーリングリストで運用すると便利なことが多くなります。</p>
+<p>サポートリストでは、 <strong>会員はサポートスタッフ</strong> です。誰からサポート要請が来
+るかわかりませんので、基本的には <strong>誰でもこのリストに投稿できる</strong> ように設定
+すればよいことになります。しかし、この投稿メールアドレスは Web ページ
+に掲載するなどして広く一般に知らせる事になりますので、スパムメールも来
+る確率が高くなります。スパム防止はシステム全体の MTA のところでやって
+もらうのが一番いいのですが、それができないこともあります。また MTA
+でのスパム防止は 100%完璧というわけでもありません。そこで、 <em>初めてのメ
+ールは一旦保留</em> し、そのメールがスパムでないことを確認したら、 <em>以後同じ人
+（メールアドレス）からのメールはフリーパス</em> とする方法があります。</p>
+<p>サポートリストでの会員の設定はディスカッションリストと同じです。 <tt class="docutils literal"><span class="pre">プライ</span>
+<span class="pre">バシーオプション</span></tt> -&gt; <tt class="docutils literal"><span class="pre">動作が定義されていない非会員からの投稿に対する動作</span></tt>
+は、 <tt class="docutils literal"><span class="pre">承認</span></tt> 又は <tt class="docutils literal"><span class="pre">保留</span></tt> とします。 <tt class="docutils literal"><span class="pre">保留</span></tt> にした場合には、
+<tt class="docutils literal"><span class="pre">自動的に投稿を承認すべき非会員のアドレス</span></tt> のところに過去に問い合わせの
+あったメールアドレスが列挙されて行く事になります。この列挙する作業自体
+は、保留になったメールを管理データベースのページで承認するときに <strong>同時に</strong>
+行う事ができます。</p>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>リストの設定<a class="headerlink" href="#id7" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>Mailman を使ったメーリングリストでは、Web インタフェースを使って以下の
+ような設定ができます。管理インタフェースの各ページの
+<a class="reference external" href="_static/mailman/admin.html">スナップショット</a>
+を準備しましたので、詳しくは、それぞれの説明を読
+んでください。</p>
+<div class="section" id="id8">
+<h3><a class="reference external" href="_static/mailman/admin/mylist/general.html">全体的オプション</a><a class="headerlink" href="#id8" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><strong>全体的な設定</strong> リストの管理者／司会者、メーリングリストの紹介文、件名
+の先頭につける語句 (subject prefix)、投稿者のメールアドレスを隠すなど
+の設定をおこなうことができます。</li>
+<li><strong>Reply-To: ヘッダの書き変え</strong> 投稿された記事の返信先などを設定できます
+。返信先の設定は古くからのインターネット利用者の間でも議論になっていま
+す。日本の公開メーリングリストでは返信先をリストに設定する事が多いので
+すが、欧米では必ずしもそうではなく、むしろ返信先は投稿者にしておいた方
+が（なにもいじらない方が）よいとされています。リストに流れた
+<a class="reference external" href="http://www.python.jp/pipermail/mailman-users-jp/2004-February/000768.html">過去の議論</a>
+も参考にしてください。
+( <a class="reference external" href="http://www.unicom.com/pw/reply-to-harmful.html">&#8220;Reply-To&#8221; Munging Considered Harmful</a>
+の日本語訳が消えているようなので、
+<a class="reference internal" href="reply_to_munging.html"><em>関連するネチケット</em></a> に訳文を置いてみました)</li>
+<li><strong>親子リストの設定</strong> 別のリストをリストの会員にすると、ちょっと面倒な事
+が起るかもしれません。ここで設定して親子リストにするよりは、
+<a class="reference external" href="_static/mailman/admin/mylist/nondigest.html">普通配送</a>
+のところで姉妹リストを設定した方がよいと思います。</li>
+<li><strong>パスワードなどの通知</strong>
+毎月のパスワード備忘通知や、入退会に伴う通知に関する設定を行います</li>
+<li><strong>その他</strong> その他の雑多な設定を行います。例えば保留メールの自動廃棄を設
+定しておくと、日常の管理が楽になります。</li>
+</ul>
+</div>
+<div class="section" id="id11">
+<h3><a class="reference external" href="_static/mailman/admin/mylist/passwords.html">パスワード</a><a class="headerlink" href="#id11" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>管理者と司会者のパスワードを変更します。司会者はここにアクセスできませ
+んので、司会者がパスワード変更するときは管理者に頼んでください。</p>
+</div>
+<div class="section" id="id12">
+<h3><a class="reference external" href="_static/mailman/admin/mylist/language.html">言語オプション</a><a class="headerlink" href="#id12" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>リストのデフォルト言語を指定します。</p>
+</div>
+<div class="section" id="id13">
+<h3>会員管理<a class="headerlink" href="#id13" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="_static/mailman/admin/mylist/members/list.html">会員リスト</a> 管理者用の会
+員リストです。メールアドレスを検索したり、会員のオプションや本名をここ
+から設定できます。また、会員個人のオプションページを表示してそこから設
+定することもできます。また、リストをアナウンス専用に変更したいときには、
+全員の制限フラグをセットする ことができます。</li>
+<li><a class="reference external" href="_static/mailman/admin/mylist/members/add.html">入会登録</a> 管理者の権限で
+入会させる場合に使います。まとめて何人も登録することができます。</li>
+<li><a class="reference external" href="_static/mailman/admin/mylist/members/remove.html">退会処理</a> 管理者の権限
+で退会させる場合に使います。まとめて何人も退会させることができます</li>
+</ul>
+</div>
+<div class="section" id="id14">
+<h3><a class="reference external" href="_static/mailman/admin/mylist/nondigest.html">普通配送オプション</a><a class="headerlink" href="#id14" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>普通配送つまりメールが来たらすぐに配送する場合のオプションです。メール
+本文の始めと終わりにリストについての案内を入れたり、添付ファイルを保存
+書庫に保管することでトラフィックを軽減することができます。
+また、 <tt class="docutils literal"><span class="pre">姉妹リスト</span></tt> を使うと同じサイトで管理する他のリストとの関係で、重
+複しないようにしたり、他のリストにも配送するようにすることができます。</p>
+</div>
+<div class="section" id="id15">
+<h3><a class="reference external" href="_static/mailman/admin/mylist/digest.html">まとめ読みオプション</a><a class="headerlink" href="#id15" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>メールを１通ずつでなく、まとめて受け取りる会員のためのオプションを設定
+します。ビジネスでの利用などで、まとめ読みを使わない場合にはオプション
+を選択不可としておいた方がよいでしょう。</p>
+</div>
+<div class="section" id="id16">
+<h3>プライバシーオプション<a class="headerlink" href="#id16" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="_static/mailman/admin/mylist/privacy/subscribing.html">入会規則</a>
+リストの Webページを公開するかどうか、入会の手順、会員名簿の閲覧権減な
+どを設定します。</li>
+<li><a class="reference external" href="_static/mailman/admin/mylist/privacy/sender.html">送信者フィルタ</a> アナウ
+ンス専用リストに会員登録する時は投稿制限フラグをセットする必要がありま
+すが、これをデフォルトとして設定します。
+また、非会員の投稿制限についても細かく設定する事ができます。</li>
+<li><a class="reference external" href="_static/mailman/admin/mylist/privacy/recipient.html">宛先フィルタ</a> 親子
+リストを構成したり、別のアドレスから自動転送でリストに投稿するとき、こ
+こで設定しておきます。</li>
+<li><a class="reference external" href="_static/mailman/admin/mylist/privacy/spam.html">SPAMフィルタ</a> メールヘッ
+ダの記述を元にSPAMメールを排除することができます。実際には、MTA で
+amavisd-new + spamassassin などを利用したほうがよいのですが、それがで
+きないときはここで設定できます。</li>
+</ul>
+</div>
+<div class="section" id="id17">
+<h3><a class="reference external" href="_static/mailman/admin/mylist/bounce.html">配送エラー処理</a><a class="headerlink" href="#id17" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>Mailman は会員のアドレスが無効になったなどの理由で配送エラーが起ったと
+き、返送されたエラーメールを解析して会員のアドレスを取り出し記録します。
+デフォルトでは最短で 5日間配送エラーが続くと会員への配送を停止し、7
+日おきに「会員から削除するよ」という警告メールを送ります。警告メールが
+3回エラーで帰ってくると実際に退会処理を行います。ここでは、このふるま
+いについての設定を行います。</p>
+</div>
+<div class="section" id="id18">
+<h3><a class="reference external" href="_static/mailman/admin/mylist/archive.html">保存書庫オプション</a><a class="headerlink" href="#id18" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>保存書庫を作成するかどうか、保存書庫は公開か非公開か。目次ページの切り
+替えをどの程度の頻度で行うかを設定できます。保存書庫を非公開にしたとき、
+会員はメールアドレスとパスワードを使って閲覧することができます。</p>
+</div>
+<div class="section" id="id19">
+<h3><a class="reference external" href="_static/mailman/admin/mylist/gateway.html">メール&lt;-&gt;ニュース相互配送</a><a class="headerlink" href="#id19" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>日本ではネットニュース (NNTP)
+は廃れてますので、ここを設定する事はあまりないでしょう。</p>
+</div>
+<div class="section" id="id20">
+<h3><a class="reference external" href="_static/mailman/admin/mylist/autoreply.html">自動応答</a><a class="headerlink" href="#id20" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>メーリングリストへの投稿をはじめ、各種のメールを Mailman が受け取った
+ときに、受け取った事を投稿者に知らせるかどうか、また、その時のメール文
+を設定できます。</p>
+</div>
+<div class="section" id="id21">
+<h3><a class="reference external" href="_static/mailman/admin/mylist/contentfilter.html">添付ファイル除去</a><a class="headerlink" href="#id21" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>大きなメーリングリストの場合など、ファイル添付を禁止したいことがありま
+す。会員がうっかり添付してしまったときに、その添付ファイルを取り除いて
+配送することができます。また、よくあるウィルスが付けているような拡張子
+やファイルタイプを選択的に取り除くこともできます。しかし、ウィルス対策
+は、MTA で amavisd-new + clamav などを利用した方がよいでしょう。</p>
+</div>
+<div class="section" id="id22">
+<h3><a class="reference external" href="_static/mailman/admin/mylist/topics.html">話題</a><a class="headerlink" href="#id22" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>ひとつのメーリングリストでも様々の話題が流れるとき、特定の話題のメール
+だけを読みたいということがあるかもしれません。この機能はカナダのある大
+学の通信講座で利用するために考案されたものですが、例えば会社やイベント
+の受付メールの件名に <tt class="docutils literal"><span class="pre">話題</span></tt> を付けてもらうようにしておくと、その
+<tt class="docutils literal"><span class="pre">話題</span></tt> の担当者だけに届けるというような用途にも利用できます。</p>
+</div>
+</div>
+<div class="section" id="id23">
+<h2>リストの日常的管理<a class="headerlink" href="#id23" title="このヘッドラインへのパーマリンク">¶</a></h2>
+<p>メーリングリストは、メールがやってくると、そのメールをリストに登録され
+たメールアドレス（会員）に配送するという仕事をしていますが、いろいろと付随し
+た問題が発生して来ます。</p>
+<div class="section" id="id24">
+<h3>会員以外からのメール<a class="headerlink" href="#id24" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>普通のディスカッション型のリストでは会員として登録されたメールアドレス
+以外からの投稿があった場合には、そのメールを配送しません。このようなメール
+が来たとき、Mailman がどのように動作し、管理者が何をしなければならない
+かは、そのリストの設定に大きく依存します。Mailman
+で最も一般的な、会員以外は保留という設定の場合について説明します。</p>
+<p>メールの配送が保留されると、（設定にもよりますが）保留された事を通知す
+るメールが管理者、つまりリスト名に -owner を付けたメールアドレス宛に送
+信されます。そのメールには管理データベースへのリンクが付いていますので、
+それをクリックしてブラウザでデータベースにログインします。</p>
+<p><a class="reference external" href="_static/mailman/admindb/mylist.html">データベースの要約</a>
+が表示されますので、そこで保留されたメールに対し、リストへの配送を
+行う（ <tt class="docutils literal"><span class="pre">承認</span></tt> する）か、配
+送を行わずにメールを捨てる（ <tt class="docutils literal"><span class="pre">拒否</span></tt> する、又は <tt class="docutils literal"><span class="pre">破棄</span></tt> する）かを決めることがで
+きます。場合によっては決断を先に延ばしたい（ <tt class="docutils literal"><span class="pre">保留</span></tt> ）と思うかもしれません。
+<tt class="docutils literal"><span class="pre">拒否</span></tt> と <tt class="docutils literal"><span class="pre">破棄</span></tt> の違いについては別項目で説明を追加しました。そちらを
+参考にしてください。</p>
+<p>管理者宛のメールに対していちいち反応できなかったり、判断を迷って保留に
+したままにすると、翌朝８時に <strong>「... 申請案件があります」</strong> の件名で管
+理者宛にメールが届きます。１日１回まとめて対応するので、保留になったこ
+とをいちいち知らせなくてもよいというのであれば、全体的オプションのとこ
+ろで設定しておく事ができます。また、保留されたメールは一定期間経過する
+と自動的に破棄されるように設定できます。</p>
+<p>以上のように、Mailman のリスト管理者は、保留メールに対してひとつひとつ
+こまめに対応する事も、全くなにもせずに放置しておくこともできます。</p>
+<p><strong>複数のメールアドレスを使う会員</strong> がいるとき、会員はそのうちにひとつし
+か登録せず、別のアドレスから投稿してしまう事があります。そのような会員
+には、投稿する可能性のある全部のアドレスを登録してもらい、配送するアド
+レス以外は「配送停止」にしてもらうとよいでしょう。しかし、そんなことを
+いちいち説明するのが面倒なら、そのまま別のアドレスから投稿できるように
+することもできます。 <tt class="docutils literal"><span class="pre">プライバシーオプション</span></tt> -&gt;
+<a class="reference external" href="_static/mailman/admin/mylist/privacy/sender.html">送信者フィルタ</a>
+の <tt class="docutils literal"><span class="pre">自動的に投稿を承認すべき非会員のアドレス</span></tt> のところにそのメールアドレス
+を登録してあげればよいのです。また、
+<a class="reference external" href="_static/mailman/admindb/mylist.html">管理データベース</a>
+のところで、そのようなメールが保留されたときにその処理
+と同時に登録することもできるようになっています。</p>
+<p><strong>スパムメール</strong> である場合には、保留されたメールを破棄すればよいのです
+が、同時に自動的に投稿を破棄する非会員のアドレスのところに登録もできる
+ようになっています。しかし、スパム対策はシステム全体で MTA (Postfix,
+Sendmail など) のところでやってもらうのが一番よいでしょう。</p>
+</div>
+<div class="section" id="id25">
+<h3>配送エラー通知<a class="headerlink" href="#id25" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>メーリングリストの会員アドレスに変更があってメールが届かなくなった時な
+どに、メールが届かない旨の通知メールが戻ってきます。メーリングリストでは、
+戻り先は実際の発信者ではなく、メーリングリストの配送元アドレスに戻るように
+なっていて、Mailmanではリスト名に -bounces
+が付いたアドレスとなっています。配送エラー処理で述べたように Mailman
+はそのエラー通知メールを自動処理してくれます。自動処理の結果、会員への
+配送を停止したときと、会員登録を削除したとき管理者宛の通知があります。
+もし間違いであれば、会員に直接連絡するなりして修正してください。</p>
+<p>実は、配送エラー通知から会員アドレスを取り出すには、エラー報告をする
+MTA の報告形式がわかっていないといけません。特殊な MTA やエラー通知を
+日本語化している場合など、既知の報告形式に合わない場合、そのエラー報告
+をどのように処理するかを
+<a class="reference external" href="_static/mailman/admin/mylist/bounce.html">配送エラー処理</a> の
+<tt class="docutils literal"><span class="pre">配送エラー自動検出で検知できなかったエラーメールをリスト管理者宛に送りますか</span></tt>
+のところで決める事ができます。通常は <tt class="docutils literal"><span class="pre">はい</span></tt> でいいのですが、
+長期間にわたって公開メーリングリストとして使っていると、このアドレスに
+スパムが来る事があります。そのときは <tt class="docutils literal"><span class="pre">いいえ</span></tt> にしておきます。</p>
+<p><a class="reference external" href="_static/mailman/admin/mylist/nondigest.html">普通配送オプション</a>
+のところに
+<tt class="docutils literal"><span class="pre">普通配送メールを個人別にカスタマイズしますか</span></tt>
+という設定がある場合には、ここを <tt class="docutils literal"><span class="pre">はい</span></tt> にしておくと、配送元アドレスに会
+員アドレスを組み込んでエラー処理を簡単に間違いなくすることができる場合
+があります。サイト管理者に設定を確認してみてください。</p>
+</div>
+<div class="section" id="id26">
+<h3>会員の入退会<a class="headerlink" href="#id26" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>メーリングリストに <strong>入会</strong> （リストを <em>購読</em> とも言ったりしますが Mailman
+のインタフェースではこの語を用いています）するには、
+<tt class="docutils literal"><span class="pre">listinfo/&lt;list名&gt;</span></tt> で終わるその
+<a class="reference external" href="_static/mailman/listinfo/mylist.html">リストの案内 ページ</a>
+から、会員本人がやって貰えばよいし、退会するときは
+その案内ページからリンクをたどって <tt class="docutils literal"><span class="pre">options/&lt;list名&gt;</span></tt> で終わる
+<a class="reference external" href="_static/mailman/options/mylist/myname--at--example.jp.html">会員オプション ページ</a>
+へ行けばよいでしょう。</p>
+<p>しかし、リストのポリシーでこれらのページを表示できないようにしてたり、
+会員の IT スキルが足りない場合には、管理者が入退会を手伝ってあげなけれ
+ばいけないこともあります。</p>
+<p>退会には、 <tt class="docutils literal"><span class="pre">会員管理</span></tt> -&gt;
+<a class="reference external" href="_static/mailman/admin/mylist/members/list.html">会員リスト</a>
+に出てくる会員の一覧からその会員を選び出し、 <tt class="docutils literal"><span class="pre">退会</span></tt> にチェックを入れて
+<tt class="docutils literal"><span class="pre">変更を送信</span></tt> ボタンを押してください。会員数が多いときには、会員検索機能
+を使う事も出来ます。</p>
+<p>入会には、 会員管理 -&gt; <a class="reference external" href="_static/mailman/admin/mylist/members/add.html">まとめて入会登録</a>
+を利用するとよいでしょう。このとき、 <tt class="docutils literal"><span class="pre">本名</span> <span class="pre">&lt;username&#64;example.com&gt;</span></tt>
+のようなメールソフトでよく使われている形式を使うと、本名（会員名）も同
+時に設定できます。</p>
+<p><strong>会員の入退会を承認制にしている</strong> 場合、上に書いた会員からのアクショ
+ンだけでは入退会が完了しません。保留メールの場合と同様に
+管理データベース のところに入退会の申請があったことが出て来ますので、
+適切に処理してあげてください。</p>
+</div>
+<div class="section" id="id27">
+<h3>会員のメールアドレス変更<a class="headerlink" href="#id27" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>よく質問に上がるのが、入退会でなくメールアドレスを変更したいという要望
+です。基本的には、旧アドレスを退会させ、新アドレスで入会するという手順
+になりますが、それを簡便化するため、会員が
+<a class="reference external" href="_static/mailman/options/mylist/myname--at--example.jp.html">会員オプション ページ</a>
+にアクセスできればそこか
+ら変更できるようになっています。同じシステムで運用されている他のリスト
+もまとめて変更したい場合には、 <tt class="docutils literal"><span class="pre">全部変更</span></tt> にチェックを入れてください。</p>
+<p>しかし、管理者の権限では変更ではなく退会して入会という手順を踏んだ方が
+よいでしょう。管理者は 会員オプションページにアクセスすることができま
+すが、ここで変更を使ったとき会員の新メールアドレス宛に確認のメールが届
+きます。管理者の手を煩わせなければできない人は（だいたいはそう思い込ん
+でるだけなのですが）メールの中身を読んで理解しようとしないことが多いよ
+うです。確認メールに正しく応答して貰えないとメールアドレスの変更は完了
+しません。また、セキュリティ上の理由で <tt class="docutils literal"><span class="pre">全部変更</span></tt>
+は管理者権限では実行できないようになっています。</p>
+</div>
+<div class="section" id="id28">
+<h3>拒否か破棄か（迷惑メール）<a class="headerlink" href="#id28" title="このヘッドラインへのパーマリンク">¶</a></h3>
+<p>スパム（迷惑メール）が配送保留になって、管理データベースインタフェースで
+処理する時に、処理の選択肢として <tt class="docutils literal"><span class="pre">承認</span></tt> <tt class="docutils literal"><span class="pre">保留</span></tt> <tt class="docutils literal"><span class="pre">拒否</span></tt> <tt class="docutils literal"><span class="pre">破棄</span></tt>
+の４つが示されます。 <tt class="docutils literal"><span class="pre">承認</span></tt> するとメールがリストに流れてしまいますし、
+<tt class="docutils literal"><span class="pre">保留</span></tt> では何もしないということですから、 <tt class="docutils literal"><span class="pre">拒否</span></tt> か <tt class="docutils literal"><span class="pre">破棄</span></tt> の
+どちらかから選択することになります。 <tt class="docutils literal"><span class="pre">拒否</span></tt> では、メール配送をしない
+理由を書いて、送られてきたメールを添付にして、送信者に送り返します。
+<tt class="docutils literal"><span class="pre">破棄</span></tt> は、全く何の通知もしないで送られてきたメールを捨ててしまいます。</p>
+<p>さて、スパム（迷惑メール）に対して、 <tt class="docutils literal"><span class="pre">拒否</span></tt> と <tt class="docutils literal"><span class="pre">破棄</span></tt> のどちらを
+選んだらよいのでしょうか？つい、「けしからん。もう送ってこないように
+警告の意味で拒否しよう」と、考えてしまうかもしれません。
+<tt class="docutils literal"><span class="pre">拒否</span></tt> の方が <tt class="docutils literal"><span class="pre">破棄</span></tt> よりも強い措置であるかのような語感があります。</p>
+<p>しかし、迷惑メールを送ってくる業者（スパマー）は、 <tt class="docutils literal"><span class="pre">拒否</span></tt> 程度でたじろぐ
+ようなことはありません。 <tt class="docutils literal"><span class="pre">拒否</span></tt> メールのたぐいは、速攻でゴミ箱に行く
+ようになってるかもしれません。また、場合によっては送信元アドレスを偽って、
+別の迷惑メールの宛先に設定しているかもしれません。この場合、問題の迷惑メール
+はその被害者に返っていってしまうことになり、スパマーにとっては思うツボと
+いうことになります。</p>
+<p>保留されたメールが迷惑メールである場合には、 <tt class="docutils literal"><span class="pre">拒否</span></tt> でなく <tt class="docutils literal"><span class="pre">破棄</span></tt> して
+ください。 <tt class="docutils literal"><span class="pre">拒否</span></tt> は「強い措置」という意味は全くありませんので、例えば
+会員が間違えて別のアドレスから送信したがそのことを注意したい時などに使ってください。</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>ナビゲーション</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="総合索引"
+             >索引</a></li>
+        <li class="right" >
+          <a href="mailmanmember.html" title="GNU Mailman - リスト会員の手引"
+             >次へ</a> |</li>
+        <li class="right" >
+          <a href="siteadmin.html" title="サイト管理の手引"
+             >前へ</a> |</li>
+        <li><a href="index.html">Mailman日本語情報</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Tokio Kikuchi.
+      このドキュメントは <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7 で生成しました。
+    </div>
+  </body>
+</html>
