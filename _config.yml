@@ -1,2 +1,5 @@
 markdown: kramdown
+include:
+  - _sources
+  - _static
 
